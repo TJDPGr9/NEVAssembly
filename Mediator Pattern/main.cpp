@@ -6,7 +6,7 @@ int main() {
     ConcreteMediator guaziMediator("Guazi");
     ConcreteMediator autohomeMediator("Autohome");
   
-    // 汽车之家联系两家供货商：特斯拉、NIO
+    // 汽车之家联系两家供货商：特斯拉、蔚来
     ConcreteColleague teslaSupplier(&autohomeMediator, "Tesla");
     ConcreteColleague nioSupplier(&autohomeMediator, "NIO");
     autohomeMediator.addColleague(&teslaSupplier);

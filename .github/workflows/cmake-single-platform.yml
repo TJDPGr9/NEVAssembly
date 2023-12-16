@@ -31,7 +31,7 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
     - name: Run all executable file
-      run: find "build" -type f -executable -exec {} \;
+      run: find "build" -type f -executable -exec timeout 30s {} \;
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.

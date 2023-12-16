@@ -9,14 +9,14 @@ set(SOURCES
     Car.cpp
     CarBuilder.cpp
     Director.cpp
-    main.cpp
 )
 
-# 添加可执行文件
-add_executable(builder ${SOURCES})
+# 添加静态库
+add_library(builder_lib STATIC ${SOURCES})
+
+# 添加可执行文件，并链接静态库
+add_executable(builder main.cpp)
+target_link_libraries(builder PRIVATE builder_lib)
 
 # 如果有其他的头文件目录，可以使用 target_include_directories 添加
-target_include_directories(builder PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-# 设置编译器选项（可选）
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+target_include_directories(builder_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

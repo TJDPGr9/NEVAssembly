@@ -14,6 +14,7 @@ add_subdirectory("Observer Pattern")
 add_subdirectory("State Pattern")
 add_subdirectory("Chain of Responsibility Pattern")
 add_subdirectory("Visitor Pattern")
+add_subdirectory("Abstract Factory Pattern")
 
 
 # 设置编译器选项（可选）

@@ -4,7 +4,7 @@
 #include <thread>
 #include <chrono>
 using namespace std;
-
+class InspectionState;
 // 汽车类
 class Car {
 public:

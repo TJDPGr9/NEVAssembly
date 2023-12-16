@@ -4,7 +4,53 @@
 #include <thread>
 #include <chrono>
 using namespace std;
+class Car;
+// 状态接口
+class InspectionState {
+public:
+    virtual void inspect(Car& car) = 0;
+    virtual string getStateName() const = 0;
+};
+// 状态定义
+// 未检验状态
+class NotInspectedState : public InspectionState {
+public:
+    void inspect(Car& car) override;
+    string getStateName() const override {
+        return "未检验";
+    }
+};
+// 模块质检状态
+class ModuleInspectionState : public InspectionState {
+private:
+    string moduleName;
 
+public:
+    ModuleInspectionState(string module) : moduleName(module) {}
+
+    void inspect(Car& car) override;
+    string getStateName() const override {
+        return "模块质检 - " + moduleName;
+    }
+};
+
+// 合格状态
+class PassInspectionState : public InspectionState {
+public:
+    void inspect(Car& car) override;
+    string getStateName() const override {
+        return "合格";
+    }
+};
+
+// 不合格状态
+class FailInspectionState : public InspectionState {
+public:
+    void inspect(Car& car) override;
+    string getStateName() const override {
+        return "不合格";
+    }
+};
 // 汽车类
 class Car {
 public:
@@ -48,54 +94,15 @@ public:
     }
 };
 
-// 状态接口
-class InspectionState {
-public:
-    virtual void inspect(Car& car) = 0;
-    virtual string getStateName() const = 0;
-};
 
-// 状态定义
-// 未检验状态
-class NotInspectedState : public InspectionState {
-public:
-    void inspect(Car& car) override;
-    string getStateName() const override {
-        return "未检验";
-    }
-};
 
-// 模块质检状态
-class ModuleInspectionState : public InspectionState {
-private:
-    string moduleName;
 
-public:
-    ModuleInspectionState(string module) : moduleName(module) {}
 
-    void inspect(Car& car) override;
-    string getStateName() const override {
-        return "模块质检 - " + moduleName;
-    }
-};
 
-// 合格状态
-class PassInspectionState : public InspectionState {
-public:
-    void inspect(Car& car) override;
-    string getStateName() const override {
-        return "合格";
-    }
-};
 
-// 不合格状态
-class FailInspectionState : public InspectionState {
-public:
-    void inspect(Car& car) override;
-    string getStateName() const override {
-        return "不合格";
-    }
-};
+
+
+
 
 
 // 状态实现

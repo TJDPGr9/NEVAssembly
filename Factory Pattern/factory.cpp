@@ -7,6 +7,7 @@ int main() {
     ACmotorFactory* factory3 = new SwitchedReluctanceMotorFactory();
     ACmotorFactory* factory4 = new PermanentMagnetSynchronousMotorFactory();
 
+    
     factory1->createMotor()->produce();
     factory2->createMotor()->produce();
     factory3->createMotor()->produce();

@@ -83,4 +83,3 @@ void produceMotor(ACmotorFactory* factory) {
     delete motor;
 };
 
-

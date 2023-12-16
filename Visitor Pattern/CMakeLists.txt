@@ -10,7 +10,7 @@ set(HEADERS
 )
 
 # 添加静态库
-add_library(visitor_lib STATIC ${HEADERS})
+add_library(visitor_lib STATIC ../empty.cpp ${HEADERS})
 
 # 添加可执行文件，并链接静态库
 add_executable(visitor test.cpp)

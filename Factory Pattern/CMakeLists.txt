@@ -13,7 +13,7 @@ set(HEADERS
 add_library(factory_lib STATIC ${HEADERS})
 
 # 添加可执行文件，并链接静态库
-add_executable(factory main.cpp)
+add_executable(factory factory.cpp)
 target_link_libraries(factory PRIVATE factory_lib)
 
 # 如果有其他的头文件目录，可以使用 target_include_directories 添加

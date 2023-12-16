@@ -8,14 +8,14 @@ project(NewEnergyCarAbstract)
 set(SOURCES
     BYDSeagull.cpp
     VWID4.cpp
-    main.cpp
 )
 
-# 添加可执行文件
-add_executable(abstract ${SOURCES})
+# 添加静态库
+add_library(abstract_lib STATIC ${SOURCES})
+
+# 添加可执行文件，并链接静态库
+add_executable(abstract main.cpp)
+target_link_libraries(abstract PRIVATE abstract_lib)
 
 # 如果有其他的头文件目录，可以使用 target_include_directories 添加
-target_include_directories(abstract PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-# 设置编译器选项（可选）
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+target_include_directories(car_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

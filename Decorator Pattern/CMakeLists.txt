@@ -4,5 +4,17 @@ cmake_minimum_required(VERSION 3.10)
 # 设置项目名称
 project(NewEngeryCarDecorator)
 
-# 添加可执行文件，将头文件和源文件都包含进去
-add_executable(decorator decorator.h decorator.cpp)
+# 添加头文件
+set(HEADERS
+    decorator.h
+)
+
+# 添加静态库
+add_library(decorator_lib STATIC ${HEADERS})
+
+# 添加可执行文件，并链接静态库
+add_executable(decorator main.cpp)
+target_link_libraries(decorator PRIVATE decorator_lib)
+
+# 如果有其他的头文件目录，可以使用 target_include_directories 添加
+target_include_directories(decorator_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

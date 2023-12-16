@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 #include"NIO.h"
 using namespace std;

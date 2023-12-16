@@ -4,6 +4,7 @@
 #include <thread>
 #include <chrono>
 using namespace std;
+class Car;
 // 状态接口
 class InspectionState {
 public:

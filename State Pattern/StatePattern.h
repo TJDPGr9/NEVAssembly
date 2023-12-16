@@ -5,6 +5,10 @@
 #include <chrono>
 using namespace std;
 class InspectionState;
+class NotInspectedState;
+class ModuleInspectionState;
+class PassInspectionState;
+class FailInspectionState;
 // 汽车类
 class Car {
 public:

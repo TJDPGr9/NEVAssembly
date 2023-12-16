@@ -13,7 +13,7 @@ set(SOURCES
 )
 
 # 添加可执行文件
-add_executable(my_executable ${SOURCES})
+add_executable(builder ${SOURCES})
 
 # 如果有其他的头文件目录，可以使用 target_include_directories 添加
 target_include_directories(my_executable PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

@@ -14,7 +14,7 @@ public:
 
 public:
     Car() : currentState(new NotInspectedState()), currentModuleIndex(0) {
-        // 初始化所有模块
+        // 初始化所有模块 
         modules = {
             "引擎", "传动系统", "底盘", "电气系统", "燃油系统",
             "冷却系统", "空调和暖风系统", "车身", "内饰", "安全系统",

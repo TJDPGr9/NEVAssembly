@@ -1,11 +1,21 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(AbstractFactoryPattern VERSION 0.1.0 LANGUAGES C CXX)
+# 指定 CMake 的最低版本要求
+cmake_minimum_required(VERSION 3.10)
 
-include(CTest)
-enable_testing()
+# 设置项目名称
+project(NewEnergyCarBuilder)
 
-add_executable(AbstractFactoryPattern main.cpp)
+# 添加头文件和源文件
+set(SOURCES
+    BYDSeagull.cpp
+    VWID4.cpp
+    main.cpp
+)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+# 添加可执行文件
+add_executable(builder ${SOURCES})
+
+# 如果有其他的头文件目录，可以使用 target_include_directories 添加
+target_include_directories(builder PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+# 设置编译器选项（可选）
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

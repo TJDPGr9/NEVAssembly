@@ -10,7 +10,7 @@ add_subdirectory("Decorator Pattern")
 add_subdirectory("Facade Pattern")
 add_subdirectory("Factory Pattern")
 add_subdirectory("Mediator Pattern")
-add_subdirectory("Decorator Pattern")
+add_subdirectory("Observer Pattern")
 add_subdirectory("State Pattern")
 
 

@@ -1,4 +1,4 @@
-﻿#include "Dijkstra.h"
+﻿#include "dijkstra.h"
 #include <stdio.h>
 string cities[10] = {
     "Beijing",

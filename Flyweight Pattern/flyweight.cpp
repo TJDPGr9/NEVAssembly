@@ -1,9 +1,10 @@
-#include "fiyweight.h"
+#include "flyweight.h"
 #include<iostream>
 #include<vector>
 #include<map>
 #include<stack>
 #include<sstream>
+#include<algorithm>
 using namespace std;
 
 namespace Transport {

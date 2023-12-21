@@ -1,10 +1,9 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <unordered_map>
-
+#include<string>
 #include "strategy.h"
-
 int main() {
-    // ´´½¨È¨ÖØ±í
+    // Â´Â´Â½Â¨ÃˆÂ¨Ã–Ã˜Â±Ã­
     WeightTable weights{
         {   TransportationMode::Road,
             {
@@ -44,48 +43,54 @@ int main() {
         },
     };
 
-    // ´´½¨²ßÂÔÉÏÏÂÎÄ
+    // Â´Â´Â½Â¨Â²ÃŸÃ‚Ã”Ã‰ÃÃÃ‚ÃÃ„
     TransportationContext context;
 
-    // »ñÈ¡ÓÃ»§ÊäÈë
+    // Â»Ã±ÃˆÂ¡Ã“ÃƒÂ»Â§ÃŠÃ¤ÃˆÃ«
     std::unordered_map<Factor, int> userInput;
-    userInput[Factor::Distance] = getUserInput("¾àÀë");
-    userInput[Factor::TransportTime] = getUserInput("ÔËÊäÊ±¼ä");
-    userInput[Factor::Cost] = getUserInput("³É±¾");
-    userInput[Factor::Safety] = getUserInput("°²È«ĞÔ");
-    userInput[Factor::QuantityAndScale] = getUserInput("ÊıÁ¿ºÍ¹æÄ£");
+    string src, dst;
+    cout << "We can help you decide the best way to transport goods among these cities:" << endl;
+    cout<<"Beijing\nShanghai\nGuangzhou\nShenzhen\nWuhan\nNanjing\nChongqing\nXian\nChengdu\nTianjin" << endl;
+    cout << "Please input the daparture:" << endl;
+    cin >> src;
+    cout <<"Please input the arrival:" << endl;
+    cin >> dst;
+    userInput[Factor::Distance] = 0;
+    userInput[Factor::TransportTime] = getUserInput("Duration:");
+    userInput[Factor::Cost] = getUserInput("Cost:");
+    userInput[Factor::Safety] = getUserInput("Security:");
+    userInput[Factor::QuantityAndScale] = getUserInput("Scale:");
 
-    // ÉèÖÃ²»Í¬µÄÔËÊä·½Ê½²ßÂÔ
+    // Ã‰Ã¨Ã–ÃƒÂ²Â»ÃÂ¬ÂµÃ„Ã”Ã‹ÃŠÃ¤Â·Â½ÃŠÂ½Â²ÃŸÃ‚Ã”
     RoadTransportationStrategy roadStrategy(weights.at(TransportationMode::Road));
     RailwayTransportationStrategy railwayStrategy(weights.at(TransportationMode::Railway));
     SeaTransportationStrategy seaStrategy(weights.at(TransportationMode::Sea));
     AirTransportationStrategy airStrategy(weights.at(TransportationMode::Air));
 
     context.setStrategy(&roadStrategy);
-    int roadScore = context.executeStrategy(userInput);
-
+    int roadScore = context.executeStrategy(src,dst,userInput);
+    
     context.setStrategy(&railwayStrategy);
-    int railwayScore = context.executeStrategy(userInput);
+    int railwayScore = context.executeStrategy(src,dst,userInput);
 
     context.setStrategy(&seaStrategy);
-    int seaScore = context.executeStrategy(userInput);
+    int seaScore = context.executeStrategy(src,dst,userInput);
 
     context.setStrategy(&airStrategy);
-    int airScore = context.executeStrategy(userInput);
-
-    // Êä³ö×î¼ÑÔËÊä·½Ê½
+    int airScore = context.executeStrategy(src,dst,userInput);
+    // ÃŠÃ¤Â³Ã¶Ã—Ã®Â¼Ã‘Ã”Ã‹ÃŠÃ¤Â·Â½ÃŠÂ½
     int maxScore = std::max({ roadScore, railwayScore, seaScore, airScore });
     if (maxScore == roadScore) {
-        std::cout << "ÍÆ¼öÊ¹ÓÃ¹«Â·ÔËÊä·½Ê½\n";
+        std::cout << "Recommend tranportation via road\n";
     }
     else if (maxScore == railwayScore) {
-        std::cout << "ÍÆ¼öÊ¹ÓÃÌúÂ·ÔËÊä·½Ê½\n";
+        std::cout << "Recommend tranportation via railway\n";
     }
     else if (maxScore == seaScore) {
-        std::cout << "ÍÆ¼öÊ¹ÓÃº£ÔË·½Ê½\n";
+        std::cout << "Recommend tranportation by ship\n";
     }
     else {
-        std::cout << "ÍÆ¼öÊ¹ÓÃº½¿ÕÔËÊä·½Ê½\n";
+        std::cout << "Recommend tranportation by air\n";
     }
 
     return 0;

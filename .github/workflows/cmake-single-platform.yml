@@ -45,6 +45,8 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: executables
+        path: |
+           ${{github.workspace}}/build
     - name: Display structure of downloaded files
       run: ls -R .
     - name: Run all executable file

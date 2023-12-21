@@ -50,7 +50,7 @@ jobs:
     - name: Display structure of downloaded files
       run: ls -R .
     - name: Run all executable file
-      run: find ${{github.workspace}} -type f -executable -exec echo "-------- {} --------------------" \; -exec timeout 30s {} \;
+      run: find "build" -type f -executable -exec echo "-------- {} --------------------" \; -exec timeout 30s {} \;
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.

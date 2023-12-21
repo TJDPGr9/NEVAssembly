@@ -45,11 +45,11 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: executables
-        path: ~/build
+        path: ${{github.workspace}}/build
     - name: Display structure of downloaded files
-      run: ls -R ~/build
+      run: ls -R ${{github.workspace}}/build
     - name: Run all executable file
-      run: find "build" -type f -executable -exec echo "-------- {} --------------------" \; -exec timeout 30s {} \;
+      run: find ${{github.workspace}}/build -type f -executable -exec echo "-------- {} --------------------" \; -exec timeout 30s {} \;
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.

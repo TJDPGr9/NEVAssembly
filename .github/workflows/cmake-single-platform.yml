@@ -37,19 +37,6 @@ jobs:
         name: executables
         path: |
             ${{github.workspace}}/build
-  execute:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - name: create build
-      run: cd & mkdir build 
-    - uses: actions/download-artifact@v2
-      with:
-        name: executables
-        path: |
-           ${{github.workspace}}/build
-    - name: Display structure of downloaded files
-      run: ls -R .
     - name: Run all executable file
       run: find "build" -type f -executable -exec echo "-------- {} --------------------" \; -exec timeout 30s {} \;
     - name: Test

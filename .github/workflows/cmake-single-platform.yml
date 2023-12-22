@@ -31,6 +31,14 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+    - name: Cache build directory
+      uses: actions/cache@v2
+      with:
+        path: |
+          build
+        key: $${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-cmake-
     - name: Upload Executables(Linux) as Artifact
       uses: actions/upload-artifact@v2
       with:

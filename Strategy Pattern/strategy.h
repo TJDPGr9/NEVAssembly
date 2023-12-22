@@ -120,8 +120,8 @@ int getUserInput(const std::string& factorName) {
     std::cout << "Please input the score of " << factorName<<"(100/100):";
     std::cin >> userInput;
     int retries=10;
-    while ((userInput < 0 || userInput>100)&&retries-->0) {
-        sleep(1);
+    while ((userInput < 0 || userInput>100)&&retries>0) {
+        retries--;
         std::cout << "Please input the score of " << factorName << "(100/100) again\nnote the range of the value:";
         std::cin >> userInput;
         std::cin.clear();

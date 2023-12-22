@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 #include"Tesla.h"
 using namespace std;

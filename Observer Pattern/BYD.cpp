@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 #include"BYD.h"
 using namespace std;

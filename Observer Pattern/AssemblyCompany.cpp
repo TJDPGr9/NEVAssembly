@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 #include"AssemblyCompany.h"
 using namespace std;

@@ -5,7 +5,8 @@
 #include <algorithm>
 #include"dijkstra.h"
 #include"utility.h"
-// ¶¨ÒåÔËÊä·½Ê½Ã¶¾Ù
+#include <unistd.h>
+// å®šä¹‰è¿è¾“æ–¹å¼æšä¸¾
 enum class TransportationMode {
     Road,
     Railway,
@@ -14,7 +15,7 @@ enum class TransportationMode {
     Multimodal,
 };
 
-// ¶¨ÒåÒòËØÃ¶¾Ù
+// å®šä¹‰å› ç´ æšä¸¾
 enum class Factor {
     Distance,
     TransportTime,
@@ -23,16 +24,16 @@ enum class Factor {
     QuantityAndScale,
 };
 
-// ¶¨ÒåÃ¿ÖÖÔËÊä·½Ê½µÄÈ¨ÖØ±í
+// å®šä¹‰æ¯ç§è¿è¾“æ–¹å¼çš„æƒé‡è¡¨
 using WeightTable = std::unordered_map<TransportationMode, std::unordered_map<Factor, int>>;
 
-// ¶¨Òå²ßÂÔ½Ó¿Ú
+// å®šä¹‰ç­–ç•¥æ¥å£
 class TransportationStrategy {
 public:
     virtual int calculateScore(string departure, string arrival, const std::unordered_map<Factor, int>& factors)const = 0;
 };
 
-// ¾ßÓĞÒòËØÈ¨ÖØµÄ²ßÂÔ½Ó¿Ú
+// å…·æœ‰å› ç´ æƒé‡çš„ç­–ç•¥æ¥å£
 class WeightedTransportationStrategy : public TransportationStrategy {
 protected:
     std::unordered_map<Factor, int> factorWeights;
@@ -50,7 +51,7 @@ public:
     }
 };
 
-// ¹«Â·ÔËÊä²ßÂÔ
+// å…¬è·¯è¿è¾“ç­–ç•¥
 class RoadTransportationStrategy : public WeightedTransportationStrategy {
 public:
     RoadTransportationStrategy(const std::unordered_map<Factor, int>& weights)
@@ -62,7 +63,7 @@ public:
     }
 };
 
-// ÌúÂ·ÔËÊä²ßÂÔ
+// é“è·¯è¿è¾“ç­–ç•¥
 class RailwayTransportationStrategy : public WeightedTransportationStrategy {
 public:
     RailwayTransportationStrategy(const std::unordered_map<Factor, int>& weights)
@@ -74,7 +75,7 @@ public:
     }
 };
 
-// º£ÔËÔËÊä²ßÂÔ
+// æµ·è¿è¿è¾“ç­–ç•¥
 class SeaTransportationStrategy : public WeightedTransportationStrategy {
 public:
     SeaTransportationStrategy(const std::unordered_map<Factor, int>& weights)
@@ -86,7 +87,7 @@ public:
     }
 };
 
-// º½¿ÕÔËÊä²ßÂÔ
+// èˆªç©ºè¿è¾“ç­–ç•¥
 class AirTransportationStrategy : public WeightedTransportationStrategy {
 public:
     AirTransportationStrategy(const std::unordered_map<Factor, int>& weights)
@@ -98,7 +99,7 @@ public:
     }
 };
 
-// ²ßÂÔÉÏÏÂÎÄ
+// ç­–ç•¥ä¸Šä¸‹æ–‡
 class TransportationContext {
 private:
     TransportationStrategy* strategy;
@@ -113,12 +114,14 @@ public:
     }
 };
 
-// »ñÈ¡ÓÃ»§ÊäÈë
+// è·å–ç”¨æˆ·è¾“å…¥
 int getUserInput(const std::string& factorName) {
     int userInput=-1;
     std::cout << "Please input the score of " << factorName<<"(100/100):";
     std::cin >> userInput;
-    while (userInput < 0 || userInput>100) {
+    int retries=10;
+    while ((userInput < 0 || userInput>100)&&retries>0) {
+        retries--;
         std::cout << "Please input the score of " << factorName << "(100/100) again\nnote the range of the value:";
         std::cin >> userInput;
         std::cin.clear();

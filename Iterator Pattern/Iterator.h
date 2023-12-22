@@ -1,8 +1,9 @@
+// Iterator.h
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 class Iterator {
 public:
@@ -13,12 +14,12 @@ public:
 
 class RailwayIterator : public Iterator {
 private:
-    std::vector<std::string> primaryBureaus;
-    std::vector<std::string> secondaryBureaus;
-    size_t position;
+    std::vector<std::pair<std::string, std::vector<std::string>>> primaryAndSecondaries;
+    size_t primaryIndex;
+    size_t secondaryIndex;
 
 public:
-    RailwayIterator(const std::vector<std::string>& primaries, const std::vector<std::string>& secondaries);
+    RailwayIterator(const std::vector<std::pair<std::string, std::vector<std::string>>>& primarySecondaries);
     bool hasNext() override;
     std::string next() override;
     void reset(); // 重置迭代器

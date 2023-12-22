@@ -1,22 +1,32 @@
+// Iterator.cpp
 #include "Iterator.h"
 
-RailwayIterator::RailwayIterator(const std::vector<std::string>& primaries, const std::vector<std::string>& secondaries)
-    : primaryBureaus(primaries), secondaryBureaus(secondaries), position(0) {}
+RailwayIterator::RailwayIterator(const std::vector<std::pair<std::string, std::vector<std::string>>>& primarySecondaries)
+    : primaryAndSecondaries(primarySecondaries), primaryIndex(0), secondaryIndex(0) {}
 
 bool RailwayIterator::hasNext() {
-    return position < primaryBureaus.size() + secondaryBureaus.size();
+    return primaryIndex < primaryAndSecondaries.size() ||
+        (primaryIndex == primaryAndSecondaries.size() &&
+            secondaryIndex < primaryAndSecondaries[primaryIndex - 1].second.size());
 }
 
 std::string RailwayIterator::next() {
-    if (position < primaryBureaus.size()) {
-        return "一级基地："  + primaryBureaus[position++];
-    }
-    else if (position < primaryBureaus.size() + secondaryBureaus.size()) {
-        return "二级基地：" + secondaryBureaus[position++ - primaryBureaus.size()];
+    if (primaryIndex < primaryAndSecondaries.size()) {
+        if (secondaryIndex < primaryAndSecondaries[primaryIndex].second.size()) {
+            return "一级基地：" + primaryAndSecondaries[primaryIndex].first + "，二级基地：" +
+                primaryAndSecondaries[primaryIndex].second[secondaryIndex++];
+        }
+        else {
+            std::string output = "一级基地：" + primaryAndSecondaries[primaryIndex].first;
+            primaryIndex++;
+            secondaryIndex = 0;
+            return output;
+        }
     }
     return "";
 }
 
 void RailwayIterator::reset() {
-    position = 0;
+    primaryIndex = 0;
+    secondaryIndex = 0;
 }

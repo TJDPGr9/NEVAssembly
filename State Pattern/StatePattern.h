@@ -61,7 +61,7 @@ public:
     size_t currentModuleIndex;        // 当前进行质检的模块索引
 
 public:
-    State_Car::Car() : currentState(new NotInspectedState()), currentModuleIndex(0) {
+    Car() : currentState(new NotInspectedState()), currentModuleIndex(0) {
         // 初始化所有模块 
         modules = {
             "引擎", "传动系统", "底盘", "电气系统", "燃油系统",

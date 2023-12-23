@@ -6,6 +6,8 @@
 #include"Mediator Pattern/MediatorPattern.cpp"
 #include"Iterator Pattern/test.cpp"
 #include"Interpreter Pattern/VIN.cpp"
+//#include<nolhmaan/json.h>
+//#include"Interpreter Pattern/VIN.cpp"
 #include"Flyweight Pattern/flyweight.cpp"
 #include"Factory Pattern/factory.cpp"
 #include"Facade Pattern/navigation.cpp"
@@ -15,4 +17,5 @@
 #include"Abstract Factory Pattern/test.cpp"
 int main(){
 	State::test();
+	Interpreter::test();
 }

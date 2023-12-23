@@ -1,11 +1,14 @@
 # 指定 CMake 的最低版本要求
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # 设置项目名称
 project(NewEnergyCar)
 
 # 遍历所有的子目录
+#set(CMAKE_CXX_STANDARD 11)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory("Builder Pattern")
 add_subdirectory("Decorator Pattern")
 add_subdirectory("Facade Pattern")
@@ -21,6 +24,8 @@ add_subdirectory("Iterator Pattern")
 add_subdirectory("Flyweight Pattern")
 add_subdirectory("Strategy Pattern")
 add_subdirectory("Interpreter Pattern")
+link_directories("Interpreter Pattern")
+#link_libraries("Interpreter Pattern/include/json")
 # 设置编译器选项（可选）
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 add_executable(main main.cpp)
@@ -40,8 +45,9 @@ set(LIB_SOURCES
 	chain_lib
 	builder_lib
 	abstract_lib
+	nlohmann_json::nlohmann_json
 )
-#add_library(main2 STATIC ${LIB_SOURCES})
+#add_library(main STATIC ${LIB_SOURCES})
 target_link_libraries(main PRIVATE  ${LIB_SOURCES})
-target_include_directories(main PRIVATE  ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(main PRIVATE  ${SUBDIRECTORIES})
 

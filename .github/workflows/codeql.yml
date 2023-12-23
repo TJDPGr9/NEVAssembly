@@ -14,8 +14,38 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
+    paths: 
+      - '!CODEOWNERS'
+      - '!CODE_OF_CONDUCT.md'
+      - '!.gitignore'
+      - '!.gitmodules'
+      - '!LICENSE'
+      - '*/cmake*.yml'
+      - '*/*.md'
+      - '*/*.docx'
+      - '*/*.pptx'
+      - '*/*.png'
+      - '*/*.jpg'
+      - '*/*.mdj'
+      - '*Pattern'
+      - '*.yml'
   pull_request:
     branches: [ "main" ]
+    paths: 
+      - '!CODEOWNERS'
+      - '!CODE_OF_CONDUCT.md'
+      - '!.gitignore'
+      - '!.gitmodules'
+      - '!LICENSE'
+      - '*/cmake*.yml'
+      - '*/*.md'
+      - '*/*.docx'
+      - '*/*.pptx'
+      - '*/*.png'
+      - '*/*.jpg'
+      - '*/*.mdj'
+      - '*Pattern'
+      - '*.yml'
   schedule:
     - cron: '27 23 * * 3'
 

@@ -4,18 +4,20 @@
 #include <thread>
 #include <chrono>
 using namespace std;
-class Car;
+namespace State_Car {
+    class Car;
+}
 // 状态接口
 class InspectionState {
 public:
-    virtual void inspect(Car& car) = 0;
+    virtual void inspect(State_Car::Car& car) = 0;
     virtual string getStateName() const = 0;
 };
 // 状态定义
 // 未检验状态
 class NotInspectedState : public InspectionState {
 public:
-    void inspect(Car& car) override;
+    void inspect(State_Car::Car& car) override;
     string getStateName() const override {
         return "未检验";
     }
@@ -28,7 +30,7 @@ private:
 public:
     ModuleInspectionState(string module) : moduleName(module) {}
 
-    void inspect(Car& car) override;
+    void inspect(State_Car::Car& car) override;
     string getStateName() const override {
         return "模块质检 - " + moduleName;
     }
@@ -37,7 +39,7 @@ public:
 // 合格状态
 class PassInspectionState : public InspectionState {
 public:
-    void inspect(Car& car) override;
+    void inspect(State_Car::Car& car) override;
     string getStateName() const override {
         return "合格";
     }
@@ -46,20 +48,20 @@ public:
 // 不合格状态
 class FailInspectionState : public InspectionState {
 public:
-    void inspect(Car& car) override;
+    void inspect(State_Car::Car& car) override;
     string getStateName() const override {
         return "不合格";
     }
 };
 // 汽车类
-class Car {
+class State_Car::Car {
 public:
     InspectionState* currentState;
     vector<string> modules; // 存储所有模块的名称
     size_t currentModuleIndex;        // 当前进行质检的模块索引
 
 public:
-    Car() : currentState(new NotInspectedState()), currentModuleIndex(0) {
+    State_Car::Car() : currentState(new NotInspectedState()), currentModuleIndex(0) {
         // 初始化所有模块 
         modules = {
             "引擎", "传动系统", "底盘", "电气系统", "燃油系统",
@@ -108,7 +110,7 @@ public:
 // 状态实现
 
 // 未检验状态实现
-void NotInspectedState::inspect(Car& car) {
+void NotInspectedState::inspect(State_Car::Car& car) {
     cout << "开始组装汽车...\n";
     this_thread::sleep_for(chrono::seconds(2));
     // 模拟逐个模块进行质检
@@ -116,7 +118,7 @@ void NotInspectedState::inspect(Car& car) {
 }
 
 // 模块质检状态实现
-void ModuleInspectionState::inspect(Car& car) {
+void ModuleInspectionState::inspect(State_Car::Car& car) {
     string result;
     cout << car.getStateName() << "\n";
     cout << "请输入质检结果 (Y代表合格，N代表不合格): ";
@@ -142,13 +144,13 @@ void ModuleInspectionState::inspect(Car& car) {
 }
 
 // 合格状态实现
-void PassInspectionState::inspect(Car& car) {
+void PassInspectionState::inspect(State_Car::Car& car) {
     cout << "汽车已通过所有质检，为合格状态。\n";
     this_thread::sleep_for(chrono::seconds(2));
 }
 
 // 不合格状态实现
-void FailInspectionState::inspect(Car& car) {
+void FailInspectionState::inspect(State_Car::Car& car) {
     cout << "汽车未通过质检，为不合格状态。\n";
     this_thread::sleep_for(chrono::seconds(2));
 

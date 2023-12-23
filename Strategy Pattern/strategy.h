@@ -5,7 +5,9 @@
 #include <algorithm>
 #include"dijkstra.h"
 #include"utility.h"
+#ifdef __linux__
 #include <unistd.h>
+#endif
 // 定义运输方式枚举
 enum class TransportationMode {
     Road,

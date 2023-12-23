@@ -1,4 +1,5 @@
 ﻿#include"Car.h"
+using namespace Builder_Car;
 // 映射枚举值到字符串的函数
 std::map<BodyType, std::string> bodyTypeToString{
     {BodyType::WELDED_METAL, "Welded Metal"},

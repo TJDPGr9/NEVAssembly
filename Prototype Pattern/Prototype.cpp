@@ -2,7 +2,8 @@
 #include <string>
 #include "Prototype.h"
 using namespace potye;
-
-int main() {
-    test_pototype();
+namespace Prototype {
+    void test() {
+        test_pototype();
+    }
 }

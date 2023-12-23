@@ -116,77 +116,78 @@ private:
     std::string y;
     std::string z;
 };
-
-int main() {
-    try {
-        // 从文件读取 JSON 数据
-        path currentPath = current_path();
-
-        while (currentPath.filename().string() != "out")
-            currentPath = currentPath.parent_path();
-        currentPath = currentPath.parent_path();
-        current_path(currentPath);
-        path subdirectory("Interpreter Pattern");
-
-        nlohmann::json jsonData;
+namespace Interpreter {
+    int test() {
         try {
-            if (exists(currentPath / subdirectory)) {
-                current_path(currentPath/subdirectory);
-                cout << "Successfully enter the subdirectory:" << currentPath / subdirectory << endl;
+            // 从文件读取 JSON 数据
+            path currentPath = current_path();
+
+            while (currentPath.filename().string() != "out")
+                currentPath = currentPath.parent_path();
+            currentPath = currentPath.parent_path();
+            current_path(currentPath);
+            path subdirectory("Interpreter Pattern");
+
+            nlohmann::json jsonData;
+            try {
+                if (exists(currentPath / subdirectory)) {
+                    current_path(currentPath / subdirectory);
+                    cout << "Successfully enter the subdirectory:" << currentPath / subdirectory << endl;
+                }
+            }
+            catch (filesystem_error& e) {
+                std::cerr << "Exception Encountered: " << e.what() << endl;
+            }
+            ifstream jsonFile("data.json");
+            // 检查文件是否成功打开
+            if (!jsonFile.is_open()) {
+                cerr << "错误：无法打开JSON文件" << endl;
+                return 1;
+            }
+
+            // 从文件读取 JSON 数据
+            jsonFile >> jsonData;
+            jsonFile.close();
+
+            // VIN 码待解码
+            std::string vin = "21VAM033936123456";
+
+            // 创建 VIN 解码器
+            VINDecoder vinDecoder(jsonData);
+
+            // 解码 VIN 码
+            bool ret = vinDecoder.decodeVIN(vin);
+
+            // 输出解码信息
+            cout << "Region:" << vinDecoder.getRegion() << endl;
+            cout << "Manufacture:" << vinDecoder.getManufacturer() << endl;
+            cout << "Type of Vehicle:" << vinDecoder.getVehicleType() << endl;
+            cout << "Style of body:" << vinDecoder.getBodyStyle() << endl;
+            cout << "Transmission&Fuel system:" << vinDecoder.getTransmission() << endl;
+            cout << "Configuration for safety:" << vinDecoder.getX() << endl;
+            cout << "Type of body:" << vinDecoder.getY() << endl;
+            cout << "Built Year:" << vinDecoder.getYear() << endl;
+            cout << "Assembly Plant:" << vinDecoder.getZ() << endl;
+            cout << "Manufacture seq. No.:" << vin.substr(11, 6) << endl;
+
+            if (ret) {
+                cout << "VIN code has been verified successfully" << endl;
+            }
+            else {
+                cout << "VIN code verification failed" << endl;
             }
         }
-        catch(filesystem_error& e){
-            std::cerr << "Exception Encountered: " << e.what() << endl;
+        catch (const nlohmann::json::parse_error& e) {
+            // 输出详细的解析错误信息
+            cerr << "JSON parse error：" << e.what() << " At byte" << e.byte << endl;
+            return 1;
         }
-        ifstream jsonFile("data.json");
-        // 检查文件是否成功打开
-        if (!jsonFile.is_open()) {
-            cerr << "错误：无法打开JSON文件" << endl;
+        catch (const exception& e) {
+            // 捕获其他可能的异常
+            cerr << "Exception occured：" << e.what() << endl;
             return 1;
         }
 
-        // 从文件读取 JSON 数据
-        jsonFile >> jsonData;
-        jsonFile.close();
-
-        // VIN 码待解码
-        std::string vin = "21VAM033936123456";
-
-        // 创建 VIN 解码器
-        VINDecoder vinDecoder(jsonData);
-
-        // 解码 VIN 码
-        bool ret = vinDecoder.decodeVIN(vin);
-
-        // 输出解码信息
-        cout << "Region:" << vinDecoder.getRegion() << endl;
-        cout << "Manufacture:" << vinDecoder.getManufacturer() << endl;
-        cout << "Type of Vehicle:" << vinDecoder.getVehicleType() << endl;
-        cout << "Style of body:" << vinDecoder.getBodyStyle() << endl;
-        cout << "Transmission&Fuel system:" << vinDecoder.getTransmission() << endl;
-        cout << "Configuration for safety:" << vinDecoder.getX() << endl;
-        cout << "Type of body:" << vinDecoder.getY() << endl;
-        cout << "Built Year:"<< vinDecoder.getYear() << endl;
-        cout << "Assembly Plant:" << vinDecoder.getZ() << endl;
-        cout << "Manufacture seq. No.:" << vin.substr(11, 6) << endl;
-
-        if (ret) {
-            cout << "VIN code has been verified successfully" << endl;
-        }
-        else {
-            cout << "VIN code verification failed" << endl;
-        }
+        return 0;
     }
-    catch (const nlohmann::json::parse_error& e) {
-        // 输出详细的解析错误信息
-        cerr << "JSON parse error：" << e.what() << " At byte" << e.byte << endl;
-        return 1;
-    }
-    catch (const exception& e) {
-        // 捕获其他可能的异常
-        cerr << "Exception occured：" << e.what() << endl;
-        return 1;
-    }
-
-    return 0;
 }

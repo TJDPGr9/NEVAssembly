@@ -6,6 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(NewEnergyCarInterpretor)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/include/json)
 # 添加头文件和源文件
-add_executable(interpretor VIN.cpp)  
-target_link_libraries(interpretor PRIVATE nlohmann_json::nlohmann_json)
-
+#add_executable(interpretor VIN.cpp)  
+#target_link_libraries(interpretor PRIVATE nlohmann_json::nlohmann_json)
+set(SOURCES
+    VIN.cpp
+)
+# CMakeLists.txt
+add_library(interpretor_lib STATIC ${SOURCES} )
+target_link_libraries(interpretor_lib PRIVATE nlohmann_json::nlohmann_json)
+# 添加静态库

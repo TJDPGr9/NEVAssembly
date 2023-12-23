@@ -1,6 +1,7 @@
 # 指定 CMake 的最低版本要求
 cmake_minimum_required(VERSION 3.10)
-
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # 设置项目名称
 project(NewEnergyCar)
 
@@ -22,4 +23,25 @@ add_subdirectory("Strategy Pattern")
 add_subdirectory("Interpreter Pattern")
 # 设置编译器选项（可选）
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+add_executable(main main.cpp)
+set(LIB_SOURCES
+	visitor_lib
+	strategy_lib
+	state_lib
+	prototype_lib
+	observer_lib
+	mediator_lib
+	iterator_lib
+	interpretor_lib
+	flyweight_lib
+	factory_lib
+	facade_lib
+	decorator_lib
+	chain_lib
+	builder_lib
+	abstract_lib
+)
+#add_library(main2 STATIC ${LIB_SOURCES})
+target_link_libraries(main PRIVATE  ${LIB_SOURCES})
+target_include_directories(main PRIVATE  ${CMAKE_CURRENT_SOURCE_DIR})
 

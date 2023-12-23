@@ -42,7 +42,7 @@ jobs:
     - name: Upload Executables(Linux) as Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: executables
+        name: executables-${{ runner.os }}-${{ env.RUNNER_ARCH }}
         path: |
             ${{github.workspace}}/build
     - name: Run all executable file

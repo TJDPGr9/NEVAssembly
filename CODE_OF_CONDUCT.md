@@ -240,7 +240,7 @@ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 > 以及不同格式数据的解析,本设计模式，具体如何实现兼容不用考虑，只需要设计全面即可。
 
 ### 命令模式
-(新能源汽车的四大痛点)[http://www.ragcc.com/2022/12/16/%E6%96%B0%E8%83%BD%E6%BA%90%E6%B1%BD%E8%BD%A6%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%97%9B%E7%82%B9%E8%A7%A3%E5%86%B3%E4%BA%86%EF%BC%81/]
+[新能源汽车的四大痛点](http://www.ragcc.com/2022/12/16/%E6%96%B0%E8%83%BD%E6%BA%90%E6%B1%BD%E8%BD%A6%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%97%9B%E7%82%B9%E8%A7%A3%E5%86%B3%E4%BA%86%EF%BC%81/)
 
 汽车的研发团队需要市场调研专员提供客户的需求，并根据需求来进行开发。
 > [!NOTE]
@@ -250,9 +250,9 @@ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 >
 > 以上命令执行的调度要求不一定都实现，但不能只实现一两个!
 
-最后3个是(非GOF的设计模式)[https://en.wikipedia.org/wiki/Software_design_pattern#Classification_and_list]：
+最后3个是[非GOF的设计模式](https://en.wikipedia.org/wiki/Software_design_pattern#Classification_and_lis：)
 ### 对象池模式
-(汽车机器人的应用)[https://www.sohu.com/a/247573904_99949265]
+[汽车机器人的应用](https://www.sohu.com/a/247573904_99949265)
 
 假设一个KUKA焊接机器人每分钟能够完成10个焊接点，每辆汽车需要100个焊接点，那么每辆汽车的焊接时间就是10分钟。
 

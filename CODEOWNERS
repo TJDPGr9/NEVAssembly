@@ -1,9 +1,17 @@
 Builder* @VictorHuu
 Chain* @AbigailJixiangyuyu
-Decorator* Flyweight* @jwa2003
-Facade* Strategy* @Funny0101
+Decorator*  @jwa2003
+Flyweight* @jwa2003
+Facade*  @Funny0101
+Strategy* @Funny0101
+Command* @Funny0101
 Mediator* @Cryamor
+*.ppt @Cryamor
+*.pptx @Cryamor
 Observer* @singularitycjr
 State* @M2030123
-Visitor* Prototype* @Yontine
-Factory* Iterator* @PeachOolongttea
+Interpreter* @M2030123 @AbigailJixiangyuyu
+Visitor* @Yontine
+Prototype* @Yontine
+Factory*  @PeachOolongttea
+Iterator* @PeachOolongttea

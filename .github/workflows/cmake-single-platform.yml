@@ -5,9 +5,38 @@ name: CMake on a single platform
 on:
   push:
     branches: [ "main" ]
+    paths: 
+      - '!CODEOWNERS'
+      - '!CODE_OF_CONDUCT.md'
+      - '!.gitignore'
+      - '!.gitmodules'
+      - '!LICENSE'
+      - '*/codeql.yml'
+      - '*/*.md'
+      - '*/*.docx'
+      - '*/*.pptx'
+      - '*/*.png'
+      - '*/*.jpg'
+      - '*/*.mdj'
+      - '*Pattern'
+      - '*.yml'
   pull_request:
     branches: [ "main" ]
-
+    paths: 
+      - '!CODEOWNERS'
+      - '!CODE_OF_CONDUCT.md'
+      - '!.gitignore'
+      - '!.gitmodules'
+      - '!LICENSE'
+      - '*/codeql.yml'
+      - '*/*.md'
+      - '*/*.docx'
+      - '*/*.pptx'
+      - '*/*.png'
+      - '*/*.jpg'
+      - '*/*.mdj'
+      - '*Pattern'
+      - '*.yml'
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
@@ -42,7 +71,7 @@ jobs:
     - name: Upload Executables(Linux) as Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: executables
+        name: executables-${{ runner.os }}-$env.ARCH
         path: |
             ${{github.workspace}}/build
     - name: Run all executable file

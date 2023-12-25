@@ -4,9 +4,23 @@ name: CMake on a single platform
 
 on:
   push:
-    branches: [ "multi" ]
+    branches: [ "main" ]
+    paths: 
+      - '!CODEOWNERS'
+      - '!CODE_OF_CONDUCT.md'
+      - '!.gitignore'
+      - '!.gitmodules'
+      - '!LICENSE'
+      - '!*/codeql.yml'
+      - '!*/*.md'
+      - '!*/*.docx'
+      - '!*/*.pptx'
+      - '!*/*.png'
+      - '!*/*.jpg'
+      - '!*/*.mdj'
+      - '*'
   pull_request:
-    branches: [ "main","multi" ]
+    branches: [ "main" ]
     paths: 
       - '*Pattern/*'
       - '*.yml'

@@ -28,7 +28,6 @@ on:
       - '!.gitignore'
       - '!.gitmodules'
       - '!LICENSE'
-      - '*/codeql.yml'
       - '*/*.md'
       - '*/*.docx'
       - '*/*.pptx'

@@ -8,6 +8,7 @@
 #ifdef _WIN32
 #include<windows.h>
 #else
+#include<unistd.h>
 #include <sys/ioctl.h>
 #endif
 #include<map>
@@ -138,7 +139,11 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
             std::cout << "] " << (i + 1) * 10 << "%";
         }
         std::cout.flush(); // 刷新输出缓冲区
+        #ifdef _WIN32
         Sleep(100 * get<0>(info));
+        #elif __linux__
+        sleep(100 * get<0>(info));
+        #endif
     }
     cout << ANSI_COLOR_RESET;
     std::cout << endl;

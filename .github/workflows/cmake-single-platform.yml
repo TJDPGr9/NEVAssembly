@@ -21,7 +21,7 @@ on:
       - '*Pattern/*'
       - '*.yml'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main","multi" ]
     paths: 
       - '*Pattern/*'
       - '*.yml'

@@ -5,20 +5,7 @@ name: CMake on a multiple platform
 on:
   push:
     branches: [ "main" ]
-    paths: 
-      - '!CODEOWNERS'
-      - '!CODE_OF_CONDUCT.md'
-      - '!.gitignore'
-      - '!.gitmodules'
-      - '!LICENSE'
-      - '!*/codeql.yml'
-      - '!*/*.md'
-      - '!*/*.docx'
-      - '!*/*.pptx'
-      - '!*/*.png'
-      - '!*/*.jpg'
-      - '!*/*.mdj'
-      - '*'
+
   pull_request:
     branches: [ "main" ]
     paths: 

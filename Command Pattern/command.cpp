@@ -7,12 +7,12 @@
 #include <future>
 #ifdef _WIN32
 #include <Windows.h>
+#include <windows.h>
 static int setCodePage() {
     if (SetConsoleCP(936) == 0) {
         std::cerr << "Failed to set input console code page." << std::endl;
         return 1;
     }
-    std::cout << "Triggered";
     // 设置输出控制台代码页为GBK
     if (SetConsoleOutputCP(936) == 0) {
         std::cerr << "Failed to set output console code page." << std::endl;
@@ -62,6 +62,10 @@ public:
 int main() {
     #ifdef _WIN32
     setCodePage();
+    if (!IsDebuggerPresent()) {
+        // Enable ANSI escape codes for console color in Release mode
+        SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+    }
     #endif
     DevelopmentTeam team;
 
@@ -74,17 +78,13 @@ int main() {
     DevelopFeatureCommand developFeature3(&team, "¸ßÐÔÄÜµç³Ø");
     Marketing* market = new Marketing();
     market->setCommand(&splitRequirements);
-    cout << "Split Phase" << endl;
     market->executeParallelCommands();
-
-    cout << "Schedule Phase" << endl;
     list<Command*> args;
     args.push_back(&setPriority1);
     args.push_back(&setPriority2);
     args.push_back(&setPriority3);
     market->setCommands(args);
     market->executeParallelCommands();
-    cout << "Development Phase" << endl;
     args.clear();
     args.push_back(&developFeature1);
     args.push_back(&developFeature2);

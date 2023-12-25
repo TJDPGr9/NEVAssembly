@@ -1,6 +1,4 @@
 #include "factory.h"
-
-
 int main() {
     ACmotorFactory* factory1 = new InductionMotorFactory();
     ACmotorFactory* factory2 = new SynchronousMotorFactory();

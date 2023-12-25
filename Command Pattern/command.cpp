@@ -13,7 +13,6 @@ static int setCodePage() {
         std::cerr << "Failed to set input console code page." << std::endl;
         return 1;
     }
-    // 设置输出控制台代码页为GBK
     if (SetConsoleOutputCP(936) == 0) {
         std::cerr << "Failed to set output console code page." << std::endl;
         return 1;

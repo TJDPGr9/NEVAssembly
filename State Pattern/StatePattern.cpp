@@ -1,5 +1,4 @@
 ﻿#include "StatePattern.h"
-
 int main() {
     Car car;
 

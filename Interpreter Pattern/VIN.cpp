@@ -118,12 +118,15 @@ private:
 };
 
 int main() {
+
     try {
         // 从文件读取 JSON 数据
         path currentPath = current_path();
-
-        while (currentPath.filename().string() != "out")
+        int limit = 10;
+        while (currentPath.filename().string() != "out"&&limit-->0)
             currentPath = currentPath.parent_path();
+        if (limit <= 0)
+            return -1;
         currentPath = currentPath.parent_path();
         current_path(currentPath);
         path subdirectory("Interpreter Pattern");

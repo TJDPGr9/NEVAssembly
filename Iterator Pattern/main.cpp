@@ -1,7 +1,6 @@
 #include <iostream>
 #include "RailwayBureaus.h"
 #include "Iterator.h"
-
 int main() {
     RailwayBureaus network;
 

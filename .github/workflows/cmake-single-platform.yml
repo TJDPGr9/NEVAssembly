@@ -23,17 +23,6 @@ on:
   pull_request:
     branches: [ "main" ]
     paths: 
-      - '!CODEOWNERS'
-      - '!CODE_OF_CONDUCT.md'
-      - '!.gitignore'
-      - '!.gitmodules'
-      - '!LICENSE'
-      - '*/*.md'
-      - '*/*.docx'
-      - '*/*.pptx'
-      - '*/*.png'
-      - '*/*.jpg'
-      - '*/*.mdj'
       - '*Pattern/*'
       - '*.yml'
 env:

@@ -18,7 +18,7 @@ on:
       - '*/*.png'
       - '*/*.jpg'
       - '*/*.mdj'
-      - '*Pattern'
+      - '*Pattern/*'
       - '*.yml'
   pull_request:
     branches: [ "main" ]
@@ -35,7 +35,7 @@ on:
       - '*/*.png'
       - '*/*.jpg'
       - '*/*.mdj'
-      - '*Pattern'
+      - '*Pattern/*'
       - '*.yml'
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)

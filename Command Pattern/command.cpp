@@ -1,33 +1,89 @@
-// main.cpp
+ï»¿// main.cpp
 #include "command.h"
 #include <thread>
-
-void executeParallelCommands(Command* command1, Command* command2, Command* command3) {
-    std::thread thread1([&]() { if (command1) command1->execute(); });
-    thread1.join();  // µÈ´ý command1 Ö´ÐÐÍê³É
-
-    std::thread thread2([&]() { if (command2) command2->execute(); });
-    thread2.join();  // µÈ´ý command2 Ö´ÐÐÍê³É
-
-    std::thread thread3([&]() { if (command3) command3->execute(); });
-    thread3.join();  // µÈ´ý command3 Ö´ÐÐÍê³É
+#include<list>
+#include<chrono>
+#include <Windows.h>
+#include <future>
+static int setCodePage() {
+    if (SetConsoleCP(936) == 0) {
+        std::cerr << "Failed to set input console code page." << std::endl;
+        return 1;
+    }
+    std::cout << "Triggered";
+    // è®¾ç½®è¾“å‡ºæŽ§åˆ¶å°ä»£ç é¡µä¸ºGBK
+    if (SetConsoleOutputCP(936) == 0) {
+        std::cerr << "Failed to set output console code page." << std::endl;
+        return 1;
+    }
 }
+class Marketing {
+private:
+    list<Command*> _commands;
+    void _resetCommands() {
+        _commands.clear();
+    }
+public:
+    Marketing() {
+        _resetCommands();
+    }
+    void setCommand(Command* command) {
+        _commands.push_back(command);
+    }
+    void setCommands(list<Command*> commands,bool reset=true) {
+        if(reset)
+            _resetCommands();
+        for each (Command* command in commands)
+        {
+            _commands.push_back(command);
+        }
+    }
+    void executeParallelCommands() {
+        vector<std::future<void>> futures;
 
+        for (Command* command : _commands) {
+            futures.push_back(std::async(std::launch::async, [command]() {
+                if (command) command->execute();
+                }));
+        }
+
+        // ç­‰å¾…æ‰€æœ‰å¼‚æ­¥ä»»åŠ¡å®Œæˆ
+        for (auto& future : futures) {
+            future.get();
+        }
+        
+    }
+};
 int main() {
+    setCodePage();
     DevelopmentTeam team;
 
-    SplitRequirementsCommand splitRequirements(&team, "¸ßÐÔÄÜ¡¢µç¶¯¡¢×Ô¶¯¼ÝÊ»");
-    SetPriorityAndDueCommand setPriority1(&team, "µç¶¯»ú", 1, "2023-01-01");
-    SetPriorityAndDueCommand setPriority2(&team, "×Ô¶¯¼ÝÊ»", 2, "2023-02-01");
-    SetPriorityAndDueCommand setPriority3(&team, "¸ßÐÔÄÜµç³Ø", 3, "2023-03-01");
-    DevelopFeatureCommand developFeature1(&team, "µç¶¯»ú");
-    DevelopFeatureCommand developFeature2(&team, "×Ô¶¯¼ÝÊ»");
-    DevelopFeatureCommand developFeature3(&team, "¸ßÐÔÄÜµç³Ø");
+    SplitRequirementsCommand splitRequirements(&team, "Â¸ÃŸÃÃ”Ã„ÃœÂ¡Â¢ÂµÃ§Â¶Â¯Â¡Â¢Ã—Ã”Â¶Â¯Â¼ÃÃŠÂ»");
+    SetPriorityAndDueCommand setPriority1(&team, "ÂµÃ§Â¶Â¯Â»Ãº", 1, "2023-01-01");
+    SetPriorityAndDueCommand setPriority2(&team, "Ã—Ã”Â¶Â¯Â¼ÃÃŠÂ»", 2, "2023-02-01");
+    SetPriorityAndDueCommand setPriority3(&team, "Â¸ÃŸÃÃ”Ã„ÃœÂµÃ§Â³Ã˜", 3, "2023-03-01");
+    DevelopFeatureCommand developFeature1(&team, "ÂµÃ§Â¶Â¯Â»Ãº");
+    DevelopFeatureCommand developFeature2(&team, "Ã—Ã”Â¶Â¯Â¼ÃÃŠÂ»");
+    DevelopFeatureCommand developFeature3(&team, "Â¸ÃŸÃÃ”Ã„ÃœÂµÃ§Â³Ã˜");
+    Marketing* market = new Marketing();
+    market->setCommand(&splitRequirements);
+    cout << "Split Phase" << endl;
+    market->executeParallelCommands();
 
-    executeParallelCommands(&splitRequirements, nullptr, nullptr);
-    executeParallelCommands(&setPriority1, &developFeature1, nullptr);
-    executeParallelCommands(&setPriority2, &developFeature2, nullptr);
-    executeParallelCommands(&setPriority3, &developFeature3, nullptr);
+    cout << "Schedule Phase" << endl;
+    list<Command*> args;
+    args.push_back(&setPriority1);
+    args.push_back(&setPriority2);
+    args.push_back(&setPriority3);
+    market->setCommands(args);
+    market->executeParallelCommands();
+    cout << "Development Phase" << endl;
+    args.clear();
+    args.push_back(&developFeature1);
+    args.push_back(&developFeature2);
+    args.push_back(&developFeature3);
+    market->setCommands(args);
+    market->executeParallelCommands();
 
     return 0;
 }

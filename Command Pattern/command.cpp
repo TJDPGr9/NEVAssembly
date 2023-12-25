@@ -3,8 +3,10 @@
 #include <thread>
 #include<list>
 #include<chrono>
-#include <Windows.h>
+
 #include <future>
+#ifdef _WIN32
+#include <Windows.h>
 static int setCodePage() {
     if (SetConsoleCP(936) == 0) {
         std::cerr << "Failed to set input console code page." << std::endl;
@@ -17,6 +19,9 @@ static int setCodePage() {
         return 1;
     }
 }
+#elif __linux__
+#include<unistd.h>
+#endif
 class Marketing {
 private:
     list<Command*> _commands;
@@ -33,7 +38,7 @@ public:
     void setCommands(list<Command*> commands,bool reset=true) {
         if(reset)
             _resetCommands();
-        for each (Command* command in commands)
+        for(Command* command : commands)
         {
             _commands.push_back(command);
         }
@@ -55,7 +60,9 @@ public:
     }
 };
 int main() {
+    #ifdef _WIN32
     setCodePage();
+    #endif
     DevelopmentTeam team;
 
     SplitRequirementsCommand splitRequirements(&team, "¸ßÐÔÄÜ¡¢µç¶¯¡¢×Ô¶¯¼ÝÊ»");

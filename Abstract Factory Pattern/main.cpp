@@ -18,7 +18,7 @@ int main() {
     CarFactory* ID4Factory = new ID4CarFactory();
     assembleCar(ID4Factory);
     delete ID4Factory;
-
+    std::cin.get();
     return 0;
 }
 

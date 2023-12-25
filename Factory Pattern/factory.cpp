@@ -1,6 +1,4 @@
 #include "factory.h"
-
-
 int main() {
     ACmotorFactory* factory1 = new InductionMotorFactory();
     ACmotorFactory* factory2 = new SynchronousMotorFactory();
@@ -17,6 +15,6 @@ int main() {
     delete factory2;
     delete factory3;
     delete factory4;
-
+    std::cin.get();
     return 0;
 }

@@ -5,25 +5,8 @@ name: CMake on a multiple platform
 on:
   push:
     branches: [ "main" ]
-    paths: 
-      - '!CODEOWNERS'
-      - '!CODE_OF_CONDUCT.md'
-      - '!.gitignore'
-      - '!.gitmodules'
-      - '!LICENSE'
-      - '!*/codeql.yml'
-      - '!*/*.md'
-      - '!*/*.docx'
-      - '!*/*.pptx'
-      - '!*/*.png'
-      - '!*/*.jpg'
-      - '!*/*.mdj'
-      - '*'
   pull_request:
     branches: [ "main" ]
-    paths: 
-      - '*Pattern/*'
-      - '*.yml'
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
@@ -91,7 +74,12 @@ jobs:
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
-
+    - name: Upload Executables(${{ matrix.os }}) as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: executables-${{ matrix.os }}-${{ runner.arch }}-${{ matrix.cpp_compiler }}-${{ matrix.build_type }}
+        path: |
+            ${{ steps.strings.outputs.build-output-dir }}
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).

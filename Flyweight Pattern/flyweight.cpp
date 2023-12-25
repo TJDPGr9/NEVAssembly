@@ -320,9 +320,15 @@ std::string IntToString(int num) {
     ss << num;
     return ss.str();
 }
-
+#ifdef _WIN32
+#include<Windows.h>
+#endif
 int main()
 {
+#ifdef _WIN32
+    SetConsoleCP(936);
+    SetConsoleOutputCP(936);
+#endif
     // ≥ı ºªØ≤÷ø‚
     vector<Transport::FactoryStore> fStores;
     for (int i = 1; i <= MAX_STORE_NUM; i++) {
@@ -375,4 +381,5 @@ int main()
             break;
         }
     }
+    std::cin.get();
 }

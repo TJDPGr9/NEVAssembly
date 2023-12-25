@@ -10,5 +10,6 @@ int main()
 	std::cout << "---------visitor pattern---------\n";
 	client_visitor();
 	std::cout << "---------------------------------\n\n\n";
-
+	std::cin.get();
+	return 0;
 }

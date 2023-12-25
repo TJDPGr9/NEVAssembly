@@ -29,6 +29,6 @@ int main() {
 
     std::cout << "\nPurchasing Components from BYD through Guazi:" << std::endl;
     guaziMediator.sendMessage("BYD", "Need Components from BYD.");
-
+    std::cin.get();
     return 0;
 }

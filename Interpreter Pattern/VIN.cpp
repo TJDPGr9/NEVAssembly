@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include<filesystem>
 using namespace std::filesystem;
 using namespace std;
 
@@ -122,25 +121,8 @@ int main() {
     try {
         // 从文件读取 JSON 数据
         path currentPath = current_path();
-        int limit = 10;
-        while (currentPath.filename().string() != "out"&&limit-->0)
-            currentPath = currentPath.parent_path();
-        if (limit <= 0)
-            return -1;
-        currentPath = currentPath.parent_path();
-        current_path(currentPath);
-        path subdirectory("Interpreter Pattern");
 
         nlohmann::json jsonData;
-        try {
-            if (exists(currentPath / subdirectory)) {
-                current_path(currentPath/subdirectory);
-                cout << "Successfully enter the subdirectory:" << currentPath / subdirectory << endl;
-            }
-        }
-        catch(filesystem_error& e){
-            std::cerr << "Exception Encountered: " << e.what() << endl;
-        }
         ifstream jsonFile("data.json");
         // 检查文件是否成功打开
         if (!jsonFile.is_open()) {

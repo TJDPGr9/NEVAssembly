@@ -8,7 +8,7 @@ project(NewEngeryCarCommand)
 set(HEADERS
     command.h
 )
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 # 添加静态库
 add_library(command_lib STATIC ../empty.cpp ${HEADERS})
 

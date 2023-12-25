@@ -10,6 +10,6 @@ int main() {
     }
     cout << "当前状态: " << car.getStateName() << "\n";
     car.inspect();
-
+    std::cin.get();
     return 0;
 }

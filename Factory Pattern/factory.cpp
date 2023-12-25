@@ -17,6 +17,6 @@ int main() {
     delete factory2;
     delete factory3;
     delete factory4;
-
+    std::cin.get();
     return 0;
 }

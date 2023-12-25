@@ -91,6 +91,6 @@ int main() {
     args.push_back(&developFeature3);
     market->setCommands(args);
     market->executeParallelCommands();
-
+    std::cin.get();
     return 0;
 }

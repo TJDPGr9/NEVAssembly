@@ -187,6 +187,6 @@ int main() {
         cerr << "Exception occured：" << e.what() << endl;
         return 1;
     }
-
+    std::cin.get();
     return 0;
 }

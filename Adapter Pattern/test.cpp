@@ -4,5 +4,6 @@ using namespace adapter;
 
 int main(){
     test_adapter();
+    std::cin.get();
     return 0;
 }

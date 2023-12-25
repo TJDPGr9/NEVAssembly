@@ -30,6 +30,6 @@ int main() {
     }
 
     delete iterator;
-
+    std::cin.get();
     return 0;
 }

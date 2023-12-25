@@ -24,6 +24,6 @@ int main() {
     delete newEnergyCarWithDashCamera;
     delete newEnergyCarWithAirPurifier;
     delete fullyEquippedNewEnergyCar;
-
+    std::cin.get();
     return 0;
 }

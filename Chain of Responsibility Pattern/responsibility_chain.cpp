@@ -15,6 +15,6 @@ int main() {
     supplierA.processMaterial("车体骨架");
     supplierA.processMaterial("方向盘");
     supplierA.processMaterial("座椅");
-
+    std::cin.get();
     return 0;
 }

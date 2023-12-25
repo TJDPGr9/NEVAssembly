@@ -7,6 +7,6 @@ int main() {
     std::string result = navigationSystem.startNavigation();
 
     std::cout << result << std::endl;
-
+    std::cin.get();
     return 0;
 }

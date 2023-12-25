@@ -59,4 +59,5 @@ void Car::display() {
     std::cout << "Decorations: " << decorationsTypeToString[decorations] << std::endl;
     std::cout << "Final Assembly&Insepction: " << (finalAssemblyandInspection ? "Assemblied successfully!" : "Wrong assembly!") << std::endl;
     std::cout << "-----------------------" << std::endl;
+    std::cin.get();
 }

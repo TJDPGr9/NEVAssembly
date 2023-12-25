@@ -29,5 +29,5 @@ int main()
 	subject->removeViewer(nio);
 	subject->removeViewer(tesla);
 	subject->removeViewer(assemblyCompany);
-
+	std::cin.get();
 }

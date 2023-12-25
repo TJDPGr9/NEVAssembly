@@ -1,17 +1,18 @@
+// command.h
 #ifndef CAR_ASSEMBLY_COMMAND_H
 #define CAR_ASSEMBLY_COMMAND_H
 
 #include <iostream>
 #include <string>
 #include <vector>
+#include<windows.h>
+using namespace std;
 
-// 抽象命令类
 class Command {
 public:
     virtual void execute() = 0;
 };
 
-// 接收者类 - 研发团队
 class DevelopmentTeam {
 public:
     void splitRequirements(const std::string& requirements);
@@ -22,7 +23,26 @@ private:
     std::vector<std::string> features_;
 };
 
-// 具体命令类 - 拆分需求
+void DevelopmentTeam::splitRequirements(const std::string& requirements) {
+    std::cout << "研发团队收到需求：" << requirements << std::endl;
+    // 模拟拆分需求的过程
+    // 将需求拆分为多个特性
+    features_ = { "电动机", "自动驾驶", "高性能电池" };
+}
+
+void DevelopmentTeam::setPriorityAndDue(const std::string& feature, int priority, const std::string& due) {
+    std::cout << "为特性 '" << feature << "' 设置优先级和截止日期：优先级 " << priority << "，截止日期 " << due << std::endl;
+    // 模拟设置优先级与截止日期的过程
+    // 实际应用中会涉及更复杂的逻辑
+}
+
+void DevelopmentTeam::developFeature(const std::string& feature) {
+    std::cout << "研发特性：" << feature << std::endl;
+    // 模拟研发过程
+    Sleep(500);
+    std::cout << "特性 '" << feature << "' 研发完成。" << std::endl;
+}
+
 class SplitRequirementsCommand : public Command {
 public:
     SplitRequirementsCommand(DevelopmentTeam* team, const std::string& requirements)
@@ -37,7 +57,6 @@ private:
     std::string requirements_;
 };
 
-// 具体命令类 - 设置优先级与截止日期
 class SetPriorityAndDueCommand : public Command {
 public:
     SetPriorityAndDueCommand(DevelopmentTeam* team, const std::string& feature, int priority, const std::string& due)
@@ -54,7 +73,6 @@ private:
     std::string due_;
 };
 
-// 具体命令类 - 进行研发
 class DevelopFeatureCommand : public Command {
 public:
     DevelopFeatureCommand(DevelopmentTeam* team, const std::string& feature)

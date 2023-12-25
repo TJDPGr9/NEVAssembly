@@ -38,7 +38,7 @@ public:
     void setCommands(list<Command*> commands,bool reset=true) {
         if(reset)
             _resetCommands();
-        for each (Command* command in commands)
+        for(Command* command : commands)
         {
             _commands.push_back(command);
         }

@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
-using namespace std::filesystem;
 using namespace std;
 
 static int weight_coefficient[17] = { 8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -119,14 +118,13 @@ namespace Interpreter {
     int test() {
         try {
             // 从文件读取 JSON 数据
-            path currentPath = current_path();
             ifstream jsonFile("data.json");
             // 检查文件是否成功打开
             if (!jsonFile.is_open()) {
                 cerr << "错误：无法打开JSON文件" << endl;
                 return 1;
             }
-
+            nlohmann::json jsonData;
             // 从文件读取 JSON 数据
             jsonFile >> jsonData;
             jsonFile.close();

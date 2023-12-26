@@ -15,7 +15,16 @@
 #include"Chain of Responsibility Pattern/responsibility_chain.cpp"
 #include"Builder Pattern/test.cpp"
 #include"Abstract Factory Pattern/test.cpp"
+#include"Adapter Pattern/Adapter.cpp"
+#include"Command Pattern/command.cpp"
+#ifdef _WIN32
+#include<Windows.h>
+#endif
 int main(){
-	State::test();
-	Interpreter::test();
+#ifdef _WIN32
+		SetConsoleCP(936);
+		SetConsoleOutputCP(936);
+#endif
+	//State::test();
+		Adapter::test();
 }

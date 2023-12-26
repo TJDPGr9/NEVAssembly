@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # 设置项目名称
 project(NewEnergyCarInterpretor)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/include/json)
-configure_file(data.json ${CMAKE_CURRENT_BINARY_DIR}/data.json COPYONLY)
+configure_file(data.json ${CMAKE_CURRENT_BINARY_DIR}/../data.json COPYONLY)
 # 添加头文件和源文件
 #add_executable(interpretor VIN.cpp)  
 #target_link_libraries(interpretor PRIVATE nlohmann_json::nlohmann_json)

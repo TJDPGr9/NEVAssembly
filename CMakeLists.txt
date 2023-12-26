@@ -7,7 +7,7 @@ project(NewEnergyCar)
 # 遍历所有的子目录
 #set(CMAKE_CXX_STANDARD 11)
 #set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory("Builder Pattern")
 add_subdirectory("Decorator Pattern")
@@ -47,6 +47,8 @@ set(LIB_SOURCES
 	chain_lib
 	builder_lib
 	abstract_lib
+	adapter_lib
+	command_lib
 	nlohmann_json::nlohmann_json
 )
 #add_library(main STATIC ${LIB_SOURCES})

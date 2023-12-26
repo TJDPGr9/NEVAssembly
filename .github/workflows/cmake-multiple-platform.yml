@@ -6,7 +6,7 @@ on:
   push:
     branches: ['standalone','main','release*']
     paths: 
-      - '*/cmake*.yml'
+      - '*.yml'
       - '*Pattern'
       - '*.cpp'
       - '*.h'
@@ -14,7 +14,7 @@ on:
   pull_request:
     branches: ['standalone','main','release*']
     paths: 
-      - '*/cmake*.yml'
+      - '*.yml'
       - '*Pattern'
       - '*.cpp'
       - '*.h'

@@ -15,6 +15,12 @@ public:
     static std::string selectEnergyRecoveryMode();
     static std::string selectChargingPlan();
     static std::string selectBatteryTemperatureManagement();
+
+    // 添加数字参数的选择函数
+    static int selectPreheatCoolSettingTime();
+    static int selectPreheatCoolTargetTemperature();
+    static int selectMaxDrivingSpeedLimit();
+    static int selectVolumeAdjustment();
 };
 
 #endif // INPUT_H

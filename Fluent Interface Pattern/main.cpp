@@ -10,13 +10,19 @@ int main() {
 
 
     settings
-        .setChargingMode(Input::selectChargingMode())
-        .setConnectorType(Input::selectConnectorType())
-        .enableBatterySaveMode(Input::selectBatterySaveMode())
-        .setDriveMode(Input::selectDriveMode())
-        .setEnergyRecoveryMode(Input::selectEnergyRecoveryMode())
-        .setChargingPlan(Input::selectChargingPlan())
+        
+        .setVolumeAdjustment(Input::selectVolumeAdjustment())
+        .setMaxDrivingSpeedLimit(Input::selectMaxDrivingSpeedLimit())
+        .setPreheatCoolTargetTemperature(Input::selectPreheatCoolTargetTemperature())
+        .setPreheatCoolSettingTime(Input::selectPreheatCoolSettingTime())
+       
         .setBatteryTemperatureManagement(Input::selectBatteryTemperatureManagement())
+        .setChargingPlan(Input::selectChargingPlan())
+        .setEnergyRecoveryMode(Input::selectEnergyRecoveryMode())
+        .setDriveMode(Input::selectDriveMode())
+        .enableBatterySaveMode(Input::selectBatterySaveMode())
+        .setConnectorType(Input::selectConnectorType())
+        .setChargingMode(Input::selectChargingMode())
         .displaySettings();
 
     return 0;

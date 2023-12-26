@@ -45,9 +45,16 @@ private:
     TemperatureManagement batteryTemperatureManagement;
     static std::map<std::string, TemperatureManagement> temperatureManagementMap;
     std::string set_batteryTemperatureManagement;
+
+   
+    // 添加数字参数
+    int preHeatCoolSettingTime;
+    int preHeatCoolTargetTemperature;
+    int maxDrivingSpeedLimit;
+    int volumeAdjustment;
 public:
     ElectricCarSettings();
-
+    //枚举参数
     ElectricCarSettings& setChargingMode(const std::string& mode);
     ElectricCarSettings& setConnectorType(const std::string& type);
     ElectricCarSettings& enableBatterySaveMode(const std::string& savemode);
@@ -55,6 +62,12 @@ public:
     ElectricCarSettings& setEnergyRecoveryMode(const std::string& mode);
     ElectricCarSettings& setChargingPlan(const std::string& plan);
     ElectricCarSettings& setBatteryTemperatureManagement(const std::string& management);
+    //数字参数
+    
+    ElectricCarSettings& setPreheatCoolSettingTime(int time);
+    ElectricCarSettings& setPreheatCoolTargetTemperature(int temperature);
+    ElectricCarSettings& setMaxDrivingSpeedLimit(int speedLimit);
+    ElectricCarSettings& setVolumeAdjustment(int volume);
 
     void displaySettings() const;
 };

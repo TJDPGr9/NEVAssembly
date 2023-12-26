@@ -121,7 +121,27 @@ ElectricCarSettings& ElectricCarSettings::setBatteryTemperatureManagement(const 
     }
     return *this;
 }
+//数字参数函数实现：
+// 设置数字参数的函数实现
+ElectricCarSettings& ElectricCarSettings::setPreheatCoolSettingTime(int time) {
+    preHeatCoolSettingTime = time;
+    return *this;
+}
 
+ElectricCarSettings& ElectricCarSettings::setPreheatCoolTargetTemperature(int temperature) {
+    preHeatCoolTargetTemperature = temperature;
+    return *this;
+}
+
+ElectricCarSettings& ElectricCarSettings::setMaxDrivingSpeedLimit(int speedLimit) {
+    maxDrivingSpeedLimit = speedLimit;
+    return *this;
+}
+
+ElectricCarSettings& ElectricCarSettings::setVolumeAdjustment(int volume) {
+    volumeAdjustment = volume;
+    return *this;
+}
 void ElectricCarSettings::displaySettings() const {
     std::cout << std::endl;
     std::cout << "电动车设置" << std::endl;
@@ -132,4 +152,9 @@ void ElectricCarSettings::displaySettings() const {
     std::cout << "能量回收模式： " << set_energyRecoveryMode << std::endl;
     std::cout << "充电计划: " << set_chargingPlan << std::endl;
     std::cout << "电池温度管理: " << set_batteryTemperatureManagement << std::endl;
+
+    std::cout << "预热/预冷设定时间: " << preHeatCoolSettingTime <<"分钟"<< std::endl;
+    std::cout << "预热/预冷目标温度: " << preHeatCoolTargetTemperature << "摄氏度" << std::endl;
+    std::cout << "最大行驶速度设定: " << maxDrivingSpeedLimit << "千米/时" << std::endl;
+    std::cout << "音响和娱乐系统设置 (音量调节): " << volumeAdjustment << "%" << std::endl;
 }

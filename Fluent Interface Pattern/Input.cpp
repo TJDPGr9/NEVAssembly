@@ -108,3 +108,64 @@ std::string Input::selectBatteryTemperatureManagement() {
         return "被动";
     }
 }
+
+//数字参数输入
+int Input::selectPreheatCoolSettingTime() {
+    int time;
+    std::cout << "请输入预热/预冷设定时间 (单位：分钟，大于0): ";
+    std::cin >> time;
+
+    while (time <= 0 || std::cin.fail()) {
+        std::cout << "请输入有效的预热/预冷设定时间 (单位：分钟，大于0): ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin >> time;
+    }
+
+    return time;
+}
+
+int Input::selectPreheatCoolTargetTemperature() {
+    int temperature;
+    std::cout << "请输入预热/预冷目标温度 (范围16-30，单位：摄氏度): ";
+    std::cin >> temperature;
+
+    while (temperature < 16 || temperature > 30 || std::cin.fail()) {
+        std::cout << "请输入有效的预热/预冷目标温度 (范围16-30，单位：摄氏度): ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin >> temperature;
+    }
+
+    return temperature;
+}
+
+int Input::selectMaxDrivingSpeedLimit() {
+    int speedLimit;
+    std::cout << "请输入最大行驶速度限制 (范围30-300，单位：千米/时): ";
+    std::cin >> speedLimit;
+
+    while (speedLimit < 30 || speedLimit > 300 || std::cin.fail()) {
+        std::cout << "请输入有效的最大行驶速度限制 (范围30-300，单位：千米/时): ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin >> speedLimit;
+    }
+
+    return speedLimit;
+}
+
+int Input::selectVolumeAdjustment() {
+    int volume;
+    std::cout << "请输入音量调节 (范围0-100，单位：%): ";
+    std::cin >> volume;
+
+    while (volume < 0 || volume > 100 || std::cin.fail()) {
+        std::cout << "请输入有效的音量调节 (范围0-100，单位：%): ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin >> volume;
+    }
+
+    return volume;
+}

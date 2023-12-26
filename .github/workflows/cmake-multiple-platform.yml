@@ -86,16 +86,20 @@ jobs:
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
     - name: Upload Executables(${{ matrix.os }}) as Artifact
+      if: matrix.os == 'windows-latest' && matrix.build_type == 'Release'
       uses: actions/upload-artifact@v2
       with:
         name: executables-${{ matrix.os }}-${{ runner.arch }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}
         path: |
-            ${{ if eq(matrix.os, 'windows-latest') }}
-              ${{ steps.strings.outputs.build-output-dir }}/Release
-              ${{ steps.strings.outputs.build-output-dir }}/data.json
-            ${{ else }}
-              ${{ steps.strings.outputs.build-output-dir }}
-            ${{ endif }}
+            ${{ steps.strings.outputs.build-output-dir }}/Release
+            ${{ steps.strings.outputs.build-output-dir }}/data.json
+    - name: Upload Executables(${{ matrix.os }}) as Artifact
+      if: matrix.os != 'windows-latest' && matrix.build_type == 'Release'
+      uses: actions/upload-artifact@v2
+      with:
+        name: executables-${{ matrix.os }}-${{ runner.arch }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}
+        path: |
+            ${{ steps.strings.outputs.build-output-dir }}
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).

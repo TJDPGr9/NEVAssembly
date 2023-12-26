@@ -4,10 +4,7 @@ name: CMake on a multiple platform
 
 on:
   push:
-    branches:
-      - main
-      - 'release*'
-      - 'standalone'
+    branches: ['standalone','main','release*']
     paths: 
       - '*/cmake*.yml'
       - '*Pattern'
@@ -15,10 +12,7 @@ on:
       - '*.h'
       - '*/CMakeLists.txt'
   pull_request:
-    branches:
-      - main
-      - 'release*'
-      - 'standalone'
+    branches: ['standalone','main','release*']
     paths: 
       - '*/cmake*.yml'
       - '*Pattern'

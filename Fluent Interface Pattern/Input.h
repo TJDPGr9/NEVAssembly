@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include<limits>
 class Input {
 public:
     static std::string selectChargingMode();
@@ -16,7 +17,7 @@ public:
     static std::string selectChargingPlan();
     static std::string selectBatteryTemperatureManagement();
 
-    // 添加数字参数的选择函数
+    // 娣诲姞鏁板瓧鍙傛暟鐨勯�夋嫨鍑芥暟
     static int selectPreHeatCoolSettingTime();
     static int selectPreHeatCoolTargetTemperature();
     static int selectMaxDrivingSpeedLimit();

@@ -31,6 +31,7 @@ link_directories("Interpreter Pattern")
 # 设置编译器选项（可选）
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 add_executable(main main.cpp)
+
 set(LIB_SOURCES
 	visitor_lib
 	strategy_lib

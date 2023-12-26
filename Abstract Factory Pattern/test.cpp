@@ -6,7 +6,7 @@
 
 void assembleCar(CarFactory* factory);
 namespace AbstractFactory {
-    int main() {
+    int test() {
         // 生产比亚迪海鸥
         CarFactory* SeagullFactory = new SeagullCarFactory();
         assembleCar(SeagullFactory);

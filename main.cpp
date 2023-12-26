@@ -25,6 +25,22 @@ int main(){
 		SetConsoleCP(936);
 		SetConsoleOutputCP(936);
 #endif
-	//State::test();
-		Adapter::test();
+	//Just a trial
+		cout << "Select the pattern(0~19):";
+		int n = 0;
+		cin >> n;
+		switch (n) {
+		case 0:
+			AbstractFactory::test();
+			break;
+		case 1:
+			Adapter::test();
+			break;
+		case 2:
+			Builder2::test();
+			break;
+		case 3:
+			Command2::test();
+			break;
+		}
 }

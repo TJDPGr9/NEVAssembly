@@ -2,170 +2,229 @@
 #include "Input.h"
 
 std::string Input::selectChargingMode() {
-    std::string chargingMode;
-    std::cout << "请选择充电模式 (1 - 快充, 2 - 慢充): ";
-    std::cin >> chargingMode;
-
-    while (chargingMode != "1" && chargingMode != "2") {
-        std::cout << "请输入有效的充电模式 (1 - 快充, 2 - 慢充): ";
-        std::cin >> chargingMode;
+    std::vector<std::string> chargingModes;
+    for (const auto& pair : ElectricCarSettings::chargingModeMap) {
+        chargingModes.push_back(pair.first);
     }
 
-    return (chargingMode=="1" ? "快充" : "慢充");
+    std::cout << "请选择充电模式：" << std::endl;
+
+    for (size_t i = 0; i < chargingModes.size(); ++i) {
+        std::cout << i + 1 << " - " << chargingModes[i] << std::endl;
+    }
+
+    int userChoice;
+    std::cout << "请输入选择的充电模式编号：";
+    std::cin >> userChoice;
+
+    while (userChoice < 1 || userChoice > static_cast<int>(chargingModes.size())) {
+        std::cout << "请输入有效的充电模式编号：";
+        std::cin >> userChoice;
+    }
+    std::cout << std::endl;
+    return chargingModes[userChoice - 1];
 }
 
 std::string Input::selectConnectorType() {
-    std::string connectorType;
-    std::cout << "请选择充电连接器 (1 - 直流快速充电连接器, 2 - 交流家用充电连接器): ";
-    std::cin >> connectorType;
-
-    while (connectorType != "1" && connectorType != "2") {
-        std::cout << "请输入有效的充电连接器 (1 - 直流快速充电连接器, 2 - 交流家用充电连接器): ";
-        std::cin >> connectorType;
+    std::vector<std::string> connectorTypes;
+    for (const auto& pair : ElectricCarSettings::connectorTypeMap) {
+        connectorTypes.push_back(pair.first);
     }
 
-    return (connectorType == "1" ? "直流快速充电连接器" : "交流家用充电连接器");
+    std::cout << "请选择充电连接器：" << std::endl;
+
+    for (size_t i = 0; i < connectorTypes.size(); ++i) {
+        std::cout << i + 1 << " - " << connectorTypes[i] << std::endl;
+    }
+
+    int userChoice;
+    std::cout << "请输入选择的充电连接器编号：";
+    std::cin >> userChoice;
+
+    while (userChoice < 1 || userChoice > static_cast<int>(connectorTypes.size())) {
+        std::cout << "请输入有效的充电连接器编号：";
+        std::cin >> userChoice;
+    }
+    std::cout << std::endl;
+    return connectorTypes[userChoice - 1] ;
 }
 
 std::string Input::selectBatterySaveMode() {
-    std::string batterySaveMode;
-    std::cout << "请选择电池保存模式 (1 - 启用, 2 - 禁用): ";
-    std::cin >> batterySaveMode;
+    std::vector<std::string> batterySaveModes;
+    for (const auto& pair : ElectricCarSettings::batterySaveModeMap) {
+        batterySaveModes.push_back(pair.first);
+    }
+    std::cout << "请选择电池保存模式：" << std::endl;
 
-    while (batterySaveMode != "1" && batterySaveMode != "2") {
-        std::cout << "请输入有效的电池保存模式 (1 - 启用, 2 - 禁用): ";
-        std::cin >> batterySaveMode;
+    for (size_t i = 0; i < batterySaveModes.size(); ++i) {
+        std::cout << i + 1 << " - " << batterySaveModes[i] << std::endl;
     }
 
-    return (batterySaveMode == "1" ? "启用" : "禁用");
+    int userChoice;
+    std::cout << "请输入选择的电池保存模式编号：";
+    std::cin >> userChoice;
 
+    while (userChoice < 1 || userChoice > static_cast<int>(batterySaveModes.size())) {
+        std::cout << "请输入有效的电池保存模式编号：";
+        std::cin >> userChoice;
+    }
+    std::cout << std::endl;
+    return batterySaveModes[userChoice - 1];
 }
-
 std::string Input::selectDriveMode() {
-    std::string driveMode;
-    std::cout << "请选择驾驶模式 (1 - 纯电动, 2 - 混合动力): ";
-    std::cin >> driveMode;
+    std::vector<std::string> driveModes;
+    for (const auto& pair : ElectricCarSettings::driveModeMap) {
+        driveModes.push_back(pair.first);
+    }
+    std::cout << "请选择驾驶模式：" << std::endl;
 
-    while (driveMode != "1" && driveMode != "2") {
-        std::cout << "请输入有效的驾驶模式 (1 - 纯电动, 2 - 混合动力): ";
-        std::cin >> driveMode;
+    for (size_t i = 0; i < driveModes.size(); ++i) {
+        std::cout << i + 1 << " - " << driveModes[i] << std::endl;
     }
 
-    return (driveMode == "1" ? "纯电动" : "混合动力");
+    int userChoice;
+    std::cout << "请输入选择的驾驶模式编号：";
+    std::cin >> userChoice;
+
+    while (userChoice < 1 || userChoice > static_cast<int>(driveModes.size())) {
+        std::cout << "请输入有效的驾驶模式编号：";
+        std::cin >> userChoice;
+    }
+    std::cout << std::endl;
+    return driveModes[userChoice - 1];
 }
+
 
 std::string Input::selectEnergyRecoveryMode() {
-    std::string energyRecoveryMode;
-    std::cout << "请选择能量回收模式 (1 - 高, 2 - 低，3 - 关闭): ";
-    std::cin >> energyRecoveryMode;
+    std::vector<std::string> energyRecoveryModes;
+    for (const auto& pair : ElectricCarSettings::energyRecoveryModeMap) {
+        energyRecoveryModes.push_back(pair.first);
+    }
+    std::cout << "请选择能量回收模式：" << std::endl;
 
-    while (energyRecoveryMode != "1" && energyRecoveryMode != "2" && energyRecoveryMode != "3") {
-        std::cout << "请输入有效的能量回收模式 (1 - 高, 2 - 低，3 - 关闭): ";
-        std::cin >> energyRecoveryMode;
+    for (size_t i = 0; i < energyRecoveryModes.size(); ++i) {
+        std::cout << i + 1 << " - " << energyRecoveryModes[i] << std::endl;
     }
-    if (energyRecoveryMode == "1") {
-        return "高";
-   }
-    else if(energyRecoveryMode == "2"){
-        return "低";
+
+    int userChoice;
+    std::cout << "请输入选择的能量回收模式编号：";
+    std::cin >> userChoice;
+
+    while (userChoice < 1 || userChoice > static_cast<int>(energyRecoveryModes.size())) {
+        std::cout << "请输入有效的能量回收模式编号：";
+        std::cin >> userChoice;
     }
-    else {
-        return "关闭";
-    }
+    std::cout<< std::endl;
+    return energyRecoveryModes[userChoice - 1];
    
 }
 
 std::string Input::selectChargingPlan() {
-    std::string chargingPlan;
-    std::cout << "请选择充电计划 (1 - 即时充电, 2 - 定时充电): ";
-    std::cin >> chargingPlan;
+    std::vector<std::string> chargingPlans;
+    for (const auto& pair : ElectricCarSettings::chargingPlanMap) {
+        chargingPlans.push_back(pair.first);
+    }
+    std::cout << "请选择充电计划：" << std::endl;
 
-    while (chargingPlan != "1" && chargingPlan != "2") {
-        std::cout << "请输入有效的充电计划 (1 - 即时充电, 2 - 定时充电): ";
-        std::cin >> chargingPlan;
+    for (size_t i = 0; i < chargingPlans.size(); ++i) {
+        std::cout << i + 1 << " - " << chargingPlans[i] << std::endl;
     }
-    if (chargingPlan == "1") {
-        return "即时充电";
+
+    int userChoice;
+    std::cout << "请输入选择的充电计划编号：";
+    std::cin >> userChoice;
+
+    while (userChoice < 1 || userChoice > static_cast<int>(chargingPlans.size())) {
+        std::cout << "请输入有效的充电计划编号：";
+        std::cin >> userChoice;
     }
-    else {
-        return "定时充电";
-    }
+    std::cout << std::endl;
+    return chargingPlans[userChoice - 1];
+
 }
 
 std::string Input::selectBatteryTemperatureManagement() {
-    std::string batteryTemperatureManagement;
-    std::cout << "请选择电池温度管理 (1 - 主动, 2 - 被动): ";
-    std::cin >> batteryTemperatureManagement;
+    std::vector<std::string> batteryTemperatureManagements;
+    for (const auto& pair : ElectricCarSettings::temperatureManagementMap) {
+        batteryTemperatureManagements.push_back(pair.first);
+    }
+    std::cout << "请选择电池温度管理：" << std::endl;
 
-    while (batteryTemperatureManagement != "1" && batteryTemperatureManagement != "2") {
-        std::cout << "请输入有效的电池温度管理 (1 - 主动, 2 - 被动): ";
-        std::cin >> batteryTemperatureManagement;
+    for (size_t i = 0; i < batteryTemperatureManagements.size(); ++i) {
+        std::cout << i + 1 << " - " << batteryTemperatureManagements[i] << std::endl;
     }
-    if (batteryTemperatureManagement == "1") {
-        return "主动";
+
+    int userChoice;
+    std::cout << "请输入选择的电池温度管理编号：";
+    std::cin >> userChoice;
+
+    while (userChoice < 1 || userChoice > static_cast<int>(batteryTemperatureManagements.size())) {
+        std::cout << "请输入有效的电池温度管理编号：";
+        std::cin >> userChoice;
     }
-    else {
-        return "被动";
-    }
+    std::cout << std::endl;
+    return batteryTemperatureManagements[userChoice - 1];
 }
 
+
+
 //数字参数输入
-int Input::selectPreheatCoolSettingTime() {
+int Input::selectPreHeatCoolSettingTime() {
+    std::cout << "请输入预热/预冷设定时间 (范围：" << ElectricCarSettings::minPreHeatCoolTime << " - " << ElectricCarSettings::maxPreHeatCoolTime << ", 单位：分钟，): ";
     int time;
-    std::cout << "请输入预热/预冷设定时间 (单位：分钟，大于0): ";
     std::cin >> time;
 
-    while (time <= 0 || std::cin.fail()) {
-        std::cout << "请输入有效的预热/预冷设定时间 (单位：分钟，大于0): ";
+    while (time < ElectricCarSettings::minPreHeatCoolTime || time > ElectricCarSettings::maxPreHeatCoolTime || std::cin.fail()) {
+        std::cout << "请输入有效的预热/预冷设定时间 (范围：" << ElectricCarSettings::minPreHeatCoolTime << " - " << ElectricCarSettings::maxPreHeatCoolTime << ", 单位：分钟，): ";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cin >> time;
     }
-
+    std::cout << std::endl;
     return time;
 }
 
-int Input::selectPreheatCoolTargetTemperature() {
+int Input::selectPreHeatCoolTargetTemperature() {
+    std::cout << "请输入预热/预冷目标温度 (范围：" << ElectricCarSettings::minPreHeatCoolTargetTemp << " - " << ElectricCarSettings::maxPreHeatCoolTargetTemp << "，单位：摄氏度): ";
     int temperature;
-    std::cout << "请输入预热/预冷目标温度 (范围16-30，单位：摄氏度): ";
     std::cin >> temperature;
 
-    while (temperature < 16 || temperature > 30 || std::cin.fail()) {
-        std::cout << "请输入有效的预热/预冷目标温度 (范围16-30，单位：摄氏度): ";
+    while (temperature < ElectricCarSettings::minPreHeatCoolTargetTemp || temperature > ElectricCarSettings::maxPreHeatCoolTargetTemp || std::cin.fail()) {
+        std::cout << "请输入有效的预热/预冷目标温度 (范围：" << ElectricCarSettings::minPreHeatCoolTargetTemp << " - " << ElectricCarSettings::maxPreHeatCoolTargetTemp << "，单位：摄氏度): ";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cin >> temperature;
     }
-
+    std::cout << std::endl;
     return temperature;
 }
 
 int Input::selectMaxDrivingSpeedLimit() {
+    std::cout << "请输入最大行驶速度限制 (范围：" << ElectricCarSettings::minSpeedLimit << " - " << ElectricCarSettings::maxSpeedLimit << "，单位：千米/时): ";
     int speedLimit;
-    std::cout << "请输入最大行驶速度限制 (范围30-300，单位：千米/时): ";
     std::cin >> speedLimit;
 
-    while (speedLimit < 30 || speedLimit > 300 || std::cin.fail()) {
-        std::cout << "请输入有效的最大行驶速度限制 (范围30-300，单位：千米/时): ";
+    while (speedLimit < ElectricCarSettings::minSpeedLimit || speedLimit > ElectricCarSettings::maxSpeedLimit || std::cin.fail()) {
+        std::cout << "请输入有效的最大行驶速度限制 (范围" << ElectricCarSettings::minSpeedLimit << " - " << ElectricCarSettings::maxSpeedLimit << "，单位：千米/时): ";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cin >> speedLimit;
     }
-
+    std::cout << std::endl;
     return speedLimit;
 }
 
 int Input::selectVolumeAdjustment() {
+    std::cout << "请输入音量调节 (范围：" << ElectricCarSettings::minVolume << " - " << ElectricCarSettings::maxVolume << "，单位：%): ";
     int volume;
-    std::cout << "请输入音量调节 (范围0-100，单位：%): ";
     std::cin >> volume;
 
-    while (volume < 0 || volume > 100 || std::cin.fail()) {
-        std::cout << "请输入有效的音量调节 (范围0-100，单位：%): ";
+    while (volume < ElectricCarSettings::minVolume || volume > ElectricCarSettings::maxVolume || std::cin.fail()) {
+        std::cout << "请输入有效的音量调节 (范围：" << ElectricCarSettings::minVolume << " - " << ElectricCarSettings::maxVolume << "，单位：%): ";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cin >> volume;
     }
-
+    std::cout << std::endl;
     return volume;
 }

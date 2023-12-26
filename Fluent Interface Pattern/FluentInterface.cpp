@@ -14,7 +14,7 @@ ElectricCarSettings& ElectricCarSettings::setChargingMode(const std::string& mod
         set_chargingMode = mode;
     }
     else {
-        std::cout << "请选择有效的充电模式" << std::endl;
+        std::cout << "未能匹配" << std::endl;
     }
     return *this;
 }
@@ -30,7 +30,7 @@ ElectricCarSettings& ElectricCarSettings::setConnectorType(const std::string& ty
         set_connectorType = type;
     }
     else {
-        std::cout << "请选择有效的充电连接器类型" << std::endl;
+        std::cout <<"未能匹配" << std::endl;
     }
     return *this;
 }
@@ -47,7 +47,7 @@ ElectricCarSettings& ElectricCarSettings::enableBatterySaveMode(const std::strin
         set_batterySaveMode = savemode;
     }
     else {
-        std::cout << "请选择有效的电池保存模式" << std::endl;
+        std::cout << "未能匹配" << std::endl;
     }
     return *this;
 }
@@ -64,7 +64,7 @@ ElectricCarSettings& ElectricCarSettings::setDriveMode(const std::string& mode) 
         set_driveMode = mode;
     }
     else {
-        std::cout << "请选择有效的驾驶模式" << std::endl;
+        std::cout << "未能匹配" << std::endl;
     }
     return *this;
 }
@@ -82,7 +82,7 @@ ElectricCarSettings& ElectricCarSettings::setEnergyRecoveryMode(const std::strin
         set_energyRecoveryMode = mode;
     }
     else {
-        std::cout << "请选择有效的能量回收模式" << std::endl;
+        std::cout << "未能匹配" << std::endl;
     }
     return *this;
 }
@@ -100,7 +100,7 @@ ElectricCarSettings& ElectricCarSettings::setChargingPlan(const std::string& pla
         set_chargingPlan = plan;
     }
     else {
-        std::cout << "请选择有效的充电计划" << std::endl;
+        std::cout << "未能匹配" << std::endl;
     }
     return *this;
 }
@@ -117,7 +117,7 @@ ElectricCarSettings& ElectricCarSettings::setBatteryTemperatureManagement(const 
         set_batteryTemperatureManagement = management;
     }
     else {
-        std::cout << "请选择有效的电池温度管理模式" << std::endl;
+        std::cout << "未能匹配" << std::endl;
     }
     return *this;
 }
@@ -156,5 +156,5 @@ void ElectricCarSettings::displaySettings() const {
     std::cout << "预热/预冷设定时间: " << preHeatCoolSettingTime <<"分钟"<< std::endl;
     std::cout << "预热/预冷目标温度: " << preHeatCoolTargetTemperature << "摄氏度" << std::endl;
     std::cout << "最大行驶速度设定: " << maxDrivingSpeedLimit << "千米/时" << std::endl;
-    std::cout << "音响和娱乐系统设置 (音量调节): " << volumeAdjustment << "%" << std::endl;
+    std::cout << "音响音量调节: " << volumeAdjustment << "%" << std::endl;
 }

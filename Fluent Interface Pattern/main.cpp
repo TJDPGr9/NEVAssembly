@@ -2,19 +2,14 @@
 #include "Input.h"
 int main() {
    
-   
-
     ElectricCarSettings settings;
     
-
-
-
     settings
         
         .setVolumeAdjustment(Input::selectVolumeAdjustment())
         .setMaxDrivingSpeedLimit(Input::selectMaxDrivingSpeedLimit())
-        .setPreheatCoolTargetTemperature(Input::selectPreheatCoolTargetTemperature())
-        .setPreheatCoolSettingTime(Input::selectPreheatCoolSettingTime())
+        .setPreheatCoolTargetTemperature(Input::selectPreHeatCoolTargetTemperature())
+        .setPreheatCoolSettingTime(Input::selectPreHeatCoolSettingTime())
        
         .setBatteryTemperatureManagement(Input::selectBatteryTemperatureManagement())
         .setChargingPlan(Input::selectChargingPlan())

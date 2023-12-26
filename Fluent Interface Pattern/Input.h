@@ -5,7 +5,7 @@
 #include "FluentInterface.h"
 #include <iostream>
 #include <string>
-
+#include <vector>
 class Input {
 public:
     static std::string selectChargingMode();
@@ -17,8 +17,8 @@ public:
     static std::string selectBatteryTemperatureManagement();
 
     // 添加数字参数的选择函数
-    static int selectPreheatCoolSettingTime();
-    static int selectPreheatCoolTargetTemperature();
+    static int selectPreHeatCoolSettingTime();
+    static int selectPreHeatCoolTargetTemperature();
     static int selectMaxDrivingSpeedLimit();
     static int selectVolumeAdjustment();
 };

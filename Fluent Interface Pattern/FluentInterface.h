@@ -49,9 +49,21 @@ private:
    
     // 添加数字参数
     int preHeatCoolSettingTime;
+    static const int minPreHeatCoolTime = 5;
+    static const int maxPreHeatCoolTime = 30;
+    
     int preHeatCoolTargetTemperature;
+    static const int minPreHeatCoolTargetTemp = 16;
+    static const int maxPreHeatCoolTargetTemp = 30;
+
     int maxDrivingSpeedLimit;
+    static const int maxSpeedLimit = 300;
+    static const int minSpeedLimit = 30;
+
     int volumeAdjustment;
+    static const int minVolume = 0;
+    static const int maxVolume = 100;
+
 public:
     ElectricCarSettings();
     //枚举参数

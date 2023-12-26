@@ -6,10 +6,10 @@ on:
   push:
     branches: ['standalone','main','release*']
     paths: 
-      - '*.yml'
+      - '*/*.yml'
       - '*Pattern'
-      - '*.cpp'
-      - '*.h'
+      - '*/*.cpp'
+      - '*/*.h'
       - '*/CMakeLists.txt'
   pull_request:
     branches: ['standalone','main','release*']

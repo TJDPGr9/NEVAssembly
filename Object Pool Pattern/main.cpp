@@ -41,7 +41,6 @@ public:
 private:
     std::vector<std::shared_ptr<ElectricCar>> pool_;
 };
-
 int main() {
     // 创建汽车池
     CarPool carPool;
@@ -61,6 +60,6 @@ int main() {
     // 再次从池中获取汽车对象，此时应该是复用之前的对象
     std::shared_ptr<ElectricCar> car3 = carPool.getCar();
     car3->charge();
-
+    std::cin.get();
     return 0;
 }

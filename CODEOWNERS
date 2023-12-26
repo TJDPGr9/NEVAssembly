@@ -11,7 +11,9 @@ Mediator* @Cryamor
 Observer* @singularitycjr
 State* @M2030123
 Interpreter* @M2030123 @AbigailJixiangyuyu
+Class*  @AbigailJixiangyuyu
 Visitor* @Yontine
 Prototype* @Yontine
 Factory*  @PeachOolongttea
 Iterator* @PeachOolongttea
+Fluent* @PeachOolongttea

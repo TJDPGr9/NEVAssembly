@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # 设置项目名称
-project(MySingleFileProject)
+project(NewEngeryState)
 
 # 添加头文件
 set(HEADERS

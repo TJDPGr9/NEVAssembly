@@ -1,7 +1,13 @@
 #include "FluentInterface.h"
 #include "Input.h"
+#ifdef _WIN32
+#include<Windows.h>
+#endif
 int main() {
-   
+#ifdef _WIN32
+    SetConsoleOutputCP(936);
+    SetConsoleCP(936);
+#endif
     ElectricCarSettings settings;
     
     settings
@@ -19,6 +25,6 @@ int main() {
         .setConnectorType(Input::selectConnectorType())
         .setChargingMode(Input::selectChargingMode())
         .displaySettings();
-
+    std::cin.get();
     return 0;
 }

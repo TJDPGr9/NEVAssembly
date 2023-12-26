@@ -4,6 +4,7 @@ Decorator*  @jwa2003
 Flyweight* @jwa2003
 Facade*  @Funny0101
 Strategy* @Funny0101
+Command* @Funny0101
 Mediator* @Cryamor
 *.ppt @Cryamor
 *.pptx @Cryamor
@@ -14,4 +15,3 @@ Visitor* @Yontine
 Prototype* @Yontine
 Factory*  @PeachOolongttea
 Iterator* @PeachOolongttea
-

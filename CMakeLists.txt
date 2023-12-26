@@ -24,6 +24,8 @@ add_subdirectory("Iterator Pattern")
 add_subdirectory("Flyweight Pattern")
 add_subdirectory("Strategy Pattern")
 add_subdirectory("Interpreter Pattern")
+add_subdirectory("Command Pattern")
+add_subdirectory("Adapter Pattern")
 link_directories("Interpreter Pattern")
 #link_libraries("Interpreter Pattern/include/json")
 # 设置编译器选项（可选）

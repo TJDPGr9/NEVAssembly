@@ -5,20 +5,8 @@ name: CMake on a multiple platform
 on:
   push:
     branches: ['standalone','main','release*']
-    paths: 
-      - '*/*.yml'
-      - '*Pattern'
-      - '*/*.cpp'
-      - '*/*.h'
-      - '*/CMakeLists.txt'
   pull_request:
     branches: ['standalone','main','release*']
-    paths: 
-      - '*.yml'
-      - '*Pattern'
-      - '*.cpp'
-      - '*.h'
-      - '*/CMakeLists.txt'
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release

@@ -52,6 +52,8 @@ set(LIB_SOURCES
 	abstract_lib
 	adapter_lib
 	command_lib
+	fluent_lib
+	objectpool
 	nlohmann_json::nlohmann_json
 )
 #add_library(main STATIC ${LIB_SOURCES})

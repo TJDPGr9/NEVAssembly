@@ -17,6 +17,8 @@
 #include"Abstract Factory Pattern/test.cpp"
 #include"Adapter Pattern/Adapter.cpp"
 #include"Command Pattern/command.cpp"
+#include"Object Pool Pattern/main.cpp"
+#include"Fluent Interface Pattern/main.cpp"
 #ifdef _WIN32
 #include<Windows.h>
 #endif
@@ -42,5 +44,10 @@ int main(){
 		case 3:
 			Command2::test();
 			break;
+		case 4:
+			ObjectPool::test();
+			break;
+		case 5:
+			FluentInterface::test();
 		}
 }

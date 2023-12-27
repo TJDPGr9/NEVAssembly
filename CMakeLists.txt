@@ -28,6 +28,7 @@ add_subdirectory("Command Pattern")
 add_subdirectory("Adapter Pattern")
 add_subdirectory("Object Pool Pattern")
 add_subdirectory("Fluent Interface Pattern")
+add_subdirectory("Specification Pattern")
 link_directories("Interpreter Pattern")
 #link_libraries("Interpreter Pattern/include/json")
 # 设置编译器选项（可选）

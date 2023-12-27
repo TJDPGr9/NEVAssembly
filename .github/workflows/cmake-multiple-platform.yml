@@ -4,13 +4,9 @@ name: CMake on a multiple platform
 
 on:
   push:
-    branches:
-      - main
-      - 'release*'
+    branches: ['standalone','main','release*']
   pull_request:
-    branches:
-      - main
-      - 'release*'
+    branches: ['standalone','main','release*']
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release

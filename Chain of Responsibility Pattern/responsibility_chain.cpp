@@ -1,7 +1,7 @@
 #include "responsibility.h"
 
 namespace ResponsibilityChain {
-    int main() {
+    int test() {
         // 创建责任链
         SupplierA supplierA;
         SupplierB supplierB;

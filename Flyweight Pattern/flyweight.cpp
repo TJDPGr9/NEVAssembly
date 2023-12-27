@@ -320,66 +320,60 @@ std::string IntToString(int num) {
     ss << num;
     return ss.str();
 }
-#ifdef _WIN32
-#include<Windows.h>
-#endif
-int main()
-{
-#ifdef _WIN32
-    SetConsoleCP(936);
-    SetConsoleOutputCP(936);
-#endif
-    // 初始化仓库
-    vector<Transport::FactoryStore> fStores;
-    for (int i = 1; i <= MAX_STORE_NUM; i++) {
-        Transport::FactoryStore tmp(i, 1000);  //库存初始化为1000
-        fStores.push_back(tmp);
-    }
-    // 初始化物流网点
-    Transport::TransportEndGraph tsEndGraph;
-    vector<string> endNames = { "上海", "武汉", "重庆", "珠江口", "海南岛" };
-    for (int i = 1; i <= MAX_TRANSPORT_END_NUM; i++) {
-        string endName = (i <= endNames.size()) ? endNames[i - 1] : "未命名网点" + IntToString(i);
-        tsEndGraph.insertVertex(Transport::TransportEnd(i, endName));
-    }
-    tsEndGraph.insertEdge(1, 2);
-    tsEndGraph.insertEdge(1, 3);
-    tsEndGraph.insertEdge(1, 4);
-    tsEndGraph.insertEdge(4, 5);
-    // 初始化物流公司
-    vector<Transport::TransportCompany> tsCompys;
-    string tmp = "中国远洋运输集团有限公司";
-    tsCompys.push_back(Transport::TransportCompany(1, tmp));
-    tmp = "中远汽车物流有限公司";
-    tsCompys.push_back(Transport::TransportCompany(2, tmp));
-    tmp = "中国海外运输有限公司";
-    tsCompys.push_back(Transport::TransportCompany(3, tmp));
-    tmp = "中集车辆运输有限公司";
-    tsCompys.push_back(Transport::TransportCompany(4, tmp));
-    tmp = "中国长航汽运集团有限公司";
-    tsCompys.push_back(Transport::TransportCompany(5, tmp));
-    tmp = "中国远洋汽车运输有限公司";
-    tsCompys.push_back(Transport::TransportCompany(6, tmp));
-    int option;
-    while (1)
+namespace Flyweight {
+    int test()
     {
-        system("cls");
-        cout << "===============物流运输===============" << endl;
-        cout << "主菜单：" << endl;
-        cout << "1.发货" << endl;
-        cout << "0.退出" << endl;
-        cout << "请选择需要的操作：";
-        Transport::Client::inputInt(option, 1);
-        switch (option) {
-        case 1:	//发货
-            Transport::Client::trans_storage(fStores, tsEndGraph, tsCompys);
-            break;
-        case 0:
-            exit(0);
-            break;
-        default:
-            break;
+        // 初始化仓库
+        vector<Transport::FactoryStore> fStores;
+        for (int i = 1; i <= MAX_STORE_NUM; i++) {
+            Transport::FactoryStore tmp(i, 1000);  //库存初始化为1000
+            fStores.push_back(tmp);
+        }
+        // 初始化物流网点
+        Transport::TransportEndGraph tsEndGraph;
+        vector<string> endNames = { "上海", "武汉", "重庆", "珠江口", "海南岛" };
+        for (int i = 1; i <= MAX_TRANSPORT_END_NUM; i++) {
+            string endName = (i <= endNames.size()) ? endNames[i - 1] : "未命名网点" + IntToString(i);
+            tsEndGraph.insertVertex(Transport::TransportEnd(i, endName));
+        }
+        tsEndGraph.insertEdge(1, 2);
+        tsEndGraph.insertEdge(1, 3);
+        tsEndGraph.insertEdge(1, 4);
+        tsEndGraph.insertEdge(4, 5);
+        // 初始化物流公司
+        vector<Transport::TransportCompany> tsCompys;
+        string tmp = "中国远洋运输集团有限公司";
+        tsCompys.push_back(Transport::TransportCompany(1, tmp));
+        tmp = "中远汽车物流有限公司";
+        tsCompys.push_back(Transport::TransportCompany(2, tmp));
+        tmp = "中国海外运输有限公司";
+        tsCompys.push_back(Transport::TransportCompany(3, tmp));
+        tmp = "中集车辆运输有限公司";
+        tsCompys.push_back(Transport::TransportCompany(4, tmp));
+        tmp = "中国长航汽运集团有限公司";
+        tsCompys.push_back(Transport::TransportCompany(5, tmp));
+        tmp = "中国远洋汽车运输有限公司";
+        tsCompys.push_back(Transport::TransportCompany(6, tmp));
+        int option;
+        while (1)
+        {
+            system("cls");
+            cout << "===============物流运输===============" << endl;
+            cout << "主菜单：" << endl;
+            cout << "1.发货" << endl;
+            cout << "0.退出" << endl;
+            cout << "请选择需要的操作：";
+            Transport::Client::inputInt(option, 1);
+            switch (option) {
+            case 1:	//发货
+                Transport::Client::trans_storage(fStores, tsEndGraph, tsCompys);
+                break;
+            case 0:
+                exit(0);
+                break;
+            default:
+                break;
+            }
         }
     }
-    std::cin.get();
 }

@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include"Builder.h"
 // 具体构造者类
+using namespace Builder_Car;
 class CarBuilder : public Builder {
 private:
-    Car car;
+    Builder_Car::Car car;
 
 public:
     void buildBody();
@@ -17,5 +18,5 @@ public:
 
     void buildFinalAssembly();
 
-    Car getResult();
+    Builder_Car::Car getResult();
 };

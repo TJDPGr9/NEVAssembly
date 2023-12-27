@@ -5,23 +5,23 @@
 #include <iostream>
 
 void assembleCar(CarFactory* factory);
+namespace AbstractFactory {
+    int test() {
+        // 生产比亚迪海鸥
+        CarFactory* SeagullFactory = new SeagullCarFactory();
+        assembleCar(SeagullFactory);
+        delete SeagullFactory;
 
-int main() {
-    // 生产比亚迪海鸥
-    CarFactory* SeagullFactory = new SeagullCarFactory();
-    assembleCar(SeagullFactory);
-    delete SeagullFactory;
+        std::cout << std::endl;
 
-    std::cout << std::endl;
+        // 生产大众ID4
+        CarFactory* ID4Factory = new ID4CarFactory();
+        assembleCar(ID4Factory);
+        delete ID4Factory;
 
-    // 生产大众ID4
-    CarFactory* ID4Factory = new ID4CarFactory();
-    assembleCar(ID4Factory);
-    delete ID4Factory;
-    std::cin.get();
-    return 0;
+        return 0;
+    }
 }
-
 void assembleCar(CarFactory* factory) {
     CarFrame* frame = factory->createCarFrame();
     ExternalComponents* externalComponents = factory->createExternalComponents();
@@ -37,3 +37,4 @@ void assembleCar(CarFactory* factory) {
     delete externalComponents;
     delete internalDecoration;
 }
+

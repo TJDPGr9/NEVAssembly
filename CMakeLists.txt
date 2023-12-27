@@ -5,6 +5,10 @@ cmake_minimum_required(VERSION 3.10)
 project(NewEnergyCar)
 
 # 遍历所有的子目录
+#set(CMAKE_CXX_STANDARD 11)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory("Builder Pattern")
 add_subdirectory("Decorator Pattern")
 add_subdirectory("Facade Pattern")
@@ -24,6 +28,33 @@ add_subdirectory("Command Pattern")
 add_subdirectory("Adapter Pattern")
 add_subdirectory("Object Pool Pattern")
 add_subdirectory("Fluent Interface Pattern")
+link_directories("Interpreter Pattern")
+#link_libraries("Interpreter Pattern/include/json")
 # 设置编译器选项（可选）
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+add_executable(main main.cpp)
+
+set(LIB_SOURCES
+	visitor_lib
+	strategy_lib
+	state_lib
+	prototype_lib
+	observer_lib
+	mediator_lib
+	iterator_lib
+	interpretor_lib
+	flyweight_lib
+	factory_lib
+	facade_lib
+	decorator_lib
+	chain_lib
+	builder_lib
+	abstract_lib
+	adapter_lib
+	command_lib
+	nlohmann_json::nlohmann_json
+)
+#add_library(main STATIC ${LIB_SOURCES})
+target_link_libraries(main PRIVATE  ${LIB_SOURCES})
+target_include_directories(main PRIVATE  ${SUBDIRECTORIES})
 

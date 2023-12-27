@@ -98,10 +98,13 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
     pair<int, string> info = featureInfoMap_[feature];
     {
         lock_guard<std::mutex> lock(infoMutex);
+#ifdef _WIN32
+        if (IsDebuggerPresent())
         cout << ANSI_COLOR_RESET;
+#endif
         if (firstLine)
             setCursorPosition(0, firstLine + get<0>(info) * 3 - 4);
-        cout << ANSI_COLOR_RESET << "ÑÐ·¢ÌØÐÔ£º" << feature << std::endl;
+        cout << "ÑÐ·¢ÌØÐÔ£º" << feature << std::endl;
         if (firstLine == 0) {
             setFirstLine(getCurrentConsoleLine());
         }
@@ -109,12 +112,16 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
 
     // Ä£ÄâÑÐ·¢¹ý³Ì
     for (int i = 0; i < 10; i++) {
-        if (i < 3)
-            cout << ANSI_COLOR_RED;
-        else if (i < 6)
-            cout << ANSI_COLOR_YELLOW;
-        else if (i < 10)
-            cout << ANSI_COLOR_GREEN;
+#ifdef _WIN32
+        if (IsDebuggerPresent()) {
+            if (i < 3)
+                cout << ANSI_COLOR_RED;
+            else if (i < 6)
+                cout << ANSI_COLOR_YELLOW;
+            else if (i < 10)
+                cout << ANSI_COLOR_GREEN;
+        }
+#endif
         {
             std::lock_guard<std::mutex> lock(infoMutex);
             setCursorPosition(0, firstLine + get<0>(info) * 3 - 3);
@@ -145,7 +152,10 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
         sleep(100 * get<0>(info));
         #endif
     }
-    cout << ANSI_COLOR_RESET;
+#ifdef _WIN32
+    if(IsDebuggerPresent())
+        cout << ANSI_COLOR_RESET;
+#endif
     std::cout << endl;
     {
         std::lock_guard<std::mutex> lock(infoMutex);

@@ -3,7 +3,6 @@
 #include <thread>
 #include<list>
 #include<chrono>
-
 #include <future>
 #ifdef _WIN32
 #include <Windows.h>
@@ -58,38 +57,39 @@ public:
         
     }
 };
-int main() {
-    #ifdef _WIN32
-    setCodePage();
-    if (!IsDebuggerPresent()) {
-        // Enable ANSI escape codes for console color in Release mode
-        SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), ENABLE_VIRTUAL_TERMINAL_PROCESSING);
-    }
-    #endif
-    DevelopmentTeam team;
+namespace Command2 {
+    int test() {
+#ifdef _WIN32
+        setCodePage();
+        if (!IsDebuggerPresent()) {
+            // Enable ANSI escape codes for console color in Release mode
+            SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+        }
+#endif
+        DevelopmentTeam team;
 
-    SplitRequirementsCommand splitRequirements(&team, "¸ßÐÔÄÜ¡¢µç¶¯¡¢×Ô¶¯¼ÝÊ»");
-    SetPriorityAndDueCommand setPriority1(&team, "µç¶¯»ú", 1, "2023-01-01");
-    SetPriorityAndDueCommand setPriority2(&team, "×Ô¶¯¼ÝÊ»", 2, "2023-02-01");
-    SetPriorityAndDueCommand setPriority3(&team, "¸ßÐÔÄÜµç³Ø", 3, "2023-03-01");
-    DevelopFeatureCommand developFeature1(&team, "µç¶¯»ú");
-    DevelopFeatureCommand developFeature2(&team, "×Ô¶¯¼ÝÊ»");
-    DevelopFeatureCommand developFeature3(&team, "¸ßÐÔÄÜµç³Ø");
-    Marketing* market = new Marketing();
-    market->setCommand(&splitRequirements);
-    market->executeParallelCommands();
-    list<Command*> args;
-    args.push_back(&setPriority1);
-    args.push_back(&setPriority2);
-    args.push_back(&setPriority3);
-    market->setCommands(args);
-    market->executeParallelCommands();
-    args.clear();
-    args.push_back(&developFeature1);
-    args.push_back(&developFeature2);
-    args.push_back(&developFeature3);
-    market->setCommands(args);
-    market->executeParallelCommands();
-    std::cin.get();
-    return 0;
+        SplitRequirementsCommand splitRequirements(&team, "¸ßÐÔÄÜ¡¢µç¶¯¡¢×Ô¶¯¼ÝÊ»");
+        SetPriorityAndDueCommand setPriority1(&team, "µç¶¯»ú", 1, "2023-01-01");
+        SetPriorityAndDueCommand setPriority2(&team, "×Ô¶¯¼ÝÊ»", 2, "2023-02-01");
+        SetPriorityAndDueCommand setPriority3(&team, "¸ßÐÔÄÜµç³Ø", 3, "2023-03-01");
+        DevelopFeatureCommand developFeature1(&team, "µç¶¯»ú");
+        DevelopFeatureCommand developFeature2(&team, "×Ô¶¯¼ÝÊ»");
+        DevelopFeatureCommand developFeature3(&team, "¸ßÐÔÄÜµç³Ø");
+        Marketing* market = new Marketing();
+        market->setCommand(&splitRequirements);
+        market->executeParallelCommands();
+        list<Command*> args;
+        args.push_back(&setPriority1);
+        args.push_back(&setPriority2);
+        args.push_back(&setPriority3);
+        market->setCommands(args);
+        market->executeParallelCommands();
+        args.clear();
+        args.push_back(&developFeature1);
+        args.push_back(&developFeature2);
+        args.push_back(&developFeature3);
+        market->setCommands(args);
+        market->executeParallelCommands();
+        return 0;
+    }
 }

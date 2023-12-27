@@ -56,6 +56,7 @@ set(LIB_SOURCES
 	fluent_lib
 	objectpool
 	nlohmann_json::nlohmann_json
+	specification_lib
 )
 #add_library(main STATIC ${LIB_SOURCES})
 target_link_libraries(main PRIVATE  ${LIB_SOURCES})

@@ -19,6 +19,7 @@
 #include"Command Pattern/command.cpp"
 #include"Object Pool Pattern/main.cpp"
 #include"Fluent Interface Pattern/main.cpp"
+#include"Specification Pattern/test.cpp"
 #ifdef _WIN32
 #include<Windows.h>
 #endif
@@ -48,6 +49,6 @@ int main(){
 			ObjectPool::test();
 			break;
 		case 5:
-			FluentInterface::test();
+			Specification::test();
 		}
 }

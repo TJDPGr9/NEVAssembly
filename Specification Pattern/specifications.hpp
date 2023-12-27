@@ -1,7 +1,7 @@
 #pragma once
 
 #include "specification_template.hpp"
-#include "CarPart.h"
+#include "CarPart.hpp"
 #include <memory>
 
 // Concrete Specification for Battery Capacity

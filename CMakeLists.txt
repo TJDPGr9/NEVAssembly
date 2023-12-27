@@ -24,6 +24,7 @@ add_subdirectory("Command Pattern")
 add_subdirectory("Adapter Pattern")
 add_subdirectory("Object Pool Pattern")
 add_subdirectory("Fluent Interface Pattern")
+add_subdirectory("Specification Pattern")
 # 设置编译器选项（可选）
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 

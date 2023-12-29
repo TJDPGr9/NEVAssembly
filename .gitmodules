@@ -1,3 +1,0 @@
-[submodule "Interpreter Pattern/include/json"]
-	path = Interpreter Pattern/include/json
-	url = https://github.com/nlohmann/json

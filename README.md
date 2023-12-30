@@ -5,4 +5,8 @@
 新能源汽车的装配——设计模式期末大作业
 
 ## Open Source Acknowledgement
-Lohmann, N. (2023). JSON for Modern C++ (Version 3.11.3) [Computer software]. https://github.com/nlohmann
+1. Lohmann, N. (2023). JSON for Modern C++ (Version 3.11.3) [Computer software]. https://github.com/nlohmann
+
+2. Sam Lantinga ([slouken@libsdl.org](mailto:slouken@libsdl.org)) Simple Directmedia Layer(SDL2) https://github.com/libsdl-org/SDL
+
+3. Sam Lantinga ([slouken@libsdl.org](mailto:slouken@libsdl.org)) Support for TrueType (.ttf) font files with Simple Directmedia Layer.https://github.com/libsdl-org/SDL_ttf

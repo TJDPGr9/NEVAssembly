@@ -32,6 +32,9 @@ public:
 
     void receiveMessage(Colleague* sender, const std::string& message) override {
         std::cout << name << " receives message from " << sender->getName() << ": " << message << std::endl;
+        if (message.find("is available") != std::string::npos) {
+            std::cout << "Supply from " << sender->getName() << " through " << name << " is completed." << std::endl;
+        }
     }
 
     void sendMessage(std::string receiver, const std::string& message) override {

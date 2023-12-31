@@ -31,220 +31,548 @@ extern "C" {
 #endif
 #include<string>
 #include<iostream>
-using namespace std;
-bool executeExecutable(const std::string& executablePath) {
-#ifdef _WIN32
-    // Windows平台
-    PROCESS_INFORMATION processInfo;
-    STARTUPINFO startupInfo;
-    ZeroMemory(&startupInfo, sizeof(startupInfo));
-    startupInfo.cb = sizeof(startupInfo);
 
-    if (CreateProcess(
-        NULL,
-        (LPSTR)executablePath.c_str(),
-        NULL,
-        NULL,
-        FALSE,
-        0,
-        NULL,
-        NULL,
-        &startupInfo,
-        &processInfo
-    )) {
-        WaitForSingleObject(processInfo.hProcess, INFINITE);
-        CloseHandle(processInfo.hProcess);
-        CloseHandle(processInfo.hThread);
-        return true;
-    }
-    else {
-        std::cerr << "Failed to create process. Error code: " << GetLastError() << std::endl;
-        return false;
-    }
-#else
-    // 非Windows平台
-    pid_t pid = fork();
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
 
-    if (pid == -1) {
-        std::cerr << "Failed to fork." << std::endl;
-        return false;
+const int TITLE_X = 150;
+const int TITLE_Y = 10;
+const int TITLE_WIDTH = 500;
+const int TITLE_HEIGHT = 50;
+
+const int BUTTON_WIDTH = 400;
+const int BUTTON_HEIGHT = 50;
+const int BUTTON_MARGIN = 10;
+const int BUTTON_GAP = 10;
+const int BUTTON_X = 200;
+const int BUTTON_START_Y = 80;
+
+const int BACK_BUTTON_X = 600;
+const int BACK_BUTTON_Y = 550;
+const int BACK_BUTTON_WIDTH = 200;
+
+const int PAGE_NUM = 9;
+
+SDL_Window* window = nullptr;
+SDL_Renderer* renderer = nullptr;
+TTF_Font* font = nullptr;
+
+const SDL_Color DEFAULT_TEXT_COLOR = { 0,0,0,255 };
+const SDL_Color DEFAULT_BUTTON_COLOR = { 200,200,200,255 };
+const SDL_Color DEFAULT_ONCLICK_COLOR = { 128,128,128,255 };
+const SDL_Color DEFAULT_BACK_COLOR = { 255,255,255,255 };
+const SDL_Color DEFAULT_TITLE_COLOR = { 0, 0, 255, 255 };
+const SDL_Rect DEFAULT_TITLE_RECT = { TITLE_X, TITLE_Y, TITLE_WIDTH, TITLE_HEIGHT };
+
+const int TEXT_BLOCK_X = 150;
+const int TEXT_BLOCK_Y = 150;
+const int TEXT_BLOCK_WIDTH = 500;
+
+// Pages
+enum Page {
+    MENU,
+    DEVELOPMENT,
+    SUPPLY,
+    ASSEMBLY,
+    INSPECTION,
+    TRANSPORTATION,
+    SALE,
+    USAGE,
+    RECOGNITION
+};
+
+const char* PAGE_TEXT[PAGE_NUM] = { "MAIN MENU", "RESEARCH & DEVELOPMENT", "SUPPLY", "ASSEMBLY", "QUALITY INSPECTION & TEST", "TRANSPORTATION", "SALE", "USAGE", "CAR RECOGNITION" };
+
+Page currentPage = MENU;
+
+int init() {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        return -1;
     }
-    else if (pid == 0) {
-        execl(executablePath.c_str(), executablePath.c_str(), NULL);
-        std::cerr << "Failed to execute the child process." << std::endl;
-        return false;
+
+    if (TTF_Init() == -1) {
+        printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+        return -1;
     }
-    else {
-        waitpid(pid, NULL, 0);
-        return true;
+
+    window = SDL_CreateWindow("New Energy Car Assembly", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    if (window == nullptr) {
+        printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+        return -1;
     }
-#endif
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (renderer == nullptr) {
+        printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+        return -1;
+    }
+
+    font = TTF_OpenFont("C:/Windows/Fonts/times.ttf", 24); 
+    if (font == nullptr) {
+        printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
+        return -1;
+    }
+
+    return 0;
 }
-void renderText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, int x, int y) {
-    SDL_Color textColor = { 255, 255, 255 };  // 白色文本
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+
+void cleanup() {
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    TTF_CloseFont(font);
+    TTF_Quit();
+    SDL_Quit();
+}
+
+SDL_Texture* createTextTexture(const char* text, SDL_Color textColor) {
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    SDL_FreeSurface(textSurface);
+    return textTexture;
+}
+
+void renderButton(const char* text, SDL_Rect buttonRect, SDL_Color textColor = DEFAULT_TEXT_COLOR, SDL_Color buttonColor = DEFAULT_BUTTON_COLOR) {
+    SDL_SetRenderDrawColor(renderer, buttonColor.r, buttonColor.g, buttonColor.b, buttonColor.a);
+    SDL_RenderFillRect(renderer, &buttonRect);
+
+    int text_width, text_height;
+    TTF_SizeText(font, text, &text_width, &text_height);
+    printf("text width: %d, height: %d\n", text_width, text_height);
+
+    SDL_Texture* textTexture = createTextTexture(text, textColor);
+
+    SDL_Rect textRect;
+    textRect.x = buttonRect.x + (buttonRect.w - text_width) / 2;
+    textRect.y = buttonRect.y + (buttonRect.h - text_height) / 2;
+    textRect.w = text_width;
+    textRect.h = text_height;
+
+    SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
+    SDL_DestroyTexture(textTexture);
+}
+
+void renderBackButton() {
+    SDL_Rect back_button = { BACK_BUTTON_X, BACK_BUTTON_Y, BACK_BUTTON_WIDTH, BUTTON_HEIGHT };
+    SDL_Color buttonColor = { 255, 0, 0, 255 };
+    renderButton("Back", back_button, DEFAULT_TEXT_COLOR, buttonColor);
+}
+
+void renderTitle(const char* text, SDL_Rect titleRect = DEFAULT_TITLE_RECT, SDL_Color textColor = DEFAULT_TITLE_COLOR) {
+    int text_width, text_height;
+    TTF_SizeText(font, text, &text_width, &text_height);
+    text_width = int(float(titleRect.w) / text_width * text_width);
+    text_height = int(float(titleRect.h) / text_height * text_height);
+
+    SDL_Texture* titleTexture = createTextTexture(text, textColor);
+    SDL_Rect textRect;
+    textRect.x = titleRect.x + (titleRect.w - text_width) / 2;
+    textRect.y = titleRect.y + (titleRect.h - text_height) / 2;
+    textRect.w = text_width;
+    textRect.h = text_height;
+    SDL_RenderCopy(renderer, titleTexture, nullptr, &textRect);
+    SDL_DestroyTexture(titleTexture);
+}
+
+void renderTextBlock(const char* text) {
+    int text_width, text_height;
+
+    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text, DEFAULT_TEXT_COLOR, TEXT_BLOCK_WIDTH);
     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-    SDL_Rect textRect = { x, y, textSurface->w, textSurface->h };
-    SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+    text_width = textSurface->w;
+    text_height = textSurface->h;
+    printf("w: %d, h: %d\n", text_width, text_height);
 
-    SDL_DestroyTexture(textTexture);
     SDL_FreeSurface(textSurface);
+
+    SDL_Rect textBlockRect = { TEXT_BLOCK_X,TEXT_BLOCK_Y,TEXT_BLOCK_WIDTH,text_height };
+    SDL_RenderCopy(renderer, textTexture, NULL, &textBlockRect);
+    SDL_DestroyTexture(textTexture);
 }
-int main(int argc, char* argv[]) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr << "SDL initialization failed: " << SDL_GetError() << std::endl;
-        return 1;
+
+void clearScreen() {
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+    //SDL_RenderPresent(renderer);
+}
+
+void renderMainMenu() {
+    clearScreen();
+    // render title
+    renderTitle("New Energy Car Assembly");
+
+    // render buttons
+    for (int i = 0; i < PAGE_NUM - 1; i++) {
+        SDL_Rect buttonRect = { BUTTON_X, BUTTON_START_Y + BUTTON_GAP * i + BUTTON_HEIGHT * i, BUTTON_WIDTH, BUTTON_HEIGHT };
+        renderButton(PAGE_TEXT[i + 1], buttonRect);
+    }
+    SDL_RenderPresent(renderer);
+}
+
+void renderDevelopment(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,450,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    SDL_Rect button_rect = { 500,10,250,25 };
+    const char* button_text = "Command Pattern";
+    renderButton(button_text, button_rect);
+
+    if (x >= 500 && x <= 750 && y >= 10 && y <= 35) {
+        int index = (y - 10) / 30;
+        renderButton(button_text, button_rect, DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
+    }
+    else {
+        const char* original_text = "Research & Development Part contains:\n  1.Command Pattern";
+        renderTextBlock(original_text);
     }
 
-    if (TTF_Init() < 0) {
-        std::cerr << "SDL_ttf initialization failed: " << TTF_GetError() << std::endl;
-        SDL_Quit();
-        return 1;
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderSupply(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,150,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    const int patternNum = 4;
+    SDL_Rect button_rect[patternNum] = {
+        {400,10,300,25},
+        {400,40,300,25},
+        {400,70,300,25},
+        {400,100,300,25}
+    };
+
+    const char* button_text[patternNum] = {
+        "Factory Pattern",
+        "Abstract Factory Pattern",
+        "Build Pattern",
+        "Object Pool Pattern"
+    };
+
+    for (int i = 0; i < patternNum; i++) {
+        renderButton(button_text[i], button_rect[i]);
     }
 
-    SDL_Window* window = SDL_CreateWindow("SDL Text Output Example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
-    if (!window) {
-        std::cerr << "Window creation failed: " << SDL_GetError() << std::endl;
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
+    if (x >= 400 && x <= 700 && y >= 10 && y <= 125) {
+        int index = (y - 10) / 30;
+        renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text[index]);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
+    }
+    else {
+        const char* original_text = "Supply Part contains:\n  1.Factory Pattern\n  2.Abstract Factory Pattern\n  3.Build Pattern\n  4.Object Pool Pattern";
+        renderTextBlock(original_text);
     }
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (!renderer) {
-        std::cerr << "Renderer creation failed: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderAssembly(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,200,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    const int patternNum = 3;
+    SDL_Rect button_rect[patternNum] = {
+        {350,10,350,25},
+        {350,40,350,25},
+        {350,70,350,25}
+    };
+
+    const char* button_text[patternNum] = {
+        "Mediator Pattern",
+        "Chain of Responsibility Pattern",
+        "Observer Pattern"
+    };
+
+    for (int i = 0; i < patternNum; i++) {
+        renderButton(button_text[i], button_rect[i]);
     }
 
-    TTF_Font* font = TTF_OpenFont("C://Windows/Fonts/arial.ttf", 18);
-    if (!font) {
-        std::cerr << "Unable to load font! SDL_ttf Error: " << TTF_GetError() << std::endl;
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
+    if (x >= 350 && x <= 700 && y >= 10 && y <= 95) {
+        int index = (y - 10) / 30;
+        renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text[index]);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
     }
+    else {
+        const char* original_text = "Assembly Part contains:\n  1.Mediator Pattern\n  2.Chain of Responsibility Pattern\n  3.Observer Pattern";
+        renderTextBlock(original_text);
+    }
+
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderInspection(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,450,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    const int patternNum = 3;
+    SDL_Rect button_rect[patternNum] = {
+        {500,10,250,25},
+        {500,40,250,25},
+        {500,70,250,25}
+    };
+
+    const char* button_text[patternNum] = {
+        "State Pattern",
+        "Visitor Pattern",
+        "Adapter Pattern"
+    };
+
+    for (int i = 0; i < patternNum; i++) {
+        renderButton(button_text[i], button_rect[i]);
+    }
+
+    if (x >= 500 && x <= 750 && y >= 10 && y <= 95) {
+        int index = (y - 10) / 30;
+        renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text[index]);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
+    }
+    else {
+        const char* original_text = "Quality Inspection & Test Part contains:\n  1.State Pattern\n  2.Visitor Pattern\n  3.Adapter Pattern";
+        renderTextBlock(original_text);
+    }
+
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderTransportation(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,300,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    const int patternNum = 3;
+    SDL_Rect button_rect[patternNum] = {
+        {350,10,350,25},
+        {350,40,350,25},
+        {350,70,350,25}
+    };
+
+    const char* button_text[patternNum] = {
+        "Flyweight Pattern",
+        "Iterator Pattern",
+        "Strategy Pattern"
+    };
+
+    for (int i = 0; i < patternNum; i++) {
+        renderButton(button_text[i], button_rect[i]);
+    }
+
+    if (x >= 350 && x <= 700 && y >= 10 && y <= 95) {
+        int index = (y - 10) / 30;
+        renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text[index]);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
+    }
+    else {
+        const char* original_text = "Transportation Part contains:\n  1.Flyweight Pattern\n  2.Iterator Pattern\n  3.Strategy Pattern";
+        renderTextBlock(original_text);
+    }
+
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderSale(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,100,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    SDL_Rect button_rect = { 500,10,250,25 };
+    const char* button_text = "Prototype Pattern";
+    renderButton(button_text, button_rect);
+
+    if (x >= 500 && x <= 750 && y >= 10 && y <= 35) {
+        int index = (y - 10) / 30;
+        renderButton(button_text, button_rect, DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
+    }
+    else {
+        const char* original_text = "Sale Part contains:\n  1.Prototype Pattern";
+        renderTextBlock(original_text);
+    }
+
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderUsage(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,150,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    const int patternNum = 3;
+    SDL_Rect button_rect[patternNum] = {
+        {350,10,350,25},
+        {350,40,350,25},
+        {350,70,350,25}
+    };
+
+    const char* button_text[patternNum] = {
+        "Decorator Pattern",
+        "Fluent Interface Pattern",
+        "Specification Pattern"
+    };
+
+    for (int i = 0; i < patternNum; i++) {
+        renderButton(button_text[i], button_rect[i]);
+    }
+
+    if (x >= 350 && x <= 700 && y >= 10 && y <= 95) {
+        int index = (y - 10) / 30;
+        renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text[index]);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
+    }
+    else {
+        const char* original_text = "Usage Part contains:\n  1.Decorator Pattern\n  2.Fluent Interface Pattern\n  3.Specification Pattern";
+        renderTextBlock(original_text);
+    }
+
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderRecognition(int x = -1, int y = -1) {
+    clearScreen();
+    SDL_Rect titleRect = { 20,10,300,50 };
+    renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
+
+    SDL_Rect button_rect = { 400,10,300,25 };
+    const char* button_text = "Interpreter Pattern";
+    renderButton(button_text, button_rect);
+
+    if (x >= 400 && x <= 700 && y >= 10 && y <= 35) {
+        int index = (y - 10) / 30;
+        renderButton(button_text, button_rect, DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
+
+        char text[255];  // should be output of the pattern
+        strcpy_s(text, sizeof(text), button_text);
+        strcat_s(text, sizeof(text), "\n\n");
+        renderTextBlock(text);
+    }
+    else {
+        const char* original_text = "Car Recognition Part contains:\n  1.Interpreter Pattern";
+        renderTextBlock(original_text);
+    }
+
+    renderBackButton();
+    SDL_RenderPresent(renderer);
+}
+
+void renderCurrentPage(int x = -1, int y = -1) {
+    SDL_Color textColor = { 0, 0, 0, 255 };
+    switch (currentPage) {
+    case MENU:
+        renderMainMenu();
+        break;
+    case DEVELOPMENT:
+        renderDevelopment(x, y);
+        break;
+    case SUPPLY:
+        renderSupply(x, y);
+        break;
+    case ASSEMBLY:
+        renderAssembly(x, y);
+        break;
+    case INSPECTION:
+        renderInspection(x, y);
+        break;
+    case TRANSPORTATION:
+        renderTransportation(x, y);
+        break;
+    case SALE:
+        renderSale(x, y);
+        break;
+    case USAGE:
+        renderUsage(x, y);
+        break;
+    case RECOGNITION:
+        renderRecognition(x, y);
+        break;
+    }
+}
+
+bool reactToClick(int x, int y) {
+    // return true if changed
+    printf("pos: %d, %d\n", x, y);
+    if (currentPage == MENU) {
+        if (x >= BUTTON_X && x <= BUTTON_X + BUTTON_WIDTH) {
+            currentPage = Page((y - BUTTON_START_Y) / (BUTTON_HEIGHT + BUTTON_GAP) + 1);
+            printf("current page: %d\n", currentPage);
+            return true;
+        }
+    }
+    else {
+        if (x >= BACK_BUTTON_X && y >= BACK_BUTTON_Y) {
+            currentPage = MENU;
+            printf("current page: %d\n", currentPage);
+            return true;
+        }
+        else {
+            renderCurrentPage(x, y);
+        }
+    }
+
+    return false;
+}
+
+int main(int argc, char* args[]) {
+    init();
+    renderCurrentPage();
 
     bool quit = false;
-    SDL_Event event;
-    SDL_SetRenderDrawColor(renderer, 128, 34, 77, 255);
-    SDL_RenderClear(renderer);
-    
-    //store the above text as a string array
-    string rr[20] = { "0: Abstract Factory Pattern",
-        "1: Adapter Pattern",
-        "2: Builder Pattern",
-        "3: Command Pattern",
-        "4: Decorator Pattern",
-        "5: Facade Pattern",
-        "6: Factory Pattern",
-        "7: Fluent Interface Pattern",
-        "8: Flyweight Pattern",
-        "9: Interpreter Pattern",
-        "a: Iterator Pattern",
-        "b: Mediator Pattern",
-        "c: Object Pool Pattern",
-        "d: Observer Pattern",
-        "e: Prototype Pattern",
-        "f: Specification Pattern",
-        "g: State Pattern",
-        "h: Strategy Pattern",
-        "i: Visitor Pattern",
-        "j: Responsibility Chain Pattern" 
-    };
-    //iterate
-    for (int i = 0; i < 20; i++) {
-		renderText(renderer, font, rr[i], 50, 50 + i * HEIGHT);
-	}
-    SDL_RenderPresent(renderer);
+    bool changePage = false;
+    SDL_Event e;
+
     while (!quit) {
-        while (SDL_PollEvent(&event) != 0) {
-            if (event.type == SDL_QUIT) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            //catch the keyboard event00
-            if (event.type == SDL_KEYDOWN|| event.type == SDL_KEYUP) {
-                switch (event.key.keysym.sym) {
-				case SDLK_0:
-                    executeExecutable("abstract.exe");
-					break;
-                case SDLK_1:
-					executeExecutable("adapter.exe");
-					break;
-                case SDLK_2:
-                    executeExecutable("builder.exe");
-                    break;
-                case SDLK_3:
-                    executeExecutable("command.exe");
-					break;
-                case SDLK_4:
-					executeExecutable("decorator.exe");
-                    break;
-				case SDLK_5:
-                    executeExecutable("navigation.exe");
-					break;
-                case SDLK_6:
-					executeExecutable("factory.exe");
-                    break;
-				case SDLK_7:
-					executeExecutable("fluent.exe");
-                    break;
-                case SDLK_8:
-                    executeExecutable("flyweight.exe");
-					break;
-                case SDLK_9:
-                    executeExecutable("interpreter.exe");
-					break;
-                case SDLK_a:
-					executeExecutable("iterator.exe");
-                    break;
-				case SDLK_b:
-                    executeExecutable("mediator.exe");
-					break;
-                case SDLK_c:
-                    executeExecutable("objectpool.exe");
-					break;
-                case SDLK_d:
-                    executeExecutable("observer.exe");
-                    break;
-                case SDLK_e:
-					executeExecutable("prototype.exe");
-                    break;
-				case SDLK_f:
-                    executeExecutable("specification.exe");
-					break;
-				case SDLK_g:
-					executeExecutable("state.exe");
-					break;
-				case SDLK_h:
-					executeExecutable("strategy.exe");
-					break;
-				case SDLK_i:
-					executeExecutable("visitor.exe");
-					break;
-				case SDLK_j:
-					executeExecutable("chain.exe");
-					break;
-				default:
-					break;
-				}
-			}
+            else if (e.type == SDL_MOUSEBUTTONDOWN) {
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+                changePage = reactToClick(x, y);
+            }
         }
-
-        
-
-        // 渲染文本
-        
-        //renderText(renderer, font, "1: Adapter Pattern", 50, 80);
-        
-        // ... 添加其他文本
-        //SDL_Delay(2000*10);
-        
+        if (changePage) {
+            renderCurrentPage();
+            changePage = false;
+        }
     }
 
     // 清理资源
@@ -253,5 +581,5 @@ int main(int argc, char* argv[]) {
     SDL_DestroyWindow(window);
     TTF_Quit();
     SDL_Quit();
-
+    return 0;
 }

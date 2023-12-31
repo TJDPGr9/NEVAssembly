@@ -32,14 +32,15 @@ add_subdirectory("src/Specification Pattern")
 link_directories("src/Interpreter Pattern")
 #link_libraries("Interpreter Pattern/include/json")
 # 设置编译器选项（可选）
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 configure_file(SDL2.dll ${CMAKE_SOURCE_DIR}/bin/SDL2.dll COPYONLY)
 configure_file(SDL2_ttf.dll ${CMAKE_SOURCE_DIR}/bin/SDL2_ttf.dll COPYONLY)
 set(SDL2_DEVEL_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/SDL2-2.28.5)
 set(SDL2_TTF_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/SDL2_ttf-2.20.2)
+set(JSON_DIRECTORIES "src/Interpreter Pattern/include/json/single_include")
 message(${CMAKE_CURRENT_SOURCE_DIR})
 #VC++ Direcotories/Include Directories&Library Directories
-include_directories(${SDL2_DEVEL_DIRECTORIES}/include ${SDL2_TTF_DIRECTORIES}/include)
+include_directories(${SDL2_DEVEL_DIRECTORIES}/include ${SDL2_TTF_DIRECTORIES}/include )
 link_directories(${SDL2_DEVEL_DIRECTORIES}/lib/x64 ${SDL2_TTF_DIRECTORIES}/lib/x64)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 add_executable(main main.cpp)
@@ -52,9 +53,33 @@ remove_definitions(-D_CONSOLE)
 target_link_libraries(main PRIVATE ${SDL2_DEVEL_DIRECTORIES}/lib/x64/SDL2.lib)
 target_link_libraries(main PRIVATE ${SDL2_DEVEL_DIRECTORIES}/lib/x64/SDL2main.lib)
 target_link_libraries(main PRIVATE ${SDL2_TTF_DIRECTORIES}/lib/x64/SDL2_ttf.lib)
-#For target to use
-target_include_directories(main PUBLIC ${SDL2_DEVEL_DIRECTORIES}/include ${SDL2_TTF_DIRECTORIES}/include)
-target_link_directories(main PRIVATE ${SDL2_DEVEL_DIRECTORIES}/lib/x64 ${SDL2_TTF_DIRECTORIES}/lib/x64)
+set(LIB_SOURCES
+	visitor_lib
+	strategy_lib
+	state_lib
+	prototype_lib
+	observer_lib
+	mediator_lib
+	iterator_lib
+	interpretor_lib
+	flyweight_lib
+	factory_lib
+	facade_lib
+	decorator_lib
+	chain_lib
+	builder_lib
+	abstract_lib
+	adapter_lib
+	command_lib
+	fluent_lib
+	objectpool
+	nlohmann_json::nlohmann_json
+	specification_lib
+)
 
+#For target to use  
+target_include_directories(main PUBLIC ${SUBDIRECTORIES} ${SDL2_DEVEL_DIRECTORIES}/include ${SDL2_TTF_DIRECTORIES}/include)
+target_link_directories(main PRIVATE  ${SDL2_DEVEL_DIRECTORIES}/lib/x64 ${SDL2_TTF_DIRECTORIES}/lib/x64)
+target_link_libraries(main PRIVATE ${LIB_SOURCES})
 #add_library(main STATIC ${LIB_SOURCES})
 

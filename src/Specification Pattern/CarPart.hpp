@@ -40,31 +40,32 @@ private:
     int capacity;
     std::string components;
 };
+namespace Specification {
+    // Concrete Motor Class
+    class Motor : public CarPart {
+    public:
+        explicit Motor(int maxTorque, int maxPower, int availableNums) : maxTorque(maxTorque), maxPower(maxPower), availableNums(availableNums), name("Motor") {}
 
-// Concrete Motor Class
-class Motor : public CarPart {
-public:
-    explicit Motor(int maxTorque, int maxPower, int availableNums) : maxTorque(maxTorque), maxPower(maxPower), availableNums(availableNums), name("Motor") {}
+        std::string getName() const override {
+            return name;
+        }
 
-    std::string getName() const override {
-        return name;
-    }
+        int getAvailableNums() const override {
+            return availableNums;
+        }
 
-    int getAvailableNums() const override {
-        return availableNums;
-    }
+        int getTorque() const {
+            return maxTorque;
+        }
 
-    int getTorque() const {
-        return maxTorque;
-    }
+        int getPower() const {
+            return maxPower;
+        }
 
-    int getPower() const {
-        return maxPower;
-    }
-
-private:
-    std::string name;
-    int availableNums;
-    int maxTorque; //最大扭矩
-    int maxPower;  //最大功率
-};
+    private:
+        std::string name;
+        int availableNums;
+        int maxTorque; //最大扭矩
+        int maxPower;  //最大功率
+    };
+}

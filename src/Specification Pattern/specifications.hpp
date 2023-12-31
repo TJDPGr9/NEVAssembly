@@ -48,7 +48,7 @@ public:
 
     bool IsSatisfiedBy(const std::shared_ptr<CarPart>& part) const override {
         if (part->getName() == "Motor") {
-            auto motor = std::dynamic_pointer_cast<Motor>(part);
+            auto motor = std::dynamic_pointer_cast<Specification::Motor>(part);
             return motor->getTorque() >= minTorque && motor->getTorque() <= maxTorque;
         }
         return false;
@@ -66,7 +66,7 @@ public:
 
     bool IsSatisfiedBy(const std::shared_ptr<CarPart>& part) const override {
         if (part->getName() == "Motor") {
-            auto motor = std::dynamic_pointer_cast<Motor>(part);
+            auto motor = std::dynamic_pointer_cast<Specification::Motor>(part);
             return motor->getPower() >= minPower && motor->getPower() <= maxPower;
         }
         return false;

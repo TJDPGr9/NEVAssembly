@@ -1,4 +1,26 @@
-﻿#ifdef _WIN32
+﻿#include"src/Visitor Pattern/test.cpp"
+#include"src/Strategy Pattern/test.cpp"
+#include"src/State Pattern/StatePattern.cpp"
+#include"src/Prototype Pattern/Prototype.cpp"
+#include"src/Observer Pattern/test.cpp"
+#include"src/Mediator Pattern/MediatorPattern.cpp"
+#include"src/Iterator Pattern/test.cpp"
+#include"src/Interpreter Pattern/VIN.cpp"
+//#include<nolhmaan/json.h>
+//#include"Interpreter Pattern/VIN.cpp"
+#include"src/Flyweight Pattern/flyweight.cpp"
+#include"src/Factory Pattern/factory.cpp"
+#include"src/Facade Pattern/navigation.cpp"
+#include"src/Decorator Pattern/decorator.cpp"
+#include"src/Chain of Responsibility Pattern/responsibility_chain.cpp"
+#include"src/Builder Pattern/test.cpp"
+#include"src/Abstract Factory Pattern/test.cpp"
+#include"src/Adapter Pattern/Adapter.cpp"
+#include"src/Command Pattern/command.cpp"
+#include"src/Object Pool Pattern/main.cpp"
+#include"src/Fluent Interface Pattern/main.cpp"
+#include"src/Specification Pattern/test.cpp"
+#ifdef _WIN32
 #include<Windows.h>
 #define HEIGHT 20
 extern "C" {
@@ -232,5 +254,4 @@ int main(int argc, char* argv[]) {
     TTF_Quit();
     SDL_Quit();
 
-    return 0;
 }

@@ -64,9 +64,9 @@ const SDL_Color DEFAULT_BACK_COLOR = { 255,255,255,255 };
 const SDL_Color DEFAULT_TITLE_COLOR = { 0, 0, 255, 255 };
 const SDL_Rect DEFAULT_TITLE_RECT = { TITLE_X, TITLE_Y, TITLE_WIDTH, TITLE_HEIGHT };
 
-const int TEXT_BLOCK_X = 150;
+const int TEXT_BLOCK_X = 50;
 const int TEXT_BLOCK_Y = 150;
-const int TEXT_BLOCK_WIDTH = 500;
+const int TEXT_BLOCK_WIDTH = 700;
 
 // Pages
 enum Page {
@@ -125,6 +125,87 @@ void cleanup() {
     SDL_Quit();
 }
 
+char* getPatternResult(int index) {
+    // 保存当前的标准输出缓冲区
+    std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
+    // 创建一个字符串流，用于保存输出内容
+    std::ostringstream outputStream;
+    // 重定向标准输出到字符串流
+    std::cout.rdbuf(outputStream.rdbuf());
+
+    switch (index) {
+    case 0:
+        AbstractFactory::test();
+        break;
+    case 1:
+        Adapter::test();
+        break;
+    case 2:
+        Builder2::test();
+        break;
+    case 3:
+        Command2::test();
+        break;
+    case 4:
+        Decorator::test();
+        break;
+    case 5:
+        Navigation::test();
+        break;
+    case 6:
+        Factory::test();
+        break;
+    case 7:
+        FluentInterface::test();
+        break;
+    case 8:
+        Flyweight::test();
+        break;
+    case 9:
+        Interpreter::test();
+        break;
+    case 10:
+        Iterator2::test();
+        break;
+    case 11:
+        Mediator2::test();
+        break;
+    case 12:
+        ObjectPool::test();
+        break;
+    case 13:
+        Observer::test();
+        break;
+    case 14:
+        Prototype::test();
+        break;
+    case 15:
+        Specification::test();
+        break;
+    case 16:
+        State::test();
+        break;
+    case 17:
+        Strategy::test();
+        break;
+    case 18:
+        Visitor2::test();
+        break;
+    case 19:
+        ResponsibilityChain::test();
+        break;
+    }
+
+    // 恢复标准输出
+    std::cout.rdbuf(oldCoutStreamBuf);
+    // 获取输出的字符串
+    std::string outputString = outputStream.str();
+
+    char* charPtr = new char[outputString.size() + 1];  // 记得之后delete 
+    std::strcpy(charPtr, outputString.c_str());
+    return charPtr;
+}
+
 SDL_Texture* createTextTexture(const char* text, SDL_Color textColor) {
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
@@ -175,6 +256,7 @@ void renderTitle(const char* text, SDL_Rect titleRect = DEFAULT_TITLE_RECT, SDL_
 }
 
 void renderTextBlock(const char* text) {
+    TTF_SetFontSize(font, 12);
     int text_width, text_height;
 
     SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text, DEFAULT_TEXT_COLOR, TEXT_BLOCK_WIDTH);
@@ -189,6 +271,7 @@ void renderTextBlock(const char* text) {
     SDL_Rect textBlockRect = { TEXT_BLOCK_X,TEXT_BLOCK_Y,TEXT_BLOCK_WIDTH,text_height };
     SDL_RenderCopy(renderer, textTexture, NULL, &textBlockRect);
     SDL_DestroyTexture(textTexture);
+    TTF_SetFontSize(font, 24);
 }
 
 void clearScreen() {
@@ -223,10 +306,12 @@ void renderDevelopment(int x = -1, int y = -1) {
         int index = (y - 10) / 30;
         renderButton(button_text, button_rect, DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
 
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text);
-        strcat_s(text, sizeof(text), "\n\n");
+        char *text = getPatternResult(3);
+        //char text[255];  // should be output of the pattern
+        //strcpy_s(text, sizeof(text), button_text);
+        //strcat_s(text, sizeof(text), "\n\n");
         renderTextBlock(text);
+        delete[] text;
     }
     else {
         const char* original_text = "Research & Development Part contains:\n  1.Command Pattern";
@@ -237,9 +322,9 @@ void renderDevelopment(int x = -1, int y = -1) {
     SDL_RenderPresent(renderer);
 }
 
-void renderSupply(int x = -1, int y = -1) {
+void renderAssembly(int x = -1, int y = -1) {
     clearScreen();
-    SDL_Rect titleRect = { 20,10,150,50 };
+    SDL_Rect titleRect = { 20,10,200,50 };
     renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
 
     const int patternNum = 4;
@@ -261,27 +346,46 @@ void renderSupply(int x = -1, int y = -1) {
         renderButton(button_text[i], button_rect[i]);
     }
 
+    char* text = nullptr;
     if (x >= 400 && x <= 700 && y >= 10 && y <= 125) {
         int index = (y - 10) / 30;
         renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
 
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text[index]);
-        strcat_s(text, sizeof(text), "\n\n");
+        switch (index) {
+        case 0:
+            text = getPatternResult(6);
+            break;
+        case 1:
+            text = getPatternResult(0);
+            break;
+        case 2:
+            text = getPatternResult(2);
+            break;
+        case 3:
+            text = getPatternResult(12);
+            break;
+        default:
+            break;
+        }
+
+        //char text[255];  // should be output of the pattern
+        //strcpy_s(text, sizeof(text), button_text[index]);
+        //strcat_s(text, sizeof(text), "\n\n");
         renderTextBlock(text);
     }
     else {
-        const char* original_text = "Supply Part contains:\n  1.Factory Pattern\n  2.Abstract Factory Pattern\n  3.Build Pattern\n  4.Object Pool Pattern";
+        const char* original_text = "Assembly Part contains:\n  1.Factory Pattern\n  2.Abstract Factory Pattern\n  3.Builder Pattern\n  4.Object Pool Pattern";
         renderTextBlock(original_text);
     }
-
+    if (text)
+        delete[] text;
     renderBackButton();
     SDL_RenderPresent(renderer);
 }
 
-void renderAssembly(int x = -1, int y = -1) {
+void renderSupply(int x = -1, int y = -1) {
     clearScreen();
-    SDL_Rect titleRect = { 20,10,200,50 };
+    SDL_Rect titleRect = { 20,10,150,50 };
     renderTitle(PAGE_TEXT[int(currentPage)], titleRect);
 
     const int patternNum = 3;
@@ -300,18 +404,30 @@ void renderAssembly(int x = -1, int y = -1) {
     for (int i = 0; i < patternNum; i++) {
         renderButton(button_text[i], button_rect[i]);
     }
-
+    
     if (x >= 350 && x <= 700 && y >= 10 && y <= 95) {
         int index = (y - 10) / 30;
         renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
-
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text[index]);
-        strcat_s(text, sizeof(text), "\n\n");
+        char* text = nullptr;
+        switch (index) {
+        case 0:
+            text = getPatternResult(11);
+            break;
+        case 1:
+            text = getPatternResult(19);
+            break;
+        case 2:
+            text = getPatternResult(13);
+            break;
+        default:
+            break;
+        }
         renderTextBlock(text);
+        if (text)
+            delete[] text;
     }
     else {
-        const char* original_text = "Assembly Part contains:\n  1.Mediator Pattern\n  2.Chain of Responsibility Pattern\n  3.Observer Pattern";
+        const char* original_text = "Supply Part contains:\n  1.Mediator Pattern\n  2.Chain of Responsibility Pattern\n  3.Observer Pattern";
         renderTextBlock(original_text);
     }
 
@@ -344,11 +460,26 @@ void renderInspection(int x = -1, int y = -1) {
     if (x >= 500 && x <= 750 && y >= 10 && y <= 95) {
         int index = (y - 10) / 30;
         renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
-
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text[index]);
-        strcat_s(text, sizeof(text), "\n\n");
+        char* text = nullptr;
+        switch (index) {
+        case 0:
+            text = getPatternResult(16);
+            break;
+        case 1:
+            text = getPatternResult(18);
+            break;
+        case 2:
+            text = getPatternResult(1);
+            break;
+        default:
+            break;
+        }
+        //char text[255];  // should be output of the pattern
+        //strcpy_s(text, sizeof(text), button_text[index]);
+        //strcat_s(text, sizeof(text), "\n\n");
         renderTextBlock(text);
+        if (text)
+            delete[] text;
     }
     else {
         const char* original_text = "Quality Inspection & Test Part contains:\n  1.State Pattern\n  2.Visitor Pattern\n  3.Adapter Pattern";
@@ -384,11 +515,26 @@ void renderTransportation(int x = -1, int y = -1) {
     if (x >= 350 && x <= 700 && y >= 10 && y <= 95) {
         int index = (y - 10) / 30;
         renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
-
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text[index]);
-        strcat_s(text, sizeof(text), "\n\n");
+        char* text = nullptr;
+        switch (index) {
+        case 0:
+            text = getPatternResult(8);
+            break;
+        case 1:
+            text = getPatternResult(10);
+            break;
+        case 2:
+            text = getPatternResult(17);
+            break;
+        default:
+            break;
+        }
+        //char text[255];  // should be output of the pattern
+        //strcpy_s(text, sizeof(text), button_text[index]);
+        //strcat_s(text, sizeof(text), "\n\n");
         renderTextBlock(text);
+        if (text)
+            delete[] text;
     }
     else {
         const char* original_text = "Transportation Part contains:\n  1.Flyweight Pattern\n  2.Iterator Pattern\n  3.Strategy Pattern";
@@ -412,10 +558,13 @@ void renderSale(int x = -1, int y = -1) {
         int index = (y - 10) / 30;
         renderButton(button_text, button_rect, DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
 
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text);
-        strcat_s(text, sizeof(text), "\n\n");
+        char* text = nullptr;
+        text = getPatternResult(14);
+        //char text[255];  // should be output of the pattern
+        //strcpy_s(text, sizeof(text), button_text);
+        //strcat_s(text, sizeof(text), "\n\n");
         renderTextBlock(text);
+        delete[] text;
     }
     else {
         const char* original_text = "Sale Part contains:\n  1.Prototype Pattern";
@@ -452,10 +601,26 @@ void renderUsage(int x = -1, int y = -1) {
         int index = (y - 10) / 30;
         renderButton(button_text[index], button_rect[index], DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
 
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text[index]);
-        strcat_s(text, sizeof(text), "\n\n");
+        char* text = nullptr;
+        switch (index) {
+        case 0:
+            text = getPatternResult(4);
+            break;
+        case 1:
+            text = getPatternResult(7);
+            break;
+        case 2:
+            text = getPatternResult(15);
+            break;
+        default:
+            break;
+        }
+        //char text[255];  // should be output of the pattern
+        //strcpy_s(text, sizeof(text), button_text[index]);
+        //strcat_s(text, sizeof(text), "\n\n");
         renderTextBlock(text);
+        if (text)
+            delete[] text;
     }
     else {
         const char* original_text = "Usage Part contains:\n  1.Decorator Pattern\n  2.Fluent Interface Pattern\n  3.Specification Pattern";
@@ -479,10 +644,13 @@ void renderRecognition(int x = -1, int y = -1) {
         int index = (y - 10) / 30;
         renderButton(button_text, button_rect, DEFAULT_TEXT_COLOR, DEFAULT_ONCLICK_COLOR);
 
-        char text[255];  // should be output of the pattern
-        strcpy_s(text, sizeof(text), button_text);
-        strcat_s(text, sizeof(text), "\n\n");
+        char* text = nullptr;
+        text = getPatternResult(9);
+        //char text[255];  // should be output of the pattern
+        //strcpy_s(text, sizeof(text), button_text);
+        //strcat_s(text, sizeof(text), "\n\n");
         renderTextBlock(text);
+        delete[] text;
     }
     else {
         const char* original_text = "Car Recognition Part contains:\n  1.Interpreter Pattern";

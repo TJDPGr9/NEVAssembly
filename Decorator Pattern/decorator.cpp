@@ -1,16 +1,16 @@
 #include "decorator.h"
 #include <iostream>
-
-int main() {
-    // ´´½¨»ù±¾µÄĞÂÄÜÔ´Æû³µ
+namespace Decorator{
+int test() {
+    // åˆ›å»ºåŸºæœ¬çš„æ–°èƒ½æºæ±½è½¦
     NewEnergyCar* myCar = new BasicNewEnergyCar();
 
-    // ÓÃ»§Ñ¡ÔñÌí¼ÓµÄÅä¼ş
-    std::cout << "Ñ¡ÔñÒªÎªĞÂÄÜÔ´Æû³µÌí¼ÓµÄÅä¼ş:" << std::endl;
-    std::cout << "1. ĞĞ³µ¼ÇÂ¼ÒÇ\n2. ³µÔØ¿ÕÆø¾»»¯Æ÷\n3. µ¹³µÉãÏñÍ·\n4. µ¹³µÀ×´ï\n5. ³µÔØµ¼º½ÏµÍ³\n";
+    // ç”¨æˆ·é€‰æ‹©æ·»åŠ çš„é…ä»¶
+    std::cout << "é€‰æ‹©è¦ä¸ºæ–°èƒ½æºæ±½è½¦æ·»åŠ çš„é…ä»¶:" << std::endl;
+    std::cout << "1. è¡Œè½¦è®°å½•ä»ª\n2. è½¦è½½ç©ºæ°”å‡€åŒ–å™¨\n3. å€’è½¦æ‘„åƒå¤´\n4. å€’è½¦é›·è¾¾\n5. è½¦è½½å¯¼èˆªç³»ç»Ÿ\n";
 
     int choice;
-    std::cout << "ÇëÊäÈëÅä¼ş±àºÅ (0 ½áÊø): ";
+    std::cout << "è¯·è¾“å…¥é…ä»¶ç¼–å· (0 ç»“æŸ): ";
     std::cin >> choice;
 
     while (choice != 0) {
@@ -31,22 +31,23 @@ int main() {
             myCar = new NavigationDecorator(myCar);
             break;
         default:
-            std::cout << "ÎŞĞ§Ñ¡Ôñ£¬ÇëÊäÈëÓĞĞ§µÄÅä¼ş±àºÅ¡£" << std::endl;
+            std::cout << "æ— æ•ˆé€‰æ‹©ï¼Œè¯·è¾“å…¥æœ‰æ•ˆçš„é…ä»¶ç¼–å·ã€‚" << std::endl;
             break;
         }
 
-        std::cout << "µ±Ç°Æû³µ×´Ì¬: ";
+        std::cout << "å½“å‰æ±½è½¦çŠ¶æ€: ";
         myCar->showStatus();
 
-        std::cout << "ÇëÊäÈëÅä¼ş±àºÅ (0 ½áÊø): ";
+        std::cout << "è¯·è¾“å…¥é…ä»¶ç¼–å· (0 ç»“æŸ): ";
         std::cin >> choice;
     }
 
-    std::cout << "Íê³ÉÎªĞÂÄÜÔ´Æû³µÌí¼ÓÅä¼ş¡£×îÖÕ×´Ì¬: ";
+    std::cout << "å®Œæˆä¸ºæ–°èƒ½æºæ±½è½¦æ·»åŠ é…ä»¶ã€‚æœ€ç»ˆçŠ¶æ€: ";
     myCar->showStatus();
     
-    // ÊÍ·ÅÄÚ´æ
+    // é‡Šæ”¾å†…å­˜
     delete myCar;
 
     return 0;
+}
 }

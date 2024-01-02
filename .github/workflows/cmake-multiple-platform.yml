@@ -9,7 +9,7 @@ on:
     branches: ['standalone','main','release*','graphical']
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
+  BUILD_TYPE: MinimumRel
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
         os: [windows-latest]
-        build_type: [Release]
+        build_type: [MinimumRel]
         c_compiler: [cl, mingw , MSVC]
         include:
           - os: windows-latest
@@ -76,7 +76,7 @@ jobs:
         restore-keys: |
           cmake-${{ runner.os }}-${{ runner.arch }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}
     - name: Upload Executables(${{ matrix.os }}) as Artifact
-      if: matrix.os == 'windows-latest' && matrix.build_type == 'Release'
+      if: matrix.os == 'windows-latest' && matrix.build_type == 'MinimumRel'
       uses: actions/upload-artifact@v2
       with:
         name: executables-${{ matrix.os }}-${{ runner.arch }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}

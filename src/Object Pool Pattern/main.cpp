@@ -13,7 +13,7 @@ public:
 class Tesla : public ElectricCar {
 public:
     void charge() const override {
-        std::cout << "特斯拉汽车正在充电。。。" << std::endl;
+        std::cout << "Telsa is charging..." << std::endl;
     }
 };
 

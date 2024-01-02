@@ -3,7 +3,6 @@
 namespace Decorator {
     int test() {
         // 创建基本的新能源汽车
-        // 创建基本的新能源汽车
         NewEnergyCar* myCar = new BasicNewEnergyCar();
 
         // 用户选择添加的配件

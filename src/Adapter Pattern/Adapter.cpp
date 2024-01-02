@@ -6,4 +6,8 @@ namespace Adapter {
         test_adapter();
         return 0;
     }
+    int main() {
+        test();
+        return 0;
+    }
 }

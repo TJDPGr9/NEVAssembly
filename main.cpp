@@ -116,7 +116,41 @@ int init() {
 
     return 0;
 }
+bool runExternalProgram(const char* programPath) {
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
 
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+
+    // Start the child process.
+    if (!CreateProcess(
+        programPath,                            // 可执行文件路径
+        NULL,                                   // 命令行参数
+        NULL,                                   // 安全描述符
+        NULL,                                   // 安全描述符
+        FALSE,                                  // 继承标志
+        0,                                      // 创建标志
+        NULL,                                   // 环境变量
+        NULL,                                   // 当前目录
+        &si,                                    // STARTUPINFO 结构体
+        &pi                                     // PROCESS_INFORMATION 结构体
+    )) {
+        // 处理错误
+        printf("CreateProcess failed (%d).\n", GetLastError());
+        return false;
+    }
+
+    // 等待子进程结束
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    // 关闭进程和线程的句柄
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    return true;
+}
 void cleanup() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
@@ -144,10 +178,12 @@ char* getPatternResult(int index) {
         Builder2::test();
         break;
     case 3:
-        Command2::test();
+        cout << "Command Pattern!"<<endl;
+        runExternalProgram("command.exe");
         break;
     case 4:
-        Decorator::test();
+        cout << "Decorator Pattern"<<endl;
+        runExternalProgram("decorator.exe");
         break;
     case 5:
         Navigation::test();
@@ -156,10 +192,12 @@ char* getPatternResult(int index) {
         Factory::test();
         break;
     case 7:
-        FluentInterface::test();
+        cout << "Fluent Interface Pattern" << endl;
+        runExternalProgram("fluent.exe");
         break;
     case 8:
-        Flyweight::test();
+        cout << "Flyweight Pattern" << endl;
+        runExternalProgram("flyweight.exe");
         break;
     case 9:
         Interpreter::test();
@@ -183,7 +221,9 @@ char* getPatternResult(int index) {
         Specification::test();
         break;
     case 16:
-        State::test();
+        cout << "State Pattenr" << endl;
+        //State::test();
+        runExternalProgram("state.exe");
         break;
     case 17:
         Strategy::test();

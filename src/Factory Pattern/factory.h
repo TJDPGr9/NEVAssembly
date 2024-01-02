@@ -4,50 +4,50 @@
 
 using namespace std;
 
-// æŠ½è±¡äº¤æµç”µæœºç±»
+// ³éÏó½»Á÷µç»úÀà
 class ACmotor {
 public:
     virtual void produce() = 0;
     virtual ~ACmotor() {} 
 };
 
-// ä¸åŒç±»å‹çš„äº¤æµç”µæœº
+// ²»Í¬ÀàĞÍµÄ½»Á÷µç»ú
 class InductionMotor : public ACmotor {
 public:
     void produce() override {
-        std::cout << "ç”Ÿäº§å¼‚æ­¥ç”µæœº(Induction Motor)." << std::endl;
+        std::cout << "Produce Induction Motor." << std::endl;
     }
 };
 
 class SynchronousMotor : public ACmotor {
 public:
     void produce() override {
-        std::cout << "ç”Ÿäº§åŒæ­¥ç”µæœº(Synchronous Motor)." << std::endl;
+        std::cout << "Produce Synchronous Motor." << std::endl;
     }
 };
 
 class SwitchedReluctanceMotor : public ACmotor {
 public:
     void produce() override {
-        std::cout << "ç”Ÿäº§å¼€å…³ç£é˜»ç”µæœº(Switched Reluctance Motor)." << std::endl;
+        std::cout << "Produce witched Reluctance Motor." << std::endl;
     }
 };
 
 class PermanentMagnetSynchronousMotor : public ACmotor {
 public:
     void produce() override {
-        std::cout << "ç”Ÿäº§æ°¸ç£æ··åˆç”µæœº(Permanent Magnet Synchronous Motor)." << std::endl;
+        std::cout << "Produce Permanent Magnet Synchronous Motor." << std::endl;
     }
 };
 
-// å·¥å‚ç±» - å·¥å‚æ–¹æ³•æ¨¡å¼
+// ¹¤³§Àà - ¹¤³§·½·¨Ä£Ê½
 class ACmotorFactory {
 public:
     virtual ACmotor* createMotor() = 0;
     virtual ~ACmotorFactory() {} 
 };
 
-// å…·ä½“çš„äº¤æµç”µæœºå·¥å‚
+// ¾ßÌåµÄ½»Á÷µç»ú¹¤³§
 class InductionMotorFactory : public ACmotorFactory {
 public:
     ACmotor* createMotor() override {
@@ -76,10 +76,11 @@ public:
     }
 };
 
-// å®¢æˆ·ç«¯ä»£ç 
+// ¿Í»§¶Ë´úÂë
 void produceMotor(ACmotorFactory* factory) {
     ACmotor* motor = factory->createMotor();
     motor->produce();
     delete motor;
 };
+
 

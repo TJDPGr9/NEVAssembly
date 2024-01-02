@@ -178,11 +178,11 @@ char* getPatternResult(int index) {
         Builder2::test();
         break;
     case 3:
-        cout << "Command Pattern!"<<endl;
+        cout << "               Command Pattern                 \n\n"<<endl;
         runExternalProgram("command.exe");
         break;
     case 4:
-        cout << "Decorator Pattern"<<endl;
+        cout << "               Decorator Pattern               \n\n"<<endl;
         runExternalProgram("decorator.exe");
         break;
     case 5:
@@ -192,11 +192,11 @@ char* getPatternResult(int index) {
         Factory::test();
         break;
     case 7:
-        cout << "Fluent Interface Pattern" << endl;
+        cout << "               Fluent Interface Pattern                \n\n" << endl;
         runExternalProgram("fluent.exe");
         break;
     case 8:
-        cout << "Flyweight Pattern" << endl;
+        cout << "               Flyweight Pattern                       \n\n" << endl;
         runExternalProgram("flyweight.exe");
         break;
     case 9:
@@ -221,12 +221,12 @@ char* getPatternResult(int index) {
         Specification::test();
         break;
     case 16:
-        cout << "State Pattenr" << endl;
+        cout << "               State Patten                                \n\n" << endl;
         //State::test();
         runExternalProgram("state.exe");
         break;
     case 17:
-        cout << "Strategy Pattenr" << endl;
+        cout << "               Strategy Patten                            \n\n" << endl;
         runExternalProgram("strategy.exe");
         //Strategy::test();
         break;

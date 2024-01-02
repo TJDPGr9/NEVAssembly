@@ -11,6 +11,5 @@ namespace Visitor2 {
 		std::cout << "---------visitor pattern---------\n";
 		client_visitor();
 		std::cout << "---------------------------------\n\n\n";
-		std::this_thread::sleep_for(std::chrono::seconds(5));
 	}
 }

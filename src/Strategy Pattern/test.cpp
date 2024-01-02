@@ -55,7 +55,8 @@ namespace Strategy {
         cout << "Please input the daparture:" << endl;
         cin >> src;
         cout << "Please input the arrival:" << endl;
-        cin >> dst;
+        
+        cin>> dst;
         userInput[Factor::Distance] = 0;
         userInput[Factor::TransportTime] = getUserInput("Duration:");
         userInput[Factor::Cost] = getUserInput("Cost:");

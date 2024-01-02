@@ -1,16 +1,16 @@
 #include "decorator.h"
 #include <iostream>
-namespace Decorator{
-int test() {
-    // 创建基本的新能源汽车
+
+int main() {
+    // ��������������Դ����
     NewEnergyCar* myCar = new BasicNewEnergyCar();
 
-    // 用户选择添加的配件
-    std::cout << "选择要为新能源汽车添加的配件:" << std::endl;
-    std::cout << "1. 行车记录仪\n2. 车载空气净化器\n3. 倒车摄像头\n4. 倒车雷达\n5. 车载导航系统\n";
+    // �û�ѡ�����ӵ����
+    std::cout << "Select accessories to add to the new energy car:" << std::endl;
+    std::cout << "1. Dash Camera\n2. Car Air Purifier\n3. Reverse Camera\n4. Reverse Radar\n5. Car Navigation System\n";
 
     int choice;
-    std::cout << "请输入配件编号 (0 结束): ";
+    std::cout << "Enter accessory number (0 to finish): ";
     std::cin >> choice;
 
     while (choice != 0) {
@@ -31,23 +31,22 @@ int test() {
             myCar = new NavigationDecorator(myCar);
             break;
         default:
-            std::cout << "无效选择，请输入有效的配件编号。" << std::endl;
+            std::cout << "Invalid choice, please enter a valid accessory number." << std::endl;
             break;
         }
 
-        std::cout << "当前汽车状态: ";
+        std::cout << "Current car status: ";
         myCar->showStatus();
 
-        std::cout << "请输入配件编号 (0 结束): ";
+        std::cout << "Enter accessory number (0 to finish): ";
         std::cin >> choice;
     }
 
-    std::cout << "完成为新能源汽车添加配件。最终状态: ";
+    std::cout << "Finished adding accessories to the new energy car. Final status: ";
     myCar->showStatus();
     
-    // 释放内存
+    // �ͷ��ڴ�
     delete myCar;
 
     return 0;
-}
 }

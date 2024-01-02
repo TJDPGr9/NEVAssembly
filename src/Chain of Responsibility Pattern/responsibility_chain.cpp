@@ -2,7 +2,7 @@
 
 namespace ResponsibilityChain {
     int test() {
-        // ´´½¨ÔğÈÎÁ´
+        // åˆ›å»ºè´£ä»»é“¾
         SupplierA supplierA;
         SupplierB supplierB;
         SupplierC supplierC;
@@ -10,11 +10,11 @@ namespace ResponsibilityChain {
         supplierA.setNextSupplier(&supplierB);
         supplierB.setNextSupplier(&supplierC);
 
-        // Ä£Äâ¹ºÂòÔ­²ÄÁÏ
-        supplierA.processMaterial("ï®µç³Ø");
-        supplierA.processMaterial("³µÌå¹Ç¼Ü");
-        supplierA.processMaterial("·½ÏòÅÌ");
-        supplierA.processMaterial("×ùÒÎ");
+        // æ¨¡æ‹Ÿè´­ä¹°åŸææ–™
+        supplierA.processMaterial("Lithium-ion battery");
+        supplierA.processMaterial("Vehicle chassis");
+        supplierA.processMaterial("Steering wheel");
+        supplierA.processMaterial("Car seat");
 
         return 0;
     }

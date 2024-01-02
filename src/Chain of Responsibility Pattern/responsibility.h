@@ -1,25 +1,25 @@
 #include <iostream>
 #include <string>
 
-// 抽象处理者
+// Abstract handler
 class Supplier {
 public:
     virtual void processMaterial(const std::string& material) = 0;
     virtual ~Supplier() {}
 };
 
-// 具体处理者A
+// Concrete handler A
 class SupplierA : public Supplier {
 public:
     void processMaterial(const std::string& material) override {
-        if (material == "锂电池") {
-            std::cout << "供应商A处理了锂电池" << std::endl;
+        if (material == "Lithium-ion battery") {
+            std::cout << "Supplier A processed the lithium-ion battery." << std::endl;
         }
         else if (nextSupplier != nullptr) {
             nextSupplier->processMaterial(material);
         }
         else {
-            std::cout << "没有供应商能够处理材料" << material << std::endl;
+            std::cout << "No supplier was able to process the material." << material << std::endl;
         }
     }
 
@@ -31,18 +31,18 @@ private:
     Supplier* nextSupplier = nullptr;
 };
 
-// 具体处理者B
+// Concrete handler B
 class SupplierB : public Supplier {
 public:
     void processMaterial(const std::string& material) override {
-        if (material == "车体骨架") {
-            std::cout << "供应商B处理了车体骨架" << std::endl;
+        if (material == "Vehicle chassis") {
+            std::cout << "Supplier B processed the vehicle chassis." << std::endl;
         }
         else if (nextSupplier != nullptr) {
             nextSupplier->processMaterial(material);
         }
         else {
-            std::cout << "没有供应商能够处理材料" << material << std::endl;
+            std::cout << "No supplier was able to process the material." << material << std::endl;
         }
     }
 
@@ -54,18 +54,18 @@ private:
     Supplier* nextSupplier = nullptr;
 };
 
-// 具体处理者C
+// Concrete handler C
 class SupplierC : public Supplier {
 public:
     void processMaterial(const std::string& material) override {
-        if (material == "方向盘") {
-            std::cout << "供应商C处理了方向盘" << std::endl;
+        if (material == "Steering wheel") {
+            std::cout << "Supplier C processed the steering wheel." << std::endl;
         }
         else if (nextSupplier != nullptr) {
             nextSupplier->processMaterial(material);
         }
         else {
-            std::cout << "没有供应商能够处理材料" << material << std::endl;
+            std::cout << "No supplier was able to process the material." << material << std::endl;
         }
     }
 

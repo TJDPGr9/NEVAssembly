@@ -11,7 +11,7 @@ public:
 
     bool decodeVIN(const std::string& vin) {
         if (vin.length() != 17) {
-            cerr << "错误：无效的VIN码长度" << endl;
+            cerr << "Error: Invalid VIN code length" << endl;
             return false;
         }
 
@@ -23,7 +23,7 @@ public:
 
         // 验证第九位数字（校验位）
         if (!validateCheckDigit(vin)) {
-            cerr << "错误：VIN码验证失败" << endl;
+            cerr << "Error: VIN code validation failed" << endl;
             exit(1);
             return false;
         }
@@ -44,24 +44,24 @@ public:
 
 private:
     bool decodeWMI(const std::string& wmiPart) {
-        region = jsonData["WMI_1"].value(wmiPart.substr(0, 1), "未知");
-        manufacturer = jsonData["WMI_2"].value(wmiPart.substr(1, 1), "未知");
-        vehicleType = jsonData["WMI_3"].value(wmiPart.substr(2, 1), "未知");
+        region = jsonData["WMI_1"].value(wmiPart.substr(0, 1), "Unknown");
+        manufacturer = jsonData["WMI_2"].value(wmiPart.substr(1, 1), "Unknown");
+        vehicleType = jsonData["WMI_3"].value(wmiPart.substr(2, 1), "Unknown");
         return true;
     }
 
     bool decodeVDS(const std::string& vdsPart) {
-        bodyStyle = jsonData["VDS_4"].value(vdsPart.substr(0, 1), "未知");
-        transmission = jsonData["VDS_5"].value(vdsPart.substr(1, 1), "未知");
-        x = jsonData["VDS_6"].value(vdsPart.substr(2, 1), "未知");
-        y = jsonData["VDS_78"].value(vdsPart.substr(3, 2), "未知");
+        bodyStyle = jsonData["VDS_4"].value(vdsPart.substr(0, 1), "Unknown");
+        transmission = jsonData["VDS_5"].value(vdsPart.substr(1, 1), "Unknown");
+        x = jsonData["VDS_6"].value(vdsPart.substr(2, 1), "Unknown");
+        y = jsonData["VDS_78"].value(vdsPart.substr(3, 2), "Unknown");
         // 根据需要添加更多的 VDS 解码逻辑...
         return true;
     }
 
     bool decodeVIS(const std::string& visPart) {
-        year = jsonData["VIS_10"].value(visPart.substr(0, 1), "未知");
-        z = jsonData["BMW"].value(visPart.substr(1, 1), "未知");
+        year = jsonData["VIS_10"].value(visPart.substr(0, 1), "Unknown");
+        z = jsonData["BMW"].value(visPart.substr(1, 1), "Unknown");
         // 根据需要添加更多的 VIS 解码逻辑...
         return true;
     }
@@ -83,7 +83,7 @@ private:
                     sum += (vin[i] - 'S' + 2) * weight_coefficient[i];
             }
             else {
-                cout << "VIN中不能包含 I、O、Q 三个英文字母，请重新检查VIN码" << endl;
+                cout << "VIN codes cannot include the letters I, O, or Q. Please double-check the VIN code." << endl;
                 // 直接终止程序
                 exit(1);
                 return false;
@@ -121,7 +121,7 @@ namespace Interpreter {
             ifstream jsonFile("data.json");
             // 检查文件是否成功打开
             if (!jsonFile.is_open()) {
-                cerr << "错误：无法打开JSON文件" << endl;
+                cerr << "Error: Unable to open JSON file" << endl;
                 return 1;
             }
             nlohmann::json jsonData;

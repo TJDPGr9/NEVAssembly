@@ -8,7 +8,7 @@
 
 class RailwayBureaus {
 private:
-    std::vector<std::pair<std::string, std::vector<std::string>>> primaryAndSecondaries; // 一级基地和对应的二级基地
+    std::vector<std::pair<std::string, std::vector<std::string>>> primaryAndSecondaries; 
 
 public:
     void addPrimaryBureau(const std::string& bureau);

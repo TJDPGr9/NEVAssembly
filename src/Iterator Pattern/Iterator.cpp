@@ -13,11 +13,11 @@ bool RailwayIterator::hasNext() {
 std::string RailwayIterator::next() {
     if (primaryIndex < primaryAndSecondaries.size()) {
         if (secondaryIndex < primaryAndSecondaries[primaryIndex].second.size()) {
-            return "一级基地：" + primaryAndSecondaries[primaryIndex].first + "，二级基地：" +
+            return "Primary Bases:" + primaryAndSecondaries[primaryIndex].first + ", Secondary Bases:" +
                 primaryAndSecondaries[primaryIndex].second[secondaryIndex++];
         }
         else {
-            std::string output = "一级基地：" + primaryAndSecondaries[primaryIndex].first;
+            std::string output = "Primary Bases:" + primaryAndSecondaries[primaryIndex].first;
             primaryIndex++;
             secondaryIndex = 0;
             return output;

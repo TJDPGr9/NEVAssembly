@@ -168,7 +168,7 @@ std::string Input::selectBatteryTemperatureManagement() {
 
 
 
-//数字参数输入
+
 int Input::selectPreHeatCoolSettingTime() {
     std::cout << "Please enter the preheating/pre cooling setting time (Scope:" << ElectricCarSettings::minPreHeatCoolTime << " - " << ElectricCarSettings::maxPreHeatCoolTime << " minutes): ";
     int time;
@@ -185,12 +185,12 @@ int Input::selectPreHeatCoolSettingTime() {
 }
 
 int Input::selectPreHeatCoolTargetTemperature() {
-    std::cout << "Please enter the target temperature for preheating/pre cooling (Scope:" << ElectricCarSettings::minPreHeatCoolTargetTemp << " - " << ElectricCarSettings::maxPreHeatCoolTargetTemp << " °C): ";
+    std::cout << "Please enter the target temperature for preheating/pre cooling (Scope:" << ElectricCarSettings::minPreHeatCoolTargetTemp << " - " << ElectricCarSettings::maxPreHeatCoolTargetTemp << " centigrades): ";
     int temperature;
     std::cin >> temperature;
 
     while (temperature < ElectricCarSettings::minPreHeatCoolTargetTemp || temperature > ElectricCarSettings::maxPreHeatCoolTargetTemp || std::cin.fail()) {
-        std::cout << "Please enter a valid preheating/precooling target temperature (Scope:" << ElectricCarSettings::minPreHeatCoolTargetTemp << " - " << ElectricCarSettings::maxPreHeatCoolTargetTemp << " °C): ";
+        std::cout << "Please enter a valid preheating/precooling target temperature (Scope:" << ElectricCarSettings::minPreHeatCoolTargetTemp << " - " << ElectricCarSettings::maxPreHeatCoolTargetTemp << " centigrades): ";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cin >> temperature;

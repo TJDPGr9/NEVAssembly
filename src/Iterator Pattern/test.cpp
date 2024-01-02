@@ -5,25 +5,25 @@ namespace Iterator2 {
     int test() {
         RailwayBureaus network;
 
-        network.addPrimaryBureau("郑州圃田");
-        network.addPrimaryBureau("武汉吴家山");
-        network.addPrimaryBureau("西安新筑");
-        network.addPrimaryBureau("上海闵行");
-        network.addPrimaryBureau("柳州");
-        network.addPrimaryBureau("广州");
+        network.addPrimaryBureau("Zhengzhou Putian");
+        network.addPrimaryBureau("Wuhan Wujiashan");
+        network.addPrimaryBureau("Xi'an Xinzhu");
+        network.addPrimaryBureau("Shanghai Minhang");
+        network.addPrimaryBureau("Liuzhou");
+        network.addPrimaryBureau("Guangzhou");
 
-        network.addSecondaryBureau("郑州圃田", "中牟");
-        network.addSecondaryBureau("郑州圃田", "长治");
-        network.addSecondaryBureau("武汉吴家山", "汉阳");
-        network.addSecondaryBureau("上海闵行", "黄渡");
-        network.addSecondaryBureau("西安新筑", "宝鸡东");
+        network.addSecondaryBureau("Zhengzhou Putian", "Zhongmou");
+        network.addSecondaryBureau("Zhengzhou Putian", "CiH");
+        network.addSecondaryBureau("Wuhan Wujiashan", "Hanyang");
+        network.addSecondaryBureau("Shanghai Minhang", "Huangdu");
+        network.addSecondaryBureau("Xi'an Xinzhu", "Baoji East");
 
         Iterator* iterator = network.createIterator();
 
-        std::cout << "物流网络的基地总数：" << network.getTotalBureausCount() << std::endl;
-        std::cout << "一级基地数量：" << network.getPrimaryBureausCount() << std::endl;
-        std::cout << "二级基地数量：" << network.getSecondaryBureausCount() << std::endl;
-        std::cout << "物流网络中的铁路基地：" << std::endl;
+        std::cout << "Total number of logistics network bases:" << network.getTotalBureausCount() << std::endl;
+        std::cout << "Number of primary bases:" << network.getPrimaryBureausCount() << std::endl;
+        std::cout << "Number of secondary bases:" << network.getSecondaryBureausCount() << std::endl;
+        std::cout << "Railway bases in logistics networks:" << std::endl;
 
         while (iterator->hasNext()) {
             std::cout << iterator->next() << std::endl;

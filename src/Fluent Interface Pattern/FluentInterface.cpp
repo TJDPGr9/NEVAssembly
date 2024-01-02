@@ -2,7 +2,6 @@
 
 
 ElectricCarSettings::ElectricCarSettings() {}
-//充电模式
 
 std::map<std::string, ElectricCarSettings::ChargingMode> ElectricCarSettings::chargingModeMap = {
     {"Fast Charging Mode", ChargingMode::Fast},
@@ -19,7 +18,7 @@ ElectricCarSettings& ElectricCarSettings::setChargingMode(const std::string& mod
     }
     return *this;
 }
-//连接器类型
+
 std::map<std::string, ElectricCarSettings::ConnectorType> ElectricCarSettings::connectorTypeMap = {
     {"DC Fast Charging Connector", ConnectorType::DC_FastCharger},
     {"AC Home Charging Connector", ConnectorType::AC_HomeCharger}
@@ -35,7 +34,7 @@ ElectricCarSettings& ElectricCarSettings::setConnectorType(const std::string& ty
     }
     return *this;
 }
-//电池保存模式	
+
 std::map<std::string, ElectricCarSettings::BatterySaveMode> ElectricCarSettings::batterySaveModeMap = {
     {"Enabled", BatterySaveMode::Enabled},
     {"Disabled", BatterySaveMode::Disabled}
@@ -52,7 +51,7 @@ ElectricCarSettings& ElectricCarSettings::enableBatterySaveMode(const std::strin
     }
     return *this;
 }
-//驾驶模式
+
 std::map<std::string, ElectricCarSettings::DriveMode> ElectricCarSettings::driveModeMap = {
     {"Pure Electric", DriveMode::PureElectric},
     {"Hybrid Power", DriveMode::Hybrid}
@@ -69,7 +68,7 @@ ElectricCarSettings& ElectricCarSettings::setDriveMode(const std::string& mode) 
     }
     return *this;
 }
-//能量回收模式
+
 std::map<std::string, ElectricCarSettings::EnergyRecoveryMode> ElectricCarSettings::energyRecoveryModeMap = {
     {"High", EnergyRecoveryMode::High},
     {"Low", EnergyRecoveryMode::Low},
@@ -87,7 +86,7 @@ ElectricCarSettings& ElectricCarSettings::setEnergyRecoveryMode(const std::strin
     }
     return *this;
 }
-//充电计划
+
 
 std::map<std::string, ElectricCarSettings::ChargingPlan> ElectricCarSettings::chargingPlanMap = {
     {"Instant Charging", ChargingPlan::Immediate},
@@ -105,7 +104,7 @@ ElectricCarSettings& ElectricCarSettings::setChargingPlan(const std::string& pla
     }
     return *this;
 }
-//电池温度管理
+
 std::map<std::string, ElectricCarSettings::TemperatureManagement> ElectricCarSettings::temperatureManagementMap = {
     {"Active", TemperatureManagement::Active},
     {"Passive", TemperatureManagement::Passive}
@@ -122,8 +121,7 @@ ElectricCarSettings& ElectricCarSettings::setBatteryTemperatureManagement(const 
     }
     return *this;
 }
-//数字参数函数实现：
-// 设置数字参数的函数实现
+
 ElectricCarSettings& ElectricCarSettings::setPreheatCoolSettingTime(int time) {
     preHeatCoolSettingTime = time;
     return *this;
@@ -150,12 +148,12 @@ void ElectricCarSettings::displaySettings() const {
     std::cout << "ConnectorType: " << set_connectorType << std::endl;
     std::cout << "BatterySaveMode: " << set_batterySaveMode << std::endl;
     std::cout << "DriveMode: " << set_driveMode << std::endl;
-    std::cout << "EnergyRecoveryMode：" << set_energyRecoveryMode << std::endl;
+    std::cout << "EnergyRecoveryMode: " << set_energyRecoveryMode << std::endl;
     std::cout << "ChargingPlan: " << set_chargingPlan << std::endl;
     std::cout << "BatteryTemperatureManagement: " << set_batteryTemperatureManagement << std::endl;
 
     std::cout << "Set pre cooling/preheating time: " << preHeatCoolSettingTime <<" minutes"<< std::endl;
-    std::cout << "Set pre cooling/preheating target temperature: " << preHeatCoolTargetTemperature << " °C" << std::endl;
+    std::cout << "Set pre cooling/preheating target temperature: " << preHeatCoolTargetTemperature << " centigrades" << std::endl;
     std::cout << "Set maximum driving speed: " << maxDrivingSpeedLimit << " km/h" << std::endl;
     std::cout << "Adjusting volume: " << volumeAdjustment << " %" << std::endl;
 }

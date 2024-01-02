@@ -22,7 +22,7 @@ public:
     RailwayIterator(const std::vector<std::pair<std::string, std::vector<std::string>>>& primarySecondaries);
     bool hasNext() override;
     std::string next() override;
-    void reset(); // 重置迭代器
+    void reset(); 
 };
 
 #endif

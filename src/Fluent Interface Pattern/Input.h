@@ -16,7 +16,7 @@ public:
     static std::string selectChargingPlan();
     static std::string selectBatteryTemperatureManagement();
 
-    // 添加数字参数的选择函数
+   
     static int selectPreHeatCoolSettingTime();
     static int selectPreHeatCoolTargetTemperature();
     static int selectMaxDrivingSpeedLimit();

@@ -61,10 +61,12 @@ namespace Command2 {
     int test() {
 #ifdef _WIN32
         setCodePage();
-        if (!IsDebuggerPresent()) {
+        //HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        // 设置文本颜色为红色
+        
             // Enable ANSI escape codes for console color in Release mode
-            SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), ENABLE_VIRTUAL_TERMINAL_PROCESSING);
-        }
+        //SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 #endif
         DevelopmentTeam team;
 

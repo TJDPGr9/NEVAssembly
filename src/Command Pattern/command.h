@@ -99,8 +99,8 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
     {
         lock_guard<std::mutex> lock(infoMutex);
 #ifdef _WIN32
-        if (IsDebuggerPresent())
-        cout << ANSI_COLOR_RESET;
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
 #endif
         if (firstLine)
             setCursorPosition(0, firstLine + get<0>(info) * 3 - 4);
@@ -113,14 +113,13 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
     // Ä£ÄâÑÐ·¢¹ý³Ì
     for (int i = 0; i < 10; i++) {
 #ifdef _WIN32
-        if (IsDebuggerPresent()) {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             if (i < 3)
-                cout << ANSI_COLOR_RED;
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
             else if (i < 6)
-                cout << ANSI_COLOR_YELLOW;
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
             else if (i < 10)
-                cout << ANSI_COLOR_GREEN;
-        }
+                SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 #endif
         {
             std::lock_guard<std::mutex> lock(infoMutex);
@@ -153,8 +152,8 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
         #endif
     }
 #ifdef _WIN32
-    if(IsDebuggerPresent())
-        cout << ANSI_COLOR_RESET;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
 #endif
     std::cout << endl;
     {

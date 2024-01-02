@@ -226,7 +226,9 @@ char* getPatternResult(int index) {
         runExternalProgram("state.exe");
         break;
     case 17:
-        Strategy::test();
+        cout << "Strategy Pattenr" << endl;
+        runExternalProgram("strategy.exe");
+        //Strategy::test();
         break;
     case 18:
         Visitor2::test();

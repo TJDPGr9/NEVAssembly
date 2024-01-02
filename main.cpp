@@ -338,7 +338,7 @@ void renderAssembly(int x = -1, int y = -1) {
     const char* button_text[patternNum] = {
         "Factory Pattern",
         "Abstract Factory Pattern",
-        "Build Pattern",
+        "Builder Pattern",
         "Object Pool Pattern"
     };
 

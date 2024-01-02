@@ -338,7 +338,7 @@ void renderAssembly(int x = -1, int y = -1) {
     const char* button_text[patternNum] = {
         "Factory Pattern",
         "Abstract Factory Pattern",
-        "Build Pattern",
+        "Builder Pattern",
         "Object Pool Pattern"
     };
 
@@ -744,10 +744,6 @@ int main(int argc, char* args[]) {
     }
 
     // 清理资源
-    TTF_CloseFont(font);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    TTF_Quit();
-    SDL_Quit();
+    cleanup();
     return 0;
 }

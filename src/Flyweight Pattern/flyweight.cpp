@@ -327,59 +327,60 @@ std::string IntToString(int num) {
 	ss << num;
 	return ss.str();
 }
-
-int main()
-{
-	// 初始化仓库
-	vector<Transport::FactoryStore> fStores;
-	for (int i = 1; i <= MAX_STORE_NUM; i++) {
-		Transport::FactoryStore tmp(i, 1000);  //库存初始化为1000
-		fStores.push_back(tmp);
-	}
-	// 初始化物流网点
-	Transport::TransportEndGraph tsEndGraph;
-	vector<string> endNames = { "Shanghai", "Wuhan", "Chongqing", "Pearl River Estuary", "Hainan Island" };
-	for (int i = 1; i <= MAX_TRANSPORT_END_NUM; i++) {
-		string endName = (i <= endNames.size()) ? endNames[i - 1] : "Unnamed End" + IntToString(i);
-		tsEndGraph.insertVertex(Transport::TransportEnd(i, endName));
-	}
-	tsEndGraph.insertEdge(1, 2);
-	tsEndGraph.insertEdge(1, 3);
-	tsEndGraph.insertEdge(1, 4);
-	tsEndGraph.insertEdge(4, 5);
-	// 初始化物流公司
-	vector<Transport::TransportCompany> tsCompys;
-	string tmp = "China COSCO Shipping Corporation Limited";
-	tsCompys.push_back(Transport::TransportCompany(1, tmp));
-	tmp = "COSCO Auto Logistics Co., Ltd.";
-	tsCompys.push_back(Transport::TransportCompany(2, tmp));
-	tmp = "China Ocean Shipping (Group) Company";
-	tsCompys.push_back(Transport::TransportCompany(3, tmp));
-	tmp = "CIMC Vehicles (Group) Co., Ltd.";
-	tsCompys.push_back(Transport::TransportCompany(4, tmp));
-	tmp = "China Changjiu Logistics Group Co., Ltd.";
-	tsCompys.push_back(Transport::TransportCompany(5, tmp));
-	tmp = "China COSCO Shipping Auto Transport Co., Ltd.";
-	tsCompys.push_back(Transport::TransportCompany(6, tmp));
-	int option;
-	while (1)
+namespace Flyweight {
+	int test()
 	{
-		system("cls");
-		cout << "===============Logistics Transportation===============" << endl;
-		cout << "Main Menu:" << endl;
-		cout << "1. Ship Goods" << endl;
-		cout << "0. Exit" << endl;
-		cout << "Please select the desired operation: ";
-		Transport::Client::inputInt(option, 1);
-		switch (option) {
-		case 1:	//发货
-			Transport::Client::trans_storage(fStores, tsEndGraph, tsCompys);
-			break;
-		case 0:
-			exit(0);
-			break;
-		default:
-			break;
+		// 初始化仓库
+		vector<Transport::FactoryStore> fStores;
+		for (int i = 1; i <= MAX_STORE_NUM; i++) {
+			Transport::FactoryStore tmp(i, 1000);  //库存初始化为1000
+			fStores.push_back(tmp);
+		}
+		// 初始化物流网点
+		Transport::TransportEndGraph tsEndGraph;
+		vector<string> endNames = { "Shanghai", "Wuhan", "Chongqing", "Pearl River Estuary", "Hainan Island" };
+		for (int i = 1; i <= MAX_TRANSPORT_END_NUM; i++) {
+			string endName = (i <= endNames.size()) ? endNames[i - 1] : "Unnamed End" + IntToString(i);
+			tsEndGraph.insertVertex(Transport::TransportEnd(i, endName));
+		}
+		tsEndGraph.insertEdge(1, 2);
+		tsEndGraph.insertEdge(1, 3);
+		tsEndGraph.insertEdge(1, 4);
+		tsEndGraph.insertEdge(4, 5);
+		// 初始化物流公司
+		vector<Transport::TransportCompany> tsCompys;
+		string tmp = "China COSCO Shipping Corporation Limited";
+		tsCompys.push_back(Transport::TransportCompany(1, tmp));
+		tmp = "COSCO Auto Logistics Co., Ltd.";
+		tsCompys.push_back(Transport::TransportCompany(2, tmp));
+		tmp = "China Ocean Shipping (Group) Company";
+		tsCompys.push_back(Transport::TransportCompany(3, tmp));
+		tmp = "CIMC Vehicles (Group) Co., Ltd.";
+		tsCompys.push_back(Transport::TransportCompany(4, tmp));
+		tmp = "China Changjiu Logistics Group Co., Ltd.";
+		tsCompys.push_back(Transport::TransportCompany(5, tmp));
+		tmp = "China COSCO Shipping Auto Transport Co., Ltd.";
+		tsCompys.push_back(Transport::TransportCompany(6, tmp));
+		int option;
+		while (1)
+		{
+			system("cls");
+			cout << "===============Logistics Transportation===============" << endl;
+			cout << "Main Menu:" << endl;
+			cout << "1. Ship Goods" << endl;
+			cout << "0. Exit" << endl;
+			cout << "Please select the desired operation: ";
+			Transport::Client::inputInt(option, 1);
+			switch (option) {
+			case 1:	//发货
+				Transport::Client::trans_storage(fStores, tsEndGraph, tsCompys);
+				break;
+			case 0:
+				exit(0);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }

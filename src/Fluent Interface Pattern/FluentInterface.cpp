@@ -3,9 +3,10 @@
 
 ElectricCarSettings::ElectricCarSettings() {}
 //充电模式
+
 std::map<std::string, ElectricCarSettings::ChargingMode> ElectricCarSettings::chargingModeMap = {
-    {"快充", ChargingMode::Fast},
-    {"慢充", ChargingMode::Slow}
+    {"Fast Charging Mode", ChargingMode::Fast},
+    {"Slow Charging Mode", ChargingMode::Slow}
 };
 ElectricCarSettings& ElectricCarSettings::setChargingMode(const std::string& mode) {
     auto it = chargingModeMap.find(mode);
@@ -14,14 +15,14 @@ ElectricCarSettings& ElectricCarSettings::setChargingMode(const std::string& mod
         set_chargingMode = mode;
     }
     else {
-        std::cout << "未能匹配" << std::endl;
+        std::cout << "Failed to match" << std::endl;
     }
     return *this;
 }
 //连接器类型
 std::map<std::string, ElectricCarSettings::ConnectorType> ElectricCarSettings::connectorTypeMap = {
-    {"直流快速充电连接器", ConnectorType::DC_FastCharger},
-    {"交流家用充电连接器", ConnectorType::AC_HomeCharger}
+    {"DC Fast Charging Connector", ConnectorType::DC_FastCharger},
+    {"AC Home Charging Connector", ConnectorType::AC_HomeCharger}
 };
 ElectricCarSettings& ElectricCarSettings::setConnectorType(const std::string& type) {
     auto it = connectorTypeMap.find(type);
@@ -30,14 +31,14 @@ ElectricCarSettings& ElectricCarSettings::setConnectorType(const std::string& ty
         set_connectorType = type;
     }
     else {
-        std::cout <<"未能匹配" << std::endl;
+        std::cout <<"Failed to match" << std::endl;
     }
     return *this;
 }
 //电池保存模式	
 std::map<std::string, ElectricCarSettings::BatterySaveMode> ElectricCarSettings::batterySaveModeMap = {
-    {"启用", BatterySaveMode::Enabled},
-    {"禁用", BatterySaveMode::Disabled}
+    {"Enabled", BatterySaveMode::Enabled},
+    {"Disabled", BatterySaveMode::Disabled}
 };
 
 ElectricCarSettings& ElectricCarSettings::enableBatterySaveMode(const std::string& savemode) {
@@ -47,14 +48,14 @@ ElectricCarSettings& ElectricCarSettings::enableBatterySaveMode(const std::strin
         set_batterySaveMode = savemode;
     }
     else {
-        std::cout << "未能匹配" << std::endl;
+        std::cout << "Failed to match" << std::endl;
     }
     return *this;
 }
 //驾驶模式
 std::map<std::string, ElectricCarSettings::DriveMode> ElectricCarSettings::driveModeMap = {
-    {"纯电动", DriveMode::PureElectric},
-    {"混合动力", DriveMode::Hybrid}
+    {"Pure Electric", DriveMode::PureElectric},
+    {"Hybrid Power", DriveMode::Hybrid}
 };
 
 ElectricCarSettings& ElectricCarSettings::setDriveMode(const std::string& mode) {
@@ -64,15 +65,15 @@ ElectricCarSettings& ElectricCarSettings::setDriveMode(const std::string& mode) 
         set_driveMode = mode;
     }
     else {
-        std::cout << "未能匹配" << std::endl;
+        std::cout << "Failed to match" << std::endl;
     }
     return *this;
 }
 //能量回收模式
 std::map<std::string, ElectricCarSettings::EnergyRecoveryMode> ElectricCarSettings::energyRecoveryModeMap = {
-    {"高", EnergyRecoveryMode::High},
-    {"低", EnergyRecoveryMode::Low},
-    {"关闭", EnergyRecoveryMode::Off}
+    {"High", EnergyRecoveryMode::High},
+    {"Low", EnergyRecoveryMode::Low},
+    {"Off", EnergyRecoveryMode::Off}
 };
 
 ElectricCarSettings& ElectricCarSettings::setEnergyRecoveryMode(const std::string& mode) {
@@ -82,15 +83,15 @@ ElectricCarSettings& ElectricCarSettings::setEnergyRecoveryMode(const std::strin
         set_energyRecoveryMode = mode;
     }
     else {
-        std::cout << "未能匹配" << std::endl;
+        std::cout << "Failed to match" << std::endl;
     }
     return *this;
 }
 //充电计划
 
 std::map<std::string, ElectricCarSettings::ChargingPlan> ElectricCarSettings::chargingPlanMap = {
-    {"即时充电", ChargingPlan::Immediate},
-    {"定时充电", ChargingPlan::Scheduled}
+    {"Instant Charging", ChargingPlan::Immediate},
+    {"Timed Charging", ChargingPlan::Scheduled}
 };
 
 ElectricCarSettings& ElectricCarSettings::setChargingPlan(const std::string& plan) {
@@ -100,14 +101,14 @@ ElectricCarSettings& ElectricCarSettings::setChargingPlan(const std::string& pla
         set_chargingPlan = plan;
     }
     else {
-        std::cout << "未能匹配" << std::endl;
+        std::cout << "Failed to match" << std::endl;
     }
     return *this;
 }
 //电池温度管理
 std::map<std::string, ElectricCarSettings::TemperatureManagement> ElectricCarSettings::temperatureManagementMap = {
-    {"主动", TemperatureManagement::Active},
-    {"被动", TemperatureManagement::Passive}
+    {"Active", TemperatureManagement::Active},
+    {"Passive", TemperatureManagement::Passive}
 };
 
 ElectricCarSettings& ElectricCarSettings::setBatteryTemperatureManagement(const std::string& management) {
@@ -117,7 +118,7 @@ ElectricCarSettings& ElectricCarSettings::setBatteryTemperatureManagement(const 
         set_batteryTemperatureManagement = management;
     }
     else {
-        std::cout << "未能匹配" << std::endl;
+        std::cout << "Failed to match" << std::endl;
     }
     return *this;
 }
@@ -144,17 +145,17 @@ ElectricCarSettings& ElectricCarSettings::setVolumeAdjustment(int volume) {
 }
 void ElectricCarSettings::displaySettings() const {
     std::cout << std::endl;
-    std::cout << "电动车设置" << std::endl;
-    std::cout << "充电模式: " << set_chargingMode  << std::endl;
-    std::cout << "充电连接器: " << set_connectorType << std::endl;
-    std::cout << "电池保存模式: " << set_batterySaveMode << std::endl;
-    std::cout << "驾驶模式: " << set_driveMode << std::endl;
-    std::cout << "能量回收模式： " << set_energyRecoveryMode << std::endl;
-    std::cout << "充电计划: " << set_chargingPlan << std::endl;
-    std::cout << "电池温度管理: " << set_batteryTemperatureManagement << std::endl;
+    std::cout << "Electric vehicle settings: " << std::endl;
+    std::cout << "Charging Mode: " << set_chargingMode  << std::endl;
+    std::cout << "ConnectorType: " << set_connectorType << std::endl;
+    std::cout << "BatterySaveMode: " << set_batterySaveMode << std::endl;
+    std::cout << "DriveMode: " << set_driveMode << std::endl;
+    std::cout << "EnergyRecoveryMode：" << set_energyRecoveryMode << std::endl;
+    std::cout << "ChargingPlan: " << set_chargingPlan << std::endl;
+    std::cout << "BatteryTemperatureManagement: " << set_batteryTemperatureManagement << std::endl;
 
-    std::cout << "预热/预冷设定时间: " << preHeatCoolSettingTime <<"分钟"<< std::endl;
-    std::cout << "预热/预冷目标温度: " << preHeatCoolTargetTemperature << "摄氏度" << std::endl;
-    std::cout << "最大行驶速度设定: " << maxDrivingSpeedLimit << "千米/时" << std::endl;
-    std::cout << "音响音量调节: " << volumeAdjustment << "%" << std::endl;
+    std::cout << "Set pre cooling/preheating time: " << preHeatCoolSettingTime <<" minutes"<< std::endl;
+    std::cout << "Set pre cooling/preheating target temperature: " << preHeatCoolTargetTemperature << " °C" << std::endl;
+    std::cout << "Set maximum driving speed: " << maxDrivingSpeedLimit << " km/h" << std::endl;
+    std::cout << "Adjusting volume: " << volumeAdjustment << " %" << std::endl;
 }

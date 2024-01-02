@@ -8,11 +8,11 @@ namespace potye {
         SponsorshipContent(const std::string& title, const std::string& details, const std::string& sponsor)
             : title(title), details(details), sponsor(sponsor) {}
 
-        // ¿½±´¹¹Ôìº¯Êı£¬ÓÃÓÚÊµÏÖ¶ÔÏóµÄ¸´ÖÆ
+        // æ‹·è´æ„é€ å‡½æ•°ï¼Œç”¨äºå®ç°å¯¹è±¡çš„å¤åˆ¶
         SponsorshipContent(const SponsorshipContent& other)
             : title(other.title), details(other.details), sponsor(other.sponsor) {}
 
-        // ¿ËÂ¡º¯Êı£¬·µ»Øµ±Ç°¶ÔÏóµÄ¸±±¾
+        // å…‹éš†å‡½æ•°ï¼Œè¿”å›å½“å‰å¯¹è±¡çš„å‰¯æœ¬
         SponsorshipContent* clone() {
             return new SponsorshipContent(*this);
         }
@@ -27,18 +27,18 @@ namespace potye {
         std::string sponsor;
     };
     void test_pototype() {
-        // ´´½¨Ô­ĞÍ¶ÔÏó
-        SponsorshipContent originalContent("»î¶¯±êÌâ", "»î¶¯ÏêÇé", "ÔŞÖúÉÌÃû³Æ");
+        // åˆ›å»ºåŸå‹å¯¹è±¡
+        SponsorshipContent originalContent("The title of the event", "The details of the event", "The name of sponsor");
 
-        // ¸´ÖÆ¶ÔÏóÉú³ÉĞÂµÄ»î¶¯ÄÚÈİ
+        // å¤åˆ¶å¯¹è±¡ç”Ÿæˆæ–°çš„æ´»åŠ¨å†…å®¹
         SponsorshipContent* contentCopy1 = originalContent.clone();
         SponsorshipContent* contentCopy2 = originalContent.clone();
 
-        contentCopy1->display(); // ÏÔÊ¾Ô­Ê¼¶ÔÏóĞÅÏ¢
+        contentCopy1->display(); // æ˜¾ç¤ºåŸå§‹å¯¹è±¡ä¿¡æ¯
         std::cout << std::endl;
-        contentCopy1->display(); // ÏÔÊ¾¸´ÖÆºóµÄ¶ÔÏó1ĞÅÏ¢
+        contentCopy1->display(); // æ˜¾ç¤ºå¤åˆ¶åçš„å¯¹è±¡1ä¿¡æ¯
         std::cout << std::endl;
-        contentCopy2->display(); // ÏÔÊ¾¸´ÖÆºóµÄ¶ÔÏó2ĞÅÏ¢
+        contentCopy2->display(); // æ˜¾ç¤ºå¤åˆ¶åçš„å¯¹è±¡2ä¿¡æ¯
 
         delete contentCopy1;
         delete contentCopy2;

@@ -744,10 +744,6 @@ int main(int argc, char* args[]) {
     }
 
     // 清理资源
-    TTF_CloseFont(font);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    TTF_Quit();
-    SDL_Quit();
+    cleanup();
     return 0;
 }

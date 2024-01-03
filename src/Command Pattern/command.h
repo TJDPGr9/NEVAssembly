@@ -99,8 +99,7 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
     {
         lock_guard<std::mutex> lock(infoMutex);
 #ifdef _WIN32
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
+        system("color E1");
 #endif
         if (firstLine)
             setCursorPosition(0, firstLine + get<0>(info) * 3 - 4);
@@ -152,8 +151,7 @@ void DevelopmentTeam::developFeature(const std::string& feature) {
         #endif
     }
 #ifdef _WIN32
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
+    system("color E1");
 #endif
     std::cout << endl;
     {

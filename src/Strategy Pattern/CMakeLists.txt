@@ -9,6 +9,7 @@ set(SOURCES
     dijkstra.cpp
     utility.cpp
     test.cpp
+    ../style.cpp
 )
 set(HEADERS
     strategy.h
@@ -21,5 +22,6 @@ add_library(strategy_lib STATIC ${SOURCES} ${HEADERS})
 add_executable(strategy real.cpp)
 target_link_libraries(strategy PRIVATE strategy_lib)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+
 # 如果有其他的头文件目录，可以使用 target_include_directories 添加
 target_include_directories(strategy_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

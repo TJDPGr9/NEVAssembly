@@ -50,7 +50,7 @@ message(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${SDL2_DEVEL_DIRECTORIES}/include ${SDL2_TTF_DIRECTORIES}/include )
 link_directories(${SDL2_DEVEL_DIRECTORIES}/lib/x64 ${SDL2_TTF_DIRECTORIES}/lib/x64)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
-add_executable(main main.cpp)
+add_executable(main main.cpp  "src/style.cpp")
 #Subsystem:(/SUBSYSTEM:WINDOWS)
 set_target_properties(main PROPERTIES WIN32_EXECUTABLE TRUE)
 #C/C++->Preprocessor->preprocessor definition:+_WINDOWS -_CONSOLE
@@ -83,7 +83,8 @@ set(LIB_SOURCES
 	nlohmann_json::nlohmann_json
 	specification_lib
 )
-
+add_library(myout INTERFACE)
+target_include_directories(myout INTERFACE "${CMAKE_SOURCE_DIR}/src/shared")
 #For target to use  
 target_include_directories(main PUBLIC ${SUBDIRECTORIES} ${SDL2_DEVEL_DIRECTORIES}/include ${SDL2_TTF_DIRECTORIES}/include)
 target_link_directories(main PRIVATE  ${SDL2_DEVEL_DIRECTORIES}/lib/x64 ${SDL2_TTF_DIRECTORIES}/lib/x64)

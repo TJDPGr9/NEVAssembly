@@ -56,7 +56,54 @@ const int PAGE_NUM = 9;
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
 TTF_Font* font = nullptr;
+#define   EXECDOSCMD   "ping   www.baidu.com "   //可以换成你的命令 
+BOOL ExecDosCmd(char* cmd)
+{
+    SECURITY_ATTRIBUTES   sa;
+    HANDLE   hRead, hWrite;
 
+    sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+    sa.lpSecurityDescriptor = NULL;
+    sa.bInheritHandle = TRUE;
+    if (!CreatePipe(&hRead, &hWrite, &sa, 0))
+    {
+        return   FALSE;
+    }
+
+    STARTUPINFO   si;
+    PROCESS_INFORMATION   pi;
+    si.cb = sizeof(STARTUPINFO);
+    GetStartupInfo(&si);
+    si.hStdError = hWrite;
+    si.hStdOutput = hWrite;
+    si.wShowWindow = SW_HIDE;
+    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+    //关键步骤，CreateProcess函数参数意义请查阅MSDN 
+    if (!CreateProcess(NULL, cmd
+        , NULL, NULL, TRUE, NULL, NULL, NULL, &si, &pi))
+    {
+        return   FALSE;
+    }
+    CloseHandle(hWrite);
+
+    char   buffer[4096] = { 0 };
+    DWORD   bytesRead;
+    ofstream outfile("log.txt");
+
+    while (true)
+    {
+        if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
+            break;
+        //buffer中就是执行的结果，可以保存到文本，也可以直接输出 
+        //printf(buffer); 
+        outfile << buffer << endl;
+        Sleep(200);
+    }
+
+    outfile.close();
+
+    return   TRUE;
+}
 const SDL_Color DEFAULT_TEXT_COLOR = { 0,0,0,255 };
 const SDL_Color DEFAULT_BUTTON_COLOR = { 200,200,200,255 };
 const SDL_Color DEFAULT_ONCLICK_COLOR = { 128,128,128,255 };
